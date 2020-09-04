@@ -1,0 +1,63 @@
+@import '~antd/dist/antd.css';
+
+.site-layout-content {
+  background: #fff;
+  min-height: 600px;
+
+}
+.logo {
+  width: 140px;
+  float: left;
+}
+.logo img{
+  width:110px;
+  padding-left:20px;
+}
+.ant-layout-header{
+  padding:0px;
+}
+.ant-layout-footer{
+  background:white;
+}
+.ant-layout-content{
+  background:white;
+  width:100%;
+  margin:auto;
+  margin-top:10px;
+}
+.top_nav_centered{
+  width:100%;
+}
+.ant-layout{
+  background:white;
+}
+.ant-alert.ant-alert-no-icon{
+  margin:auto;
+  margin-bottom:10px;
+  width:1340px;
+  padding:0 0 0 10px;
+}
+
+.book_ads_card_container{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  width:1340px;
+  margin:auto;
+}
+
+.search_bar{
+  margin-top:12px;
+  margin-right:20px;
+  max-width: 300px;
+}
+
+.welcome_img_container{
+  width:1340px;
+  margin:auto;
+}
+
+.daily_chart_container{
+  width:1340px;
+  margin:auto;
+}

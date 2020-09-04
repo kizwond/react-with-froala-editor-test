@@ -5,6 +5,9 @@ import axios from 'axios';
 import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { HomeOutlined, ReadOutlined,FormOutlined,
+  ShopOutlined,ShoppingCartOutlined,SolutionOutlined,
+  KeyOutlined,UserAddOutlined } from '@ant-design/icons';
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
@@ -35,6 +38,12 @@ function RightMenu(props) {
       <Menu mode={props.mode}>
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
+        </Menu.Item>
+        <Menu.Item key="basket" icon={<ShoppingCartOutlined />}>
+          Basket
+        </Menu.Item>
+        <Menu.Item key="myinfo" icon={<SolutionOutlined />}>
+          Myinfo
         </Menu.Item>
       </Menu>
     )
