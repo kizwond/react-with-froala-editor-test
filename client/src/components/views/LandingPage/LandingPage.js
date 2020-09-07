@@ -12,14 +12,24 @@ function StatusSummary(){
   )
 }
 
-const contentStyle = {
-  width:'1440px',
-  height: '408px',
-};
+// const contentStyle = {
+//   width:'1440px',
+//   height: '408px',
+// };
+
+
+const mainImgStyle = {
+  background: "linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8) ), url('img/books.jpg')", 
+  marginTop:"1px", 
+  borderTop:"1px #373737 solid", 
+  backgroundSize:"cover", 
+  height:"350px",
+  marginBottom:"10px"
+}
 
 function WelcomeImages (){
   return (
-    <div className="welcome_img_container" style={{background: "linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8) ), url('img/books.jpg')", marginTop:"1px", borderTop:"1px #373737 solid", backgroundSize:"cover", height:"450px"}}>
+    <div className="welcome_img_container" style={mainImgStyle}>
       {/* <Carousel autoplay>
         <div>
           <img src="img/main_img.png" alt="main_img"/>

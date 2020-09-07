@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './LikeSectionContent.css'
-import { SettingOutlined, StarOutlined,EyeOutlined,DeleteOutlined,EditOutlined,ArrowUpOutlined,ArrowDownOutlined} from '@ant-design/icons';
+import { SettingOutlined, StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined} from '@ant-design/icons';
 
 class ListColumns extends Component {
   constructor(props) {

@@ -6,6 +6,12 @@
 }
 .ant-layout-header{
   border-bottom: 1px #373737 solid;
+  height:43px;
+  line-height: 43px;
+}
+.ant-col{
+  background-color: #222222;
+  text-align:center;
 }
 .logo{
   float:left;

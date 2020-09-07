@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
-import { Layout, Menu, Row, Col, Input, Drawer, Button, Icon } from 'antd';
+import { Layout, Menu, Row, Col, Input } from 'antd';
 import './Sections/Navbar.css';
 import { NavLink} from 'react-router-dom';
 import { HomeOutlined, ReadOutlined, FormOutlined,
   ShopOutlined } from '@ant-design/icons';
 
 const { Header } = Layout;
-const { Search } = Input;
-const { SubMenu } = Menu;
+// const { Search } = Input;
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -30,7 +29,7 @@ class NavBar extends React.Component {
     return (
       <Header>
         <Row>
-          <Col flex="1 1 100px">
+          <Col flex="1 1 300px">
           <span className="logo">
             <NavLink to="/" exact><img src="img/logo_white.png" key="home" alt="logo"/></NavLink>
           </span>
@@ -49,6 +48,16 @@ class NavBar extends React.Component {
               </Menu.Item>
             </Menu>
           </Col>
+          {/* <Col flex="1 1 300px">
+                <Search
+                placeholder="input search text"
+                theme="dark"
+                enterButton="Search"
+                size="small"
+                onSearch={value => console.log(value)}
+                style={{ width: 300, marginTop:"20px"}}
+                />
+          </Col> */}
           <Col flex="0 1 300px">
             <RightMenu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" />
           </Col>
