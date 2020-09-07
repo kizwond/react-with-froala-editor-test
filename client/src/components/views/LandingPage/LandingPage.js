@@ -19,7 +19,7 @@ const contentStyle = {
 
 function WelcomeImages (){
   return (
-    <div className="welcome_img_container" style={{background: "linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('img/books.jpg')", marginTop:"1px", borderTop:"1px #373737 solid", backgroundSize:"cover", height:"450px"}}>
+    <div className="welcome_img_container" style={{background: "linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8) ), url('img/books.jpg')", marginTop:"1px", borderTop:"1px #373737 solid", backgroundSize:"cover", height:"450px"}}>
       {/* <Carousel autoplay>
         <div>
           <img src="img/main_img.png" alt="main_img"/>
