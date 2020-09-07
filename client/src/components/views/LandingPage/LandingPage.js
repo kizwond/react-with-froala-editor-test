@@ -1,5 +1,5 @@
 import React, {useState, PureComponent} from 'react'
-import { Alert,Card } from 'antd';
+import { Carousel, Alert,Card } from 'antd';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 function StatusSummary(){
@@ -11,31 +11,31 @@ function StatusSummary(){
   )
 }
 
-// const contentStyle = {
-//   width:'1440px',
-//   height: '408px',
-// };
+const contentStyle = {
+  width:'1440px',
+  height: '408px',
+};
 
-// function WelcomeImages (){
-//   return (
-//     <div className="welcome_img_container">
-//       <Carousel>
-//         <div>
-//           <img src="img/main_img.png" alt="main_img"/>
-//         </div>
-//         <div>
-//           <img src="img/mountains.jpeg" style={contentStyle} alt="main_img"/>
-//         </div>
-//         <div>
-//           <img src="img/mountaintrees.jpeg" style={contentStyle} alt="main_img"/>
-//         </div>
-//         <div>
-//           <img src="img/seaview.jpg" style={contentStyle} alt="main_img"/>
-//         </div>
-//       </Carousel>
-//     </div>
-//   )
-// }
+function WelcomeImages (){
+  return (
+    <div className="welcome_img_container">
+      <Carousel autoplay>
+        <div>
+          <img src="img/main_img.png" alt="main_img"/>
+        </div>
+        <div>
+          <img src="img/mountains.jpeg" style={contentStyle} alt="main_img"/>
+        </div>
+        <div>
+          <img src="img/mountaintrees.jpeg" style={contentStyle} alt="main_img"/>
+        </div>
+        <div>
+          <img src="img/seaview.jpg" style={contentStyle} alt="main_img"/>
+        </div>
+      </Carousel>
+    </div>
+  )
+}
 
 
 const data = [
@@ -92,8 +92,8 @@ function Main() {
   return (
     <div className="main_page_container">
       <StatusSummary />
-      {/* <WelcomeImages /> */}
-      <DailyChart/>
+      <WelcomeImages />
+      <div className="daily_chart_container"><DailyChart/><DailyChart/><DailyChart/><DailyChart/><DailyChart/></div>
       <div className="book_ads_card_container">
         <BookAdCard/>
         <BookAdCard/>

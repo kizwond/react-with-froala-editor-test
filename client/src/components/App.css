@@ -1,5 +1,12 @@
 @import '~antd/dist/antd.css';
 
+.daily_chart_container{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
 .ant-layout-content {
   background: #fff;
   min-height: 600px;
