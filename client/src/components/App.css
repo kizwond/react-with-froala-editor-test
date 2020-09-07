@@ -47,8 +47,12 @@ button{
   justify-content: space-between;
   width:1340px;
   margin:auto;
+  margin-top:-200px;
+  margin-bottom:20px;
 }
-
+.ant-card-cover img{
+  margin-top:-1px;
+}
 
 .welcome_img_container{
   width:100%;

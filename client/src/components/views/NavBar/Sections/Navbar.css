@@ -5,9 +5,9 @@
   border-bottom:1px solid black;
 }
 .ant-layout-header{
-  border-bottom: 1px #373737 solid;
-  height:43px;
-  line-height: 43px;
+
+  height:52px;
+  line-height: 52px;
 }
 .ant-col{
   background-color: #222222;

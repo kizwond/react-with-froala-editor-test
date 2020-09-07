@@ -19,11 +19,11 @@ function StatusSummary(){
 
 
 const mainImgStyle = {
-  background: "linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8) ), url('img/books.jpg')", 
+  background: "linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4) ), url('img/books.jpg')", 
   marginTop:"1px", 
   borderTop:"1px #373737 solid", 
   backgroundSize:"cover", 
-  height:"350px",
+  height:"470px",
   marginBottom:"10px"
 }
 
@@ -103,8 +103,6 @@ function Main() {
   return (
     <div className="main_page_container">
       <WelcomeImages />
-      <StatusSummary />
-      <div className="daily_chart_container"><DailyChart/><DailyChart/><DailyChart/><DailyChart/><DailyChart/></div>
       <div className="book_ads_card_container">
         <BookAdCard/>
         <BookAdCard/>
@@ -113,6 +111,9 @@ function Main() {
         <BookAdCard/>
         <BookAdCard/>
       </div>   
+      <StatusSummary />
+      <div className="daily_chart_container"><DailyChart/><DailyChart/><DailyChart/><DailyChart/><DailyChart/></div>
+      
     </div>
   )
 }
