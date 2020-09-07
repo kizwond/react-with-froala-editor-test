@@ -1,6 +1,12 @@
 @import '~antd/dist/antd.css';
 
-
+.ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub{
+  background-color:#222;
+  border-bottom:1px solid black;
+}
+.ant-layout-header{
+  border-bottom: 1px #373737 solid;
+}
 .logo{
   float:left;
   margin-right:20px;

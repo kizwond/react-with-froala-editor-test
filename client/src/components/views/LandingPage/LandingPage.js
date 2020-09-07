@@ -2,6 +2,7 @@ import React, {useState, PureComponent} from 'react'
 import { Carousel, Alert,Card } from 'antd';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
+
 function StatusSummary(){
   const [message, setMessage] = useState({
     message:'오늘 공부하실 내용은...'
@@ -18,8 +19,8 @@ const contentStyle = {
 
 function WelcomeImages (){
   return (
-    <div className="welcome_img_container">
-      <Carousel autoplay>
+    <div className="welcome_img_container" style={{background: "linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('img/books.jpg')", marginTop:"1px", borderTop:"1px #373737 solid", backgroundSize:"cover", height:"450px"}}>
+      {/* <Carousel autoplay>
         <div>
           <img src="img/main_img.png" alt="main_img"/>
         </div>
@@ -32,7 +33,7 @@ function WelcomeImages (){
         <div>
           <img src="img/seaview.jpg" style={contentStyle} alt="main_img"/>
         </div>
-      </Carousel>
+      </Carousel> */}
     </div>
   )
 }
@@ -91,8 +92,8 @@ function BookAdCard(){
 function Main() {
   return (
     <div className="main_page_container">
-      <StatusSummary />
       <WelcomeImages />
+      <StatusSummary />
       <div className="daily_chart_container"><DailyChart/><DailyChart/><DailyChart/><DailyChart/><DailyChart/></div>
       <div className="book_ads_card_container">
         <BookAdCard/>

@@ -6,11 +6,11 @@
   justify-content: space-around;
 }
 
-
-.ant-layout-content {
-  background: #fff;
-  min-height: 600px;
+button{
+  cursor: pointer;
 }
+
+
 
 .logo img{
   width:110px;
@@ -25,10 +25,10 @@
   background:white;
 }
 .ant-layout-content{
+  min-height: 600px;
   background:white;
   width:100%;
   margin:auto;
-  margin-top:10px;
 }
 .ant-layout{
   background-color:white;
@@ -56,7 +56,7 @@
 }
 
 .welcome_img_container{
-  width:1340px;
+  width:100%;
   margin:auto;
 }
 
