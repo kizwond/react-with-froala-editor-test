@@ -3,18 +3,15 @@
 .site-layout-content {
   background: #fff;
   min-height: 600px;
+}
 
-}
-.logo {
-  width: 140px;
-  float: left;
-}
 .logo img{
   width:110px;
   padding-left:20px;
+
 }
 .ant-layout-header{
-  padding:0px;
+  padding:0;
 }
 .ant-layout-footer{
   background:white;
@@ -25,12 +22,10 @@
   margin:auto;
   margin-top:10px;
 }
-.top_nav_centered{
-  width:100%;
-}
 .ant-layout{
-  background:white;
+  background-color:white;
 }
+
 .ant-alert.ant-alert-no-icon{
   margin:auto;
   margin-bottom:10px;

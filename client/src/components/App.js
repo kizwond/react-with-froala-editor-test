@@ -10,11 +10,13 @@ import NavBar from "./views/NavBar/NavBar";
 import Study from "./views/Study/Study"
 import Write from "./views/Write/Write"
 import Store from "./views/Store/Store"
+import Basket from './views/Store/Basket'
+import MyInfo from './views/Account/MyInfo'
 
 import { Layout, Affix } from 'antd';
 
 import './App.css'
-const { Content, Footer } = Layout;
+const { Header,Content, Footer } = Layout;
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -25,9 +27,11 @@ function App() {
   return (
     <Suspense fallback={(<div>Loading...</div>)}>
       <Layout className="layout">
-        <Affix offsetTop={top}>
-          <NavBar />
-        </Affix>
+        <Header>
+          <Affix offsetTop={top}>
+            <NavBar />
+          </Affix>
+        </Header>
           <Content>
             <Switch>
               <Route exact path="/" component={Auth(LandingPage, null)} />
@@ -36,6 +40,8 @@ function App() {
               <Route path="/study" exact strict component={Auth(Study, null)}/>
               <Route path="/write" exact strict component={Auth(Write, null)}/>
               <Route path="/store" exact strict component={Auth(Store, null)}/>
+              <Route path="/basket" exact strict component={Auth(Basket, null)}/>
+              <Route path="/myinfo" exact strict component={Auth(MyInfo, null)}/>
             </Switch>
           </Content>
         <Footer style={{ textAlign: 'center' }}>CogBOOK ©2020 Created by OpenSKY</Footer>
