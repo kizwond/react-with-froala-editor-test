@@ -23,7 +23,6 @@ class ListColumns extends Component {
         <li>즐겨찾기</li>
         <li>순서이동</li>
         <li>목록에서<br/>감추기</li>
-        <li>편집</li>
         <li>삭제</li>
       </ul> 
     );
@@ -55,7 +54,6 @@ class ListContent extends Component {
           <ArrowDownOutlined style={{fontSize:'14px'}}/>
           </li>
           <li><EyeOutlined style={{fontSize:'14px'}}/></li>
-          <li><EditOutlined style={{fontSize:'14px'}} /></li>
           <li><DeleteOutlined style={{fontSize:'14px'}} /></li>
         </ul>
       </div>
