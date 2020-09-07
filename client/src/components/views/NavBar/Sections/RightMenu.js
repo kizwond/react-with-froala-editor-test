@@ -6,8 +6,6 @@ import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { ShoppingCartOutlined, SolutionOutlined } from '@ant-design/icons';
-import Basket from '../../Store/Basket'
-import MyInfo from '../../Account/MyInfo'
 
 import {NavLink} from 'react-router-dom'
 
@@ -26,18 +24,18 @@ function RightMenu(props) {
 
   if (user.userData && !user.userData.isAuth) {
     return (
-      <Menu theme="dark" mode={props.mode}>
+      <Menu onClick={props.onClick} theme="dark" mode={props.mode}>
         <Menu.Item key="mail">
-          <a href="/login">Signin</a>
+          <NavLink to="/login">Signin</NavLink>
         </Menu.Item>
         <Menu.Item key="app">
-          <a href="/register">Signup</a>
+          <NavLink to="/register">Signup</NavLink>
         </Menu.Item>
       </Menu>
     )
   } else {
     return (
-      <Menu theme="dark" mode={props.mode}>
+      <Menu onClick={props.onClick} selectedKeys={props.selectedKeys} theme="dark" mode={props.mode}>
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
         </Menu.Item>

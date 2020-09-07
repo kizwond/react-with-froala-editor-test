@@ -1,0 +1,37 @@
+.write_container{
+    width:1340px;
+    border:1px solid grey;
+    border-left:0;
+    border-right:0;
+    padding:10px;
+    font-size:11px;
+    margin:auto;
+  }
+  .write_container button{
+    margin-bottom:10px;
+  }
+  .book_list_columns,
+  .book_list_contents_and_data{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .book_list_columns div,
+  .book_list_contents_and_data div{
+    width:60px;
+    text-align: right;
+  }
+  .book_list_columns div:nth-child(1),
+  .book_list_contents_and_data div:nth-child(1){
+    width:20px;
+    text-align: left;
+  }
+  .book_list_columns div:nth-child(2),
+  .book_list_contents_and_data div:nth-child(2){
+    width:200px;
+    text-align: left;
+  }
+  .book_list_columns div select{
+    width:200px;
+  }
