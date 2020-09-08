@@ -6,6 +6,7 @@ import {NavLink} from 'react-router-dom'
 import { Button } from 'antd';
 import { DownCircleTwoTone,UpCircleTwoTone } from '@ant-design/icons';
 
+
 class WriteMain extends Component {
   constructor(props) {
     super(props);
