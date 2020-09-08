@@ -6,11 +6,15 @@
   justify-content: space-around;
 }
 
-button{
+.write_container img{
   cursor: pointer;
 }
-
-
+.ant-btn{
+  font-size:11px;
+}
+svg{
+  cursor: pointer;
+}
 
 .logo img{
   width:110px;
@@ -47,7 +51,7 @@ button{
   justify-content: space-between;
   width:1340px;
   margin:auto;
-  margin-top:-200px;
+  margin-top:20px;
   margin-bottom:20px;
 }
 .ant-card-cover img{

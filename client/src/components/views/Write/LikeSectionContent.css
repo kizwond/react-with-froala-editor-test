@@ -1,22 +1,23 @@
 .like_list_container{
-    border-bottom:1px solid grey;
+    border-bottom:1px solid lightgrey;
     margin-bottom:10px;
   }
-  
+
   .like_list_columns{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom:10px;
     font-weight:700;
-    border-bottom:1px solid grey;
     align-items: center;
-    padding-bottom:5px;
+    padding:5px;
     line-height: 14px;
+    background-color:lightgrey;
   }
   .like_list_columns li{
     width:50px;
     text-align:center;
+    
   }
   .like_list_columns li:nth-child(1){
     width:100px;
@@ -35,21 +36,28 @@
   .like_list_columns li:nth-child(9){
     width:80px;
   }
+  .like_list_columns li:nth-child(10){
+    width:80px;
+  }
   
   .down_arrow {
     -webkit-transform: scaleY(-1);
     transform: scaleY(-1);
   }
   
-  
-  
   .like_list_contents ul{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-bottom:5px;
+    padding:5px;
     line-height: 14px;
+  }
+  .like_list_contents{
+    background-color:white;
+  }
+  .like_list_contents:nth-child(odd){
+    background-color:#f5f5f5;
   }
   .like_list_contents ul li{
     width:50px;
@@ -71,5 +79,8 @@
     width:80px;
   }
   .like_list_contents ul li:nth-child(9){
+    width:80px;
+  }
+  .like_list_contents ul li:nth-child(10){
     width:80px;
   }

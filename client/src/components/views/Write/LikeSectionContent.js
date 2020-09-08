@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './LikeSectionContent.css'
-import { StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined} from '@ant-design/icons';
+import { StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 
 class LikeListColumns extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class LikeListColumns extends Component {
       <ul className="like_list_columns">
         <li>카테고리</li>
         <li>책이름</li>
+        <li>책이름<br/>변경</li>
         <li>구분</li>
         <li>저자</li>
         <li>총페이지</li>
@@ -40,6 +41,7 @@ class LikeListContent extends Component {
         <ul>
           <li>한국사</li>
           <li>한국사요약</li>
+          <li><EditOutlined style={{fontSize:'14px'}}/></li>
           <li>구매</li>
           <li>EBS</li>
           <li>100장</li>

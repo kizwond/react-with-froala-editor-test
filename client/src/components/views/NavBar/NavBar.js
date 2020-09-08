@@ -23,6 +23,9 @@ class NavBar extends React.Component {
     this.setState({ current: e.key });
   };
 
+  onClickLogoHandler = e => {
+    this.setState({ current : e.key})
+  }
 
   render(){
     const { current } = this.state;
@@ -31,7 +34,7 @@ class NavBar extends React.Component {
         <Row>
           <Col flex="1 1 300px">
           <span className="logo">
-            <NavLink to="/" exact><img src="img/logo_white.png" key="home" alt="logo"/></NavLink>
+            <NavLink to="/" exact><img src="img/logo_white.png" onClick={this.onClickLogoHandler} key="home" alt="logo"/></NavLink>
           </span>
             <Menu onClick={this.handleClick} selectedKeys={[current]} theme="dark" mode="horizontal">
               <Menu.Item key="home" icon={<HomeOutlined />}>

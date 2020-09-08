@@ -102,7 +102,7 @@ function BookAdCard(){
 function Main() {
   return (
     <div className="main_page_container">
-      <WelcomeImages />
+      {/* <WelcomeImages /> */}
       <div className="book_ads_card_container">
         <BookAdCard/>
         <BookAdCard/>
