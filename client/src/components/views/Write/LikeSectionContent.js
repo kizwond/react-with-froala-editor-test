@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './LikeSectionContent.css'
-import { StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
+import { StarTwoTone,StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 
 class LikeListColumns extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class LikeListContent extends Component {
           <li>2020-10-10</li>
           <li>2020-10-20</li>
           <li><img src="img/folder_move.png" width="15px" alt="category-move"/></li>
-          <li><StarOutlined style={{fontSize:'14px'}}/></li>
+          <li><StarTwoTone twoToneColor="#52c41a" style={{fontSize:'14px'}}/></li>
           <li>
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
           <ArrowDownOutlined style={{fontSize:'14px'}}/>
