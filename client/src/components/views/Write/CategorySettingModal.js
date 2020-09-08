@@ -8,7 +8,7 @@ const CategoryList = () =>{
   return(
         <div className="category_setting_content">
           <ul>
-            <li><PlusOutlined /></li>
+            <li><PlusOutlined style={{fontSize:'14px'}} /></li>
             <li>한국사</li>
             <li><EditOutlined style={{fontSize:'14px'}}/></li>
             <li>
@@ -40,7 +40,7 @@ const CategoryModal = () => {
         <div className="category_setting_columns">
           <ul>
             <li>추가</li>
-            <li>이름</li>
+            <li>카테고리 명</li>
             <li>이름변경</li>
             <li>표시순서<br/>변경</li>
             <li>삭제</li>

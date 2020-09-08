@@ -13,7 +13,7 @@
   padding:5px;
 }
 .category_setting_columns ul{
-  background-color:lightgrey;
+  background-color:#efefef;
   font-weight: 700;
   
 }
@@ -30,6 +30,9 @@
   width:40px;
   text-align:left;
 }
+/* .category_setting_content ul li:nth-child(1){
+  margin-bottom: -30px;
+} */
 .category_setting_columns ul li:nth-child(2),
 .category_setting_content ul li:nth-child(2){
   width:150px;

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './LikeSectionContent.css'
 import { SettingOutlined, StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 import CategorySettingModal from './CategorySettingModal'
+import CategoryMoveModal from './CategoryMoveModal'
+import DeleteBook from './DeleteBookModal'
 
 class ListColumns extends Component {
   constructor(props) {
@@ -34,7 +36,9 @@ class ListColumns extends Component {
 class ListContent extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = { 
+    
+     }
   }
   render() { 
     return ( 
@@ -50,14 +54,14 @@ class ListContent extends Component {
           <li>단면 10장<br/>양면 90장</li>
           <li>2020-10-10</li>
           <li>2020-10-20</li>
-          <li><img src="img/folder_move.png" width="15px" alt="category-move"/></li>
+          <li><CategoryMoveModal/></li>
           <li><StarOutlined style={{fontSize:'14px'}}/></li>
           <li>
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
           <ArrowDownOutlined style={{fontSize:'14px'}}/>
           </li>
           <li><EyeOutlined style={{fontSize:'14px'}}/></li>
-          <li><DeleteOutlined style={{fontSize:'14px'}} /></li>
+          <li><DeleteBook /></li>
         </ul>
       </div>
      );
