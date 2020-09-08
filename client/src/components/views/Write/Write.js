@@ -36,7 +36,7 @@ class WriteMain extends Component {
                                 </div>}
         
         </div>
-        <NavLink to="/naming" exact ><Button type="primary" size="small">새로만들기</Button></NavLink> 
+        <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
           <ListSectionContent/>
         </div>

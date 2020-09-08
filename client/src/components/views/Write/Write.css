@@ -7,7 +7,7 @@
     font-size:11px;
     margin:auto;
   }
-  .write_container button{
+  .write_container .make_new_book{
     margin-bottom:10px;
   }
   .book_list_columns,
