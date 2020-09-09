@@ -26,7 +26,7 @@
   }
   .like_list_columns li:nth-child(2),
   .like_list_contents ul li:nth-child(2){
-    width:150px;
+    width:200px;
     text-align:left;
     cursor: pointer;
   }
@@ -69,4 +69,20 @@
   .like_list_contents ul li{
     width:50px;
     text-align:center;
+  }
+
+.change_book_title_input_form{
+  flex-direction: row;
+  justify-content: space-between;
+}
+  .change_book_title_input_form .ant-form-item{
+    width:128px;
+    margin:0;
+  }
+  .change_book_title_input_form .change_book_title_buttons{
+    width:72px;
+    margin:0;
+  }
+  .change_book_title_input_form .ant-col{
+    background-color:white;
   }

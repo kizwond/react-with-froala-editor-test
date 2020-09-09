@@ -58,6 +58,11 @@ class ListContent extends Component {
       editBookTitle: !state.editBookTitle
     }));
   }
+  changeHandleClick = ()=> {
+    this.setState(state => ({
+      editBookTitle: !state.editBookTitle
+    }));
+  }
   render() { 
     return ( 
       <>
@@ -65,7 +70,7 @@ class ListContent extends Component {
         <div className="like_list_contents">
         <ul>
           <li>한국사</li>
-          <li>{this.state.editBookTitle ? <ChangeBookTitle/> : "한국사요약"}</li>
+          <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.changeHandleClick}/> : "한국사요약"}</li>
           <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
           <li>구매</li>
           <li>EBS</li>

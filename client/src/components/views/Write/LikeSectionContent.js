@@ -3,6 +3,7 @@ import './LikeSectionContent.css'
 import { StarTwoTone,StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 import CategoryMoveModal from './CategoryMoveModal'
 import DeleteBook from './DeleteBookModal'
+import ChangeBookTitle from './ChangeBookTitle'
 
 class LikeListColumns extends Component {
   constructor(props) {
@@ -37,7 +38,8 @@ class LikeListContent extends Component {
     super(props);
     this.state = { 
       showToggle:true,
-      starOn:true
+      starOn:true,
+      editBookTitle:false
      }
   }
   eyeClickHandler = () =>{
@@ -50,6 +52,11 @@ class LikeListContent extends Component {
       starOn: !state.starOn
     }));
   }
+  editBookTitleHandler = () =>{
+    this.setState(state => ({
+      editBookTitle: !state.editBookTitle
+    }));
+  }
   render() { 
     return ( 
       <>
@@ -57,8 +64,8 @@ class LikeListContent extends Component {
         <div className="like_list_contents">
           <ul>
             <li>한국사</li>
-            <li>한국사요약</li>
-            <li><EditOutlined style={{fontSize:'14px'}}/></li>
+            <li>{this.state.editBookTitle ? <ChangeBookTitle/> : "한국사요약"}</li>
+            <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
             <li>구매</li>
             <li>EBS</li>
             <li>100장</li>
