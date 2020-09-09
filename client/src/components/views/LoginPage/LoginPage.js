@@ -90,7 +90,7 @@ function LoginPage(props) {
               <Form.Item required>
                 <Input
                   id="email"
-                  prefix={<HomeOutlined />}
+                  // prefix={<HomeOutlined />}
                   placeholder="Enter your email"
                   type="email"
                   value={values.email}
@@ -108,7 +108,7 @@ function LoginPage(props) {
               <Form.Item required>
                 <Input
                   id="password"
-                  prefix={<HomeOutlined />}
+                  // prefix={<HomeOutlined />}
                   placeholder="Enter your password"
                   type="password"
                   value={values.password}
