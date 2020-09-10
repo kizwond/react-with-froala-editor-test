@@ -26,22 +26,24 @@ router.post('/naming', async (req, res) => {
   // const{ error } = registerValidation(req.body)
   // if (error) return res.status(400).send(error.details[0].message)
 
-  //checking if the user is already in the database
-  // const emailExist = await User.findOne({email: req.body.email})
-  // if (emailExist) return res.status(400).send('Email already exists')
-
-  const bookTitle = new BookTitle({
-    book_title: req.body.book_title,
-    category: req.body.category,
-    user_email: useremail.email,
-    user_id: req.body.userId,
-  })
-  try{
-    const saveBookTitle = await bookTitle.save()
-    res.send({book_title:bookTitle.book_title, category:bookTitle.category, user_email:bookTitle.user_email})
-  }catch(err){
-    res.status(400).send(err)
-  }
+  // checking if the user is already in the database
+  const bookExist = await BookTitle.findOne({user_email: useremail.email, book_title: req.body.book_title})
+  console.log(bookExist)
+  if (bookExist) {return res.status(400).json({'error':'Book already exists'})}
+  else {
+      const bookTitle = new BookTitle({
+        book_title: req.body.book_title,
+        category: req.body.category,
+        user_email: useremail.email,
+        user_id: req.body.userId,
+      })
+      try{
+        const saveBookTitle = await bookTitle.save()
+        res.send({book_title:bookTitle.book_title, category:bookTitle.category, user_email:bookTitle.user_email})
+      }catch(err){
+        res.status(400).send(err)
+      }
+    }
 })
 
 module.exports = router;
