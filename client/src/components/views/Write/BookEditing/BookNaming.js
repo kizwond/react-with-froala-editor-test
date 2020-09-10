@@ -86,7 +86,7 @@ const HorizontalLoginForm = () => {
             )}
           </Form.Item>
         </Form>
-        { message && <div style={{fontSize:"10px",color:"red"}}>※{message}</div> }
+        { message && <div style={{fontSize:"10px",color:"red"}}>※ {message}</div> }
       </div>
     </div>
   );
