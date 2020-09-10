@@ -14,6 +14,18 @@ const bookTitleSchema = new mongoose.Schema({
     min:1,
     max:255,
   },
+  user_email:{
+    type:String,
+    required:true,
+    min:1,
+    max:255,
+  },
+  user_id:{
+    type:String,
+    required:true,
+    min:1,
+    max:255,
+  },
   date:{
     type:Date,
     default:Date.now
