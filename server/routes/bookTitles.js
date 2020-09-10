@@ -38,7 +38,7 @@ router.post('/naming', async (req, res) => {
   })
   try{
     const saveBookTitle = await bookTitle.save()
-    res.send({book_title:bookTitle.book_title, category:bookTitle.category, userId:bookTitle.userId})
+    res.send({book_title:bookTitle.book_title, category:bookTitle.category, user_email:bookTitle.user_email})
   }catch(err){
     res.status(400).send(err)
   }
