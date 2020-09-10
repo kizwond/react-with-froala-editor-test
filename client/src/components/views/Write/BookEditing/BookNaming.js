@@ -9,6 +9,7 @@ const HorizontalLoginForm = () => {
   const [form] = Form.useForm();
   const [, forceUpdate] = useState(); // To disable submit button at the beginning.
   const [ user, setUser ] = useState();
+  const [ message, setMessage ] = useState();
 
   useEffect(() => {
     forceUpdate({});
@@ -30,7 +31,7 @@ const HorizontalLoginForm = () => {
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-    .then(response => console.log('Result:', JSON.stringify(response)))
+    .then(response => setMessage(response.error))
     .catch(error => console.error('Error:', error));
   }
 
@@ -43,6 +44,7 @@ const HorizontalLoginForm = () => {
   };
   return (
     <div className="naming_book_container">
+      
       <div className="book_layout">
         <Form form={form} name="book_naming" layout="block" onFinish={onFinish}>
           <Form.Item
@@ -84,6 +86,7 @@ const HorizontalLoginForm = () => {
             )}
           </Form.Item>
         </Form>
+        { message && <div style={{fontSize:"10px",color:"red"}}>※{message}</div> }
       </div>
     </div>
   );

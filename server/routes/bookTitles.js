@@ -29,7 +29,7 @@ router.post('/naming', async (req, res) => {
   // checking if the user is already in the database
   const bookExist = await BookTitle.findOne({user_email: useremail.email, book_title: req.body.book_title})
   console.log(bookExist)
-  if (bookExist) {return res.status(400).json({'error':'Book already exists'})}
+  if (bookExist) {return res.status(400).json({'error':'※ 동일한 이름의 책이 이미 존재합니다. 다른 이름으로 다시 시도해 주세요.'})}
   else {
       const bookTitle = new BookTitle({
         book_title: req.body.book_title,
