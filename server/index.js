@@ -36,6 +36,11 @@ app.use(cookieParser());
 app.use('/api/users', require('./routes/users'));
 
 
+//책이름 저장하기 라우터
+const saveBookTitleRoute = require('./routes/bookTitles')
+app.use('/api/create', saveBookTitleRoute)
+
+
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
 app.use('/uploads', express.static('uploads'));

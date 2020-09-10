@@ -1,0 +1,27 @@
+
+.naming_book_container{
+  margin-top:100px;
+}
+
+.book_layout {
+  width:300px;
+  padding: 20px;
+  margin: auto;
+  border: 1px solid #d8d8d8;
+}
+#book_naming{
+  width:300px;
+}
+.category_select_naming{
+  margin-bottom:10px;
+}
+.naming_input{
+  float:left;
+}
+.naming_input .ant-form-item-control-input-content{
+  float:left;
+  flex:none;
+}
+.naming_submit_button {
+  margin-left:-29px;
+}

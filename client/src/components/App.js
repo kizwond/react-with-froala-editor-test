@@ -12,6 +12,7 @@ import Write from "./views/Write/Write"
 import Store from "./views/Store/Store"
 import Basket from './views/Store/Basket'
 import MyInfo from './views/Account/MyInfo'
+import BookNaming from './views/Write/BookEditing/BookNaming'
 
 import { Layout, Affix } from 'antd';
 
@@ -42,6 +43,7 @@ function App() {
               <Route path="/store" exact strict component={Auth(Store, null)}/>
               <Route path="/basket" exact strict component={Auth(Basket, null)}/>
               <Route path="/myinfo" exact strict component={Auth(MyInfo, null)}/>
+              <Route path="/naming" exact strict component={Auth(BookNaming, null)}/>
             </Switch>
           </Content>
         <Footer style={{ textAlign: 'center' }}>CogBOOK ©2020 Created by OpenSKY</Footer>
