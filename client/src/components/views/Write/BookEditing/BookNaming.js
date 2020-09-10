@@ -14,7 +14,7 @@ const HorizontalLoginForm = () => {
 
 
   const handleSubmit = (values) => {
-    var url = 'http://localhost:5000/api/create/naming';
+    var url = '/api/create/naming';
     var data = values;
 
     fetch(url, {
