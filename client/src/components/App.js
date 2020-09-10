@@ -17,7 +17,7 @@ import BookNaming from './views/Write/BookEditing/BookNaming'
 import { Layout, Affix } from 'antd';
 
 import './App.css'
-const { Header,Content, Footer } = Layout;
+const { Header, Content, Footer } = Layout;
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -38,8 +38,8 @@ function App() {
             <Route exact path="/" component={Auth(LandingPage, null)} />
             <Route exact path="/login" component={Auth(LoginPage, false)} />
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
-            <Route path="/study" exact strict component={Auth(Study, null)}/>
-            <Route path="/write" exact strict component={Auth(Write, null)}/>
+            <Route path="/study" exact strict component={Auth(Study, true)}/>
+            <Route path="/write" exact strict component={Auth(Write, true)}/>
             <Route path="/store" exact strict component={Auth(Store, null)}/>
             <Route path="/basket" exact strict component={Auth(Basket, null)}/>
             <Route path="/myinfo" exact strict component={Auth(MyInfo, null)}/>

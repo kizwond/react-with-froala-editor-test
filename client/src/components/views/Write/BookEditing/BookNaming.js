@@ -5,17 +5,23 @@ import './BookNaming.css'
 
 const { Option } = Select;
 const HorizontalLoginForm = () => {
+  const userId = localStorage.getItem('userId')
   const [form] = Form.useForm();
   const [, forceUpdate] = useState(); // To disable submit button at the beginning.
+  const [ user, setUser ] = useState();
 
   useEffect(() => {
     forceUpdate({});
   }, []);
 
+  useEffect(() => {
+    setUser({user:userId});
+  }, []);
 
   const handleSubmit = (values) => {
     var url = '/api/create/naming';
     var data = values;
+    console.log(data)
 
     fetch(url, {
       method: 'POST', 
@@ -29,6 +35,9 @@ const HorizontalLoginForm = () => {
   }
 
   const onFinish = values => {
+    console.log(values);
+    values.userId = user.user
+    console.log(user)
     console.log(values);
     handleSubmit(values)
   };
