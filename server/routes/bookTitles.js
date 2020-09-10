@@ -5,7 +5,8 @@ const { User } = require("../models/User");
 
 
 router.post('/naming', async (req, res) => {
-
+  console.log("start")
+  console.log(req.body.userId)
   const useremail = await User.findOne({_id: req.body.userId}, 'email').exec();
   console.log(useremail)
   console.log("first")
@@ -29,8 +30,6 @@ router.post('/naming', async (req, res) => {
   // const emailExist = await User.findOne({email: req.body.email})
   // if (emailExist) return res.status(400).send('Email already exists')
 
-  //create a new user
-  console.log(useremail)
   const bookTitle = new BookTitle({
     book_title: req.body.book_title,
     category: req.body.category,
