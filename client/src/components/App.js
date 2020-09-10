@@ -45,8 +45,8 @@ function App() {
             <Route path="/myinfo" exact strict component={Auth(MyInfo, null)}/>
             <Route path="/naming" exact strict component={Auth(BookNaming, null)}/>
           </Switch>
-          <Footer style={{ textAlign: 'center' }}>CogBOOK ©2020 Created by OpenSKY</Footer>
         </Content>
+        <Footer style={{ textAlign: 'center' }}><img src="img/logo.png" className="opensky_logo" alt="logo"/> Copyright © OpenSKY Corp. All Rights Reserved.</Footer>
       </Layout>
     </Suspense>
   );
