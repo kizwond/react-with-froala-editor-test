@@ -33,20 +33,20 @@ function App() {
             <NavBar />
           </Affix>
         </Header>
-          <Content>
-            <Switch>
-              <Route exact path="/" component={Auth(LandingPage, null)} />
-              <Route exact path="/login" component={Auth(LoginPage, false)} />
-              <Route exact path="/register" component={Auth(RegisterPage, false)} />
-              <Route path="/study" exact strict component={Auth(Study, null)}/>
-              <Route path="/write" exact strict component={Auth(Write, null)}/>
-              <Route path="/store" exact strict component={Auth(Store, null)}/>
-              <Route path="/basket" exact strict component={Auth(Basket, null)}/>
-              <Route path="/myinfo" exact strict component={Auth(MyInfo, null)}/>
-              <Route path="/naming" exact strict component={Auth(BookNaming, null)}/>
-            </Switch>
-          </Content>
-        <Footer style={{ textAlign: 'center' }}>CogBOOK ©2020 Created by OpenSKY</Footer>
+        <Content>
+          <Switch>
+            <Route exact path="/" component={Auth(LandingPage, null)} />
+            <Route exact path="/login" component={Auth(LoginPage, false)} />
+            <Route exact path="/register" component={Auth(RegisterPage, false)} />
+            <Route path="/study" exact strict component={Auth(Study, null)}/>
+            <Route path="/write" exact strict component={Auth(Write, null)}/>
+            <Route path="/store" exact strict component={Auth(Store, null)}/>
+            <Route path="/basket" exact strict component={Auth(Basket, null)}/>
+            <Route path="/myinfo" exact strict component={Auth(MyInfo, null)}/>
+            <Route path="/naming" exact strict component={Auth(BookNaming, null)}/>
+          </Switch>
+          <Footer style={{ textAlign: 'center' }}>CogBOOK ©2020 Created by OpenSKY</Footer>
+        </Content>
       </Layout>
     </Suspense>
   );
