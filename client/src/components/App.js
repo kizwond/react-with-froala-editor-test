@@ -13,6 +13,7 @@ import Store from "./views/Store/Store"
 import Basket from './views/Store/Basket'
 import MyInfo from './views/Account/MyInfo'
 import BookNaming from './views/Write/BookEditing/BookNaming'
+import Writing from './views/Write/BookEditing/BookWriting'
 
 import { Layout, Affix } from 'antd';
 
@@ -41,9 +42,10 @@ function App() {
             <Route path="/study" exact strict component={Auth(Study, true)}/>
             <Route path="/write" exact strict component={Auth(Write, true)}/>
             <Route path="/store" exact strict component={Auth(Store, null)}/>
-            <Route path="/basket" exact strict component={Auth(Basket, null)}/>
-            <Route path="/myinfo" exact strict component={Auth(MyInfo, null)}/>
-            <Route path="/naming" exact strict component={Auth(BookNaming, null)}/>
+            <Route path="/basket" exact strict component={Auth(Basket, true)}/>
+            <Route path="/myinfo" exact strict component={Auth(MyInfo, true)}/>
+            <Route path="/naming" exact strict component={Auth(BookNaming, true)}/>
+            <Route path="/writing" exact strict component={Auth(Writing, true)}/>
           </Switch>
         </Content>
         <Footer style={{ textAlign: 'center' }}><img src="img/logo.png" className="opensky_logo" alt="logo"/> Copyright © OpenSKY Corp. All Rights Reserved.</Footer>

@@ -31,7 +31,14 @@ const HorizontalLoginForm = () => {
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-    .then(response => setMessage(response.error))
+    .then(function(response){
+      console.log(response)
+      if(response.error === "동일한 이름의 책이 이미 존재합니다."){
+        setMessage(response.error)
+      } else {
+        window.location.href = '/writing'
+      }
+    })
     .catch(error => console.error('Error:', error));
   }
 
@@ -44,7 +51,6 @@ const HorizontalLoginForm = () => {
   };
   return (
     <div className="naming_book_container">
-      
       <div className="book_layout">
         <Form form={form} name="book_naming" layout="block" onFinish={onFinish}>
           <Form.Item
