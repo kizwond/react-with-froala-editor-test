@@ -27,8 +27,7 @@ export class BookWriting extends Component {
   }
   render() {
     return (
-      <div>
-        {this.state.user}
+      <div style={{width:"100px", margin:"auto", marginTop:"100px"}}>
         {this.state.bookTitle}
       </div>
     )
