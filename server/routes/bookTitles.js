@@ -1,14 +1,12 @@
 const router = require('express').Router();
 const { BookTitle } = require('../models/BookTitle');
 const { User } = require("../models/User");
-// const {registerValidation,loginValidation}= require('../validation')
-
 
 router.post('/naming', async (req, res) => {
   const useremail = await User.findOne({_id: req.body.userId}, 'email').exec();
 
   const bookExist = await BookTitle.findOne({user_email: useremail.email, book_title: req.body.book_title})
-  console.log(bookExist)
+
   if (bookExist) {return res.status(400).json({'error':'동일한 이름의 책이 이미 존재합니다.'})}
   else {
       const bookTitle = new BookTitle({
@@ -16,6 +14,15 @@ router.post('/naming', async (req, res) => {
         category: req.body.category,
         user_email: useremail.email,
         user_id: req.body.userId,
+        division: '내자료',
+        user_nick: useremail.email,
+        total_pages: 0,
+        recent_input: 0,
+        single_cards: 0,
+        dual_cards: 0,
+        like: 'NO',
+        like_order: 0,
+        hide_or_show: 'show',
       })
       try{
         const saveBookTitle = await bookTitle.save()
@@ -27,13 +34,10 @@ router.post('/naming', async (req, res) => {
 })
 
 router.get('/get-book-title', async (req, res) => {
-  console.log("start")
-  console.log(req.query.userId)
-  console.log("end")
-  const bookTitle = await BookTitle.findOne({user_id: req.query.userId}, 'book_title').sort({ 'date' : -1 }).exec();
+  const bookTitle = await BookTitle.findOne({user_id: req.query.userId}).sort({ 'date' : -1 }).exec();
   console.log(bookTitle)
   try{
-    res.send({book_title:bookTitle.book_title})
+    res.send({bookTitle})
   }catch(err){
     res.status(400).send(err)
   }
