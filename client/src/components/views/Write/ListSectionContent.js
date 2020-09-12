@@ -40,7 +40,8 @@ class ListContent extends Component {
     this.state = { 
       showToggle:true,
       starOn:false,
-      editBookTitle:false
+      editBookTitle:false,
+      bookInfo:this.props.bookInfo
      }
   }
   eyeClickHandler = () =>{
@@ -64,30 +65,35 @@ class ListContent extends Component {
     }));
   }
   render() { 
+    const info = this.state.bookInfo;
+    const user_slice = info.user_email.slice(0,8)
+    const date = info.date.slice(0,10)
+    const update_date = info.date.slice(0,10)
     return ( 
       <>
       {this.state.showToggle ? 
         <div className="like_list_contents">
         <ul>
-          <li>한국사</li>
-          <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.changeHandleClick}/> : "한국사요약"}</li>
+          <li>{info.category}</li>
+          <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.changeHandleClick}/> : info.book_title}</li>
           <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
-          <li>구매</li>
-          <li>EBS</li>
-          <li>100장</li>
-          <li>11/300</li>
-          <li>단면 10장<br/>양면 90장</li>
-          <li>2020-10-10</li>
-          <li>2020-10-20</li>
+          <li>{info.division}</li>
+          <li>{user_slice}</li>
+          <li>{info.total_pages}</li>
+          <li>{info.recent_input}</li>
+          <li>단면 {info.single_cards}장<br/>양면 {info.dual_cards}장</li>
+          <li>{date}</li>
+          <li>{update_date}</li>
           <li><CategoryMoveModal/></li>
-          <li>{this.state.starOn ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
+          <li>{info.like === "YES" ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
                                   <StarOutlined onClick={this.starClickHandler} style={{fontSize:'14px'}}/>}
           </li>
           <li>
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
           <ArrowDownOutlined style={{fontSize:'14px'}}/>
           </li>
-          <li><EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/></li>
+          <li>{info.hide_or_show === "show" ? <EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>:
+                                  ''}</li>
           <li><DeleteBook /></li>
         </ul>
       </div> : ''}
@@ -96,34 +102,30 @@ class ListContent extends Component {
   }
 }
 
+// const menus = ["Menu1", "Menu2", "Menu3", "Menu4"]
+// const menuList = menus.map((menu) => (<li>{menu}</li>));
 
+// return(
+//     <ul>
+//         {menuList}
+//     </ul>
+// )
 
 class ListSectionContent extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = { 
+      bookTitle:this.props.bookTitle
+     }
   }
   render() { 
+    const bookList = this.props.bookTitle.map((book_title)=>(
+      <ListContent bookInfo={book_title}/>
+    ))
     return ( 
       <div className="like_list_container">
         <ListColumns />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
-        <ListContent />
+        {bookList}
       </div>
      );
   }

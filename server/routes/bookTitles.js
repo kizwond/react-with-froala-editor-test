@@ -44,4 +44,16 @@ router.get('/get-book-title', async (req, res) => {
 
 })
 
+router.get('/get-all-title', async (req, res) => {
+  const bookTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'date' : 1 }).exec();
+  console.log(bookTitle)
+  try{
+    res.send({bookTitle})
+  }catch(err){
+    res.status(400).send(err)
+  }
+
+})
+
+
 module.exports = router;

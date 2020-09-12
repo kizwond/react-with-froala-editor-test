@@ -5,13 +5,18 @@ import ListSectionContent from './ListSectionContent'
 import {NavLink} from 'react-router-dom'
 import { Button } from 'antd';
 import { DownCircleTwoTone,UpCircleTwoTone } from '@ant-design/icons';
+import axios from 'axios'
 
+
+var userId = localStorage.getItem('userId')
 
 class WriteMain extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      isToggleOn: true
+      isToggleOn: true,
+      user:'',
+      bookTitle:[]
      }
   }
   onClickToggle = () => {
@@ -19,7 +24,19 @@ class WriteMain extends Component {
       isToggleOn: !state.isToggleOn
     }));
   }
-
+  componentDidMount() {
+    this.setState({
+      user: userId
+    })
+    axios.get('api/create/get-all-title',{params: { userId: userId }})
+      .then(res => {
+        console.log(res)
+        console.log(res.data.bookTitle)
+        this.setState({
+          bookTitle:res.data.bookTitle
+        })
+      })
+  }
   render() { 
     return ( 
       <div className="write_container">
@@ -38,7 +55,7 @@ class WriteMain extends Component {
         </div>
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
-          <ListSectionContent/>
+          <ListSectionContent bookTitle={this.state.bookTitle}/>
         </div>
       </div>
      );
