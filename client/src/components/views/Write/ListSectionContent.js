@@ -119,8 +119,8 @@ class ListSectionContent extends Component {
      }
   }
   render() { 
-    const bookList = this.props.bookTitle.map((book_title)=>(
-      <ListContent bookInfo={book_title}/>
+    const bookList = this.props.bookTitle.map((book_title,)=>(
+      <ListContent key={book_title._id} bookInfo={book_title}/>
     ))
     return ( 
       <div className="like_list_container">
