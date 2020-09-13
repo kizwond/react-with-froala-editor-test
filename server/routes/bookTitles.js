@@ -3,12 +3,18 @@ const { BookTitle } = require('../models/BookTitle');
 const { User } = require("../models/User");
 
 router.post('/naming', async (req, res) => {
-  const useremail = await User.findOne({_id: req.body.userId}, 'email').exec();
-
+  const useremail = await User.findOne({_id: req.body.userId}).exec();
+  console.log(useremail)
+  console.log(useremail.name)
   const bookExist = await BookTitle.findOne({user_email: useremail.email, book_title: req.body.book_title})
   const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'date' : -1 }).exec();
   console.log(bookListOrder)
-  const listOrder = bookListOrder.list_order
+  if (!bookListOrder) {
+    var listOrder = 0
+  } else {
+    var listOrder = bookListOrder.list_order
+  }
+  
   console.log(listOrder)
   if (bookExist) {return res.status(400).json({'error':'동일한 이름의 책이 이미 존재합니다.'})}
   else {
@@ -18,7 +24,7 @@ router.post('/naming', async (req, res) => {
         user_email: useremail.email,
         user_id: req.body.userId,
         division: '내자료',
-        user_nick: useremail.email,
+        user_nick: useremail.name,
         total_pages: 0,
         recent_input: 0,
         single_cards: 0,

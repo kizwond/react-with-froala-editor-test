@@ -66,7 +66,6 @@ class ListContent extends Component {
   }
   render() { 
     const info = this.state.bookInfo;
-    const user_slice = info.user_email.slice(0,8)
     const date = info.date.slice(0,10)
     const update_date = info.date.slice(0,10)
     return ( 
@@ -78,7 +77,7 @@ class ListContent extends Component {
           <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.changeHandleClick}/> : info.book_title}</li>
           <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
           <li>{info.division}</li>
-          <li>{user_slice}</li>
+          <li>{info.user_nick}</li>
           <li>{info.total_pages}</li>
           <li>{info.recent_input}</li>
           <li>단면 {info.single_cards}장<br/>양면 {info.dual_cards}장</li>
