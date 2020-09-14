@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './LikeSectionContent.css'
-import { SettingOutlined, StarTwoTone, StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
+import { EyeInvisibleOutlined, SettingOutlined, StarTwoTone, StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 import CategorySettingModal from './CategorySettingModal'
 import CategoryMoveModal from './CategoryMoveModal'
 import DeleteBook from './DeleteBookModal'
@@ -38,8 +38,8 @@ class ListContent extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      showToggle:true,
-      starOn:false,
+      showToggle:this.props.bookInfo.hide_or_show,
+      starOn:this.props.bookInfo.like,
       editBookTitle:false,
       bookInfo:this.props.bookInfo
      }
@@ -84,15 +84,15 @@ class ListContent extends Component {
           <li>{date}</li>
           <li>{update_date}</li>
           <li><CategoryMoveModal/></li>
-          <li>{info.like === "YES" ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
+          <li>{!this.state.starOn ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
                                   <StarOutlined onClick={this.starClickHandler} style={{fontSize:'14px'}}/>}
           </li>
           <li>
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
           <ArrowDownOutlined style={{fontSize:'14px'}}/>
           </li>
-          <li>{info.hide_or_show === "show" ? <EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>:
-                                  ''}</li>
+          <li>{this.state.showToggle? <EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>:
+                                  <EyeInvisibleOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>}</li>
           <li><DeleteBook /></li>
         </ul>
       </div> : ''}
@@ -100,15 +100,6 @@ class ListContent extends Component {
      );
   }
 }
-
-// const menus = ["Menu1", "Menu2", "Menu3", "Menu4"]
-// const menuList = menus.map((menu) => (<li>{menu}</li>));
-
-// return(
-//     <ul>
-//         {menuList}
-//     </ul>
-// )
 
 class ListSectionContent extends Component {
   constructor(props) {

@@ -68,7 +68,7 @@ const bookTitleSchema = new mongoose.Schema({
     required:true,
     min:1,
     max:255,
-    default:'NO'
+    default:false
   },
   like_order:{
     type:Number,
@@ -87,7 +87,7 @@ const bookTitleSchema = new mongoose.Schema({
     required:true,
     min:1,
     max:255,
-    default:'show'
+    default:true
   },
   date:{
     type:Date,

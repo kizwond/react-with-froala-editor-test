@@ -6,7 +6,7 @@ router.post('/naming', async (req, res) => {
   const useremail = await User.findOne({_id: req.body.userId}).exec();
   const bookExist = await BookTitle.findOne({user_email: useremail.email, book_title: req.body.book_title})
   const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'date' : -1 }).exec();
-  
+
   if (!bookListOrder) {
     var listOrder = 0
   } else {
@@ -26,10 +26,10 @@ router.post('/naming', async (req, res) => {
         recent_input: 0,
         single_cards: 0,
         dual_cards: 0,
-        like: 'NO',
+        like: false,
         like_order: 0,
         list_order: listOrder + 1,
-        hide_or_show: 'show',
+        hide_or_show: true,
       })
       try{
         const saveBookTitle = await bookTitle.save()
