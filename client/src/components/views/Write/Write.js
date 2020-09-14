@@ -56,12 +56,31 @@ class WriteMain extends Component {
     })
   }
 
+  eyeClickHandler = (value) =>{
+    console.log('hide or show buttn clicked!!!')
+    if (value.value === 'true') {
+      var eye = 'false'
+    } else {
+      eye = 'true'
+    }
+    axios.post('api/create/hide-or-show',{
+      bookId : value.bookId,
+      hide_or_show: eye,
+      userId: userId
+    }).then(res => {
+      this.setState({
+        bookTitle:res.data.bookTitle
+      })
+    })
+  }
+
+
   render() { 
     return ( 
       <div className="write_container">
         <div style={{fontSize:"13px", fontWeight:"700"}}>즐겨찾기</div>
         <br/>
-        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} bookTitle={this.state.bookTitle}/> : ''}
+        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/> : ''}
         
         <div style={{textAlign:"center", marginTop:"-20px"}}>
         {this.state.isToggleOn ? <UpCircleTwoTone twoToneColor="#bfbfbf" onClick={this.onClickToggle} style={{fontSize:'25px'}}/> 
@@ -74,7 +93,7 @@ class WriteMain extends Component {
         </div>
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
-          <ListSectionContent onClickLike={this.saveLikeChange} bookTitle={this.state.bookTitle}/>
+          <ListSectionContent onClickLike={this.saveLikeChange} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
         </div>
       </div>
      );

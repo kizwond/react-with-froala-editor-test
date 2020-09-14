@@ -86,3 +86,13 @@
   .change_book_title_input_form .ant-col{
     background-color:white;
   }
+  .hide_or_show_false{
+    display: none;
+  }
+
+  .hide_or_show_title_btn{
+    cursor:pointer;
+    border:1px solid grey;
+    border-radius:3px;
+    background-color:white;
+  }

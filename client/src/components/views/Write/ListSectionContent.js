@@ -9,7 +9,31 @@ import ChangeBookTitle from './ChangeBookTitle'
 class ListColumns extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = { 
+      hideOrShowClass : false
+     }
+  }
+  hideOrShowToggle = () => {
+    var elements = document.querySelectorAll('.hide_or_show_false')
+    var i
+    if (this.state.hideOrShowClass === false){
+      this.setState((prevState)=>({
+          hideOrShowClass : !prevState.hideOrShowClass
+        })
+      )
+      
+      for (i = 0; i < elements.length; i++) { 
+        elements[i].style.display='block';
+      }
+    } else {
+      this.setState((prevState)=>({
+          hideOrShowClass : !prevState.hideOrShowClass
+        })
+      )
+      for (i = 0; i < elements.length; i++) { 
+        elements[i].style.display='none';
+      }
+    }
   }
   render() { 
     return ( 
@@ -27,7 +51,7 @@ class ListColumns extends Component {
         <li>카테고리<br/>이동</li>
         <li>즐겨찾기</li>
         <li>순서이동</li>
-        <li>목록에서<br/>감추기</li>
+        <li>목록에서<br/><span onClick={this.hideOrShowToggle} className="hide_or_show_title_btn">감추기</span></li>
         <li>삭제</li>
       </ul> 
     );
@@ -41,11 +65,7 @@ class ListContent extends Component {
       editBookTitle:false,
      }
   }
-  eyeClickHandler = () =>{
-    this.setState(state => ({
-      showToggle: !state.showToggl
-    }));
-  }
+
   starClickHandler = () =>{
     this.saveLikeChange()
     this.forceUpdate();
@@ -56,7 +76,7 @@ class ListContent extends Component {
       editBookTitle: !state.editBookTitle
     }));
   }
-  changeHandleClick = ()=> {
+  titleChangeHandleClick = ()=> {
     this.setState(state => ({
       editBookTitle: !state.editBookTitle
     }));
@@ -65,13 +85,14 @@ class ListContent extends Component {
     const info = this.props.bookInfo;
     const date = info.date.slice(0,10)
     const update_date = info.date.slice(0,10)
+    const classes = `like_list_contents hide_or_show_${info.hide_or_show}`
     return ( 
       <>
-      {info.hide_or_show === 'true' ? 
-        <div className="like_list_contents">
+      {/* {info.hide_or_show === 'true' ?  */}
+        <div className={classes}>
         <ul>
           <li>{info.category}</li>
-          <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.changeHandleClick}/> : info.book_title}</li>
+          <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.titleChangeHandleClick}/> : info.book_title}</li>
           <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
           <li>{info.division}</li>
           <li>{info.user_nick}</li>
@@ -88,11 +109,12 @@ class ListContent extends Component {
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
           <ArrowDownOutlined style={{fontSize:'14px'}}/>
           </li>
-          <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>:
-                                  <EyeInvisibleOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>}</li>
+          <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={()=>this.props.onClickHideOrShow({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>:
+                                  <EyeInvisibleOutlined onClick={()=>this.props.onClickHideOrShow({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}</li>
           <li><DeleteBook /></li>
         </ul>
-      </div> : ''}
+      </div> 
+      {/* : ''} */}
       </>
      );
   }
@@ -101,7 +123,7 @@ class ListContent extends Component {
 class ListSectionContent extends Component {
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <ListContent key={book_title._id} bookInfo={book_title} onClickLike={this.props.onClickLike} />
+      <ListContent key={book_title._id} bookInfo={book_title} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
     return ( 
       <div className="like_list_container">
