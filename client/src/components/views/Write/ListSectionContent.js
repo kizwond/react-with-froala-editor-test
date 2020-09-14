@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './LikeSectionContent.css'
-import { EyeInvisibleOutlined, SettingOutlined, StarTwoTone, StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
+import { EyeInvisibleOutlined, StarTwoTone, StarOutlined, EyeOutlined, ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 import CategorySettingModal from './CategorySettingModal'
 import CategoryMoveModal from './CategoryMoveModal'
 import DeleteBook from './DeleteBookModal'
 import ChangeBookTitle from './ChangeBookTitle'
+import axios from 'axios'
+
 
 class ListColumns extends Component {
   constructor(props) {
@@ -38,22 +40,36 @@ class ListContent extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      showToggle:this.props.bookInfo.hide_or_show,
-      starOn:this.props.bookInfo.like,
       editBookTitle:false,
-      bookInfo:this.props.bookInfo
+      bookInfo:this.props.bookInfo,
      }
   }
   eyeClickHandler = () =>{
     this.setState(state => ({
-      showToggle: !state.showToggle
+      showToggle: !state.showToggl
     }));
   }
   starClickHandler = () =>{
-    this.setState(state => ({
-      starOn: !state.starOn
-    }));
+    this.saveLikeChange()
+    this.forceUpdate();
   }
+  saveLikeChange = () => {
+    console.log(this.state.bookInfo.like)
+    if (this.state.bookInfo.like === 'true') {
+      console.log("here")
+      var like = 'false'
+    } else {
+      console.log("there")
+      like = 'true'
+    }
+    axios.post('api/create/like',{
+      bookId : this.state.bookInfo._id,
+      like: like
+    }).then(res => {
+        console.log(res)
+      })
+  }
+
   editBookTitleHandler = () =>{
     this.setState(state => ({
       editBookTitle: !state.editBookTitle
@@ -70,7 +86,7 @@ class ListContent extends Component {
     const update_date = info.date.slice(0,10)
     return ( 
       <>
-      {this.state.showToggle ? 
+      {info.hide_or_show === 'true' ? 
         <div className="like_list_contents">
         <ul>
           <li>{info.category}</li>
@@ -84,14 +100,14 @@ class ListContent extends Component {
           <li>{date}</li>
           <li>{update_date}</li>
           <li><CategoryMoveModal/></li>
-          <li>{!this.state.starOn ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
+          <li>{info.like === 'true' ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
                                   <StarOutlined onClick={this.starClickHandler} style={{fontSize:'14px'}}/>}
           </li>
           <li>
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
           <ArrowDownOutlined style={{fontSize:'14px'}}/>
           </li>
-          <li>{this.state.showToggle? <EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>:
+          <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>:
                                   <EyeInvisibleOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>}</li>
           <li><DeleteBook /></li>
         </ul>
@@ -109,7 +125,7 @@ class ListSectionContent extends Component {
      }
   }
   render() { 
-    const bookList = this.props.bookTitle.map((book_title,)=>(
+    const bookList = this.props.bookTitle.map((book_title)=>(
       <ListContent key={book_title._id} bookInfo={book_title}/>
     ))
     return ( 

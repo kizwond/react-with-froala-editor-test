@@ -47,7 +47,6 @@ router.get('/get-book-title', async (req, res) => {
   }catch(err){
     res.status(400).send(err)
   }
-
 })
 
 router.get('/get-all-title', async (req, res) => {
@@ -57,8 +56,19 @@ router.get('/get-all-title', async (req, res) => {
   }catch(err){
     res.status(400).send(err)
   }
-
 })
 
+router.post('/like', async (req, res) => {
+  const book = await BookTitle.findOne({_id: req.body.bookId})
+  console.log(book)
+
+  const update = { like: req.body.like };
+  console.log(update)
+  let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
+    new: true
+  });
+  console.log(doc)
+
+})
 
 module.exports = router;

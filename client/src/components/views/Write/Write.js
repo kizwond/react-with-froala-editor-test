@@ -42,7 +42,7 @@ class WriteMain extends Component {
       <div className="write_container">
         <div style={{fontSize:"13px", fontWeight:"700"}}>즐겨찾기</div>
         <br/>
-        {this.state.isToggleOn ? <LikeSectionContent/> : ''}
+        {this.state.isToggleOn ? <LikeSectionContent bookTitle={this.state.bookTitle}/> : ''}
         
         <div style={{textAlign:"center", marginTop:"-20px"}}>
         {this.state.isToggleOn ? <UpCircleTwoTone twoToneColor="#bfbfbf" onClick={this.onClickToggle} style={{fontSize:'25px'}}/> 

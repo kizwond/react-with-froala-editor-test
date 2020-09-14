@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './LikeSectionContent.css'
-import { StarTwoTone,StarOutlined,EyeOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
+import { StarTwoTone,StarOutlined,EyeOutlined,EyeInvisibleOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 import CategoryMoveModal from './CategoryMoveModal'
 import DeleteBook from './DeleteBookModal'
 import ChangeBookTitle from './ChangeBookTitle'
@@ -37,9 +37,8 @@ class LikeListContent extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      showToggle:true,
-      starOn:true,
-      editBookTitle:false
+      editBookTitle:false,
+      bookInfo:this.props.bookInfo
      }
   }
   eyeClickHandler = () =>{
@@ -57,34 +56,43 @@ class LikeListContent extends Component {
       editBookTitle: !state.editBookTitle
     }));
   }
+  changeHandleClick = ()=> {
+    this.setState(state => ({
+      editBookTitle: !state.editBookTitle
+    }));
+  }
   render() { 
+    const info = this.state.bookInfo;
+    const date = info.date.slice(0,10)
+    const update_date = info.date.slice(0,10)
     return ( 
       <>
-        {this.state.showToggle && this.state.starOn ? 
+        {info.hide_or_show === 'true'  && info.like === 'true'  ? 
         <div className="like_list_contents">
-          <ul>
-            <li>한국사</li>
-            <li>{this.state.editBookTitle ? <ChangeBookTitle/> : "한국사요약"}</li>
-            <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
-            <li>구매</li>
-            <li>EBS</li>
-            <li>100장</li>
-            <li>11/300</li>
-            <li>단면 10장<br/>양면 90장</li>
-            <li>2020-10-10</li>
-            <li>2020-10-20</li>
-            <li><CategoryMoveModal/></li>
-            <li>{this.state.starOn ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
+        <ul>
+          <li>{info.category}</li>
+          <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.changeHandleClick}/> : info.book_title}</li>
+          <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
+          <li>{info.division}</li>
+          <li>{info.user_nick}</li>
+          <li>{info.total_pages}</li>
+          <li>{info.recent_input}</li>
+          <li>단면 {info.single_cards}장<br/>양면 {info.dual_cards}장</li>
+          <li>{date}</li>
+          <li>{update_date}</li>
+          <li><CategoryMoveModal/></li>
+          <li>{info.like === 'true'  ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
                                   <StarOutlined onClick={this.starClickHandler} style={{fontSize:'14px'}}/>}
-            </li>
-            <li>
-            <ArrowUpOutlined style={{fontSize:'14px'}}/>
-            <ArrowDownOutlined style={{fontSize:'14px'}}/>
-            </li>
-            <li><EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/></li>
-            <li><DeleteBook /></li>
-          </ul>
-        </div>: ''}
+          </li>
+          <li>
+          <ArrowUpOutlined style={{fontSize:'14px'}}/>
+          <ArrowDownOutlined style={{fontSize:'14px'}}/>
+          </li>
+          <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>:
+                                  <EyeInvisibleOutlined onClick={this.eyeClickHandler} style={{fontSize:'14px'}}/>}</li>
+          <li><DeleteBook /></li>
+        </ul>
+      </div> : ''}
       </>
      );
   }
@@ -95,17 +103,19 @@ class LikeListContent extends Component {
 class LikeSectionContent extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = { 
+      bookTitle:this.props.bookTitle
+     }
   }
   render() { 
+    console.log(this.state.bookTitle)
+    const bookList = this.props.bookTitle.map((book_title)=>(
+      <LikeListContent key={book_title._id} bookInfo={book_title}/>
+    ))
     return ( 
       <div className="like_list_container">
         <LikeListColumns />
-        <LikeListContent />
-        <LikeListContent />
-        <LikeListContent />
-        <LikeListContent />
-        <LikeListContent />
+        {bookList}
       </div>
      );
   }
