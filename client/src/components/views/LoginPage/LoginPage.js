@@ -5,9 +5,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Input, Button, Checkbox, Typography } from 'antd';
 import { useDispatch } from "react-redux";
-import { HomeOutlined } from '@ant-design/icons';
-
-
 
 const { Title } = Typography;
 
@@ -74,12 +71,12 @@ function LoginPage(props) {
           values,
           touched,
           errors,
-          dirty,
+          // dirty,
           isSubmitting,
           handleChange,
           handleBlur,
           handleSubmit,
-          handleReset,
+          // handleReset,
         } = props;
         return (
           <div className="app">

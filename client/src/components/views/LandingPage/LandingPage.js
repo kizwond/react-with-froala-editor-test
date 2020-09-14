@@ -1,5 +1,5 @@
 import React, {useState, PureComponent} from 'react'
-import { Carousel, Alert,Card } from 'antd';
+import { Alert,Card } from 'antd';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 
@@ -18,35 +18,35 @@ function StatusSummary(){
 // };
 
 
-const mainImgStyle = {
-  background: "linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4) ), url('img/books.jpg')", 
-  marginTop:"1px", 
-  borderTop:"1px #373737 solid", 
-  backgroundSize:"cover", 
-  height:"470px",
-  marginBottom:"10px"
-}
+// const mainImgStyle = {
+//   background: "linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4) ), url('img/books.jpg')", 
+//   marginTop:"1px", 
+//   borderTop:"1px #373737 solid", 
+//   backgroundSize:"cover", 
+//   height:"470px",
+//   marginBottom:"10px"
+// }
 
-function WelcomeImages (){
-  return (
-    <div className="welcome_img_container" style={mainImgStyle}>
-      {/* <Carousel autoplay>
-        <div>
-          <img src="img/main_img.png" alt="main_img"/>
-        </div>
-        <div>
-          <img src="img/mountains.jpeg" style={contentStyle} alt="main_img"/>
-        </div>
-        <div>
-          <img src="img/mountaintrees.jpeg" style={contentStyle} alt="main_img"/>
-        </div>
-        <div>
-          <img src="img/seaview.jpg" style={contentStyle} alt="main_img"/>
-        </div>
-      </Carousel> */}
-    </div>
-  )
-}
+// function WelcomeImages (){
+//   return (
+//     <div className="welcome_img_container" style={mainImgStyle}>
+//       <Carousel autoplay>
+//         <div>
+//           <img src="img/main_img.png" alt="main_img"/>
+//         </div>
+//         <div>
+//           <img src="img/mountains.jpeg" style={contentStyle} alt="main_img"/>
+//         </div>
+//         <div>
+//           <img src="img/mountaintrees.jpeg" style={contentStyle} alt="main_img"/>
+//         </div>
+//         <div>
+//           <img src="img/seaview.jpg" style={contentStyle} alt="main_img"/>
+//         </div>
+//       </Carousel>
+//     </div>
+//   )
+// }
 
 
 const data = [

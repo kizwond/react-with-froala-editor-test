@@ -38,7 +38,6 @@ class LikeListContent extends Component {
     super(props);
     this.state = { 
       editBookTitle:false,
-      bookInfo:this.props.bookInfo
      }
   }
   eyeClickHandler = () =>{
@@ -62,7 +61,7 @@ class LikeListContent extends Component {
     }));
   }
   render() { 
-    const info = this.state.bookInfo;
+    const info = this.props.bookInfo;
     const date = info.date.slice(0,10)
     const update_date = info.date.slice(0,10)
     return ( 
@@ -81,8 +80,8 @@ class LikeListContent extends Component {
           <li>{date}</li>
           <li>{update_date}</li>
           <li><CategoryMoveModal/></li>
-          <li>{info.like === 'true'  ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
-                                  <StarOutlined onClick={this.starClickHandler} style={{fontSize:'14px'}}/>}
+          <li>{info.like === 'true'  ? <StarTwoTone onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
+                                  <StarOutlined onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}
           </li>
           <li>
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
@@ -101,16 +100,9 @@ class LikeListContent extends Component {
 
 
 class LikeSectionContent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      bookTitle:this.props.bookTitle
-     }
-  }
   render() { 
-    console.log(this.state.bookTitle)
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <LikeListContent key={book_title._id} bookInfo={book_title}/>
+      <LikeListContent key={book_title._id} bookInfo={book_title} onClickLike={this.props.onClickLike} />
     ))
     return ( 
       <div className="like_list_container">

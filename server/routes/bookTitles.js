@@ -60,14 +60,19 @@ router.get('/get-all-title', async (req, res) => {
 
 router.post('/like', async (req, res) => {
   const book = await BookTitle.findOne({_id: req.body.bookId})
-  console.log(book)
 
   const update = { like: req.body.like };
   console.log(update)
   let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
     new: true
   });
-  console.log(doc)
+  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  console.log('this', bookTitle)
+  try{
+    res.send({bookTitle})
+  }catch(err){
+    res.status(400).send(err)
+  }
 
 })
 

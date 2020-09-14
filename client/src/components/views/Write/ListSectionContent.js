@@ -5,8 +5,6 @@ import CategorySettingModal from './CategorySettingModal'
 import CategoryMoveModal from './CategoryMoveModal'
 import DeleteBook from './DeleteBookModal'
 import ChangeBookTitle from './ChangeBookTitle'
-import axios from 'axios'
-
 
 class ListColumns extends Component {
   constructor(props) {
@@ -41,7 +39,6 @@ class ListContent extends Component {
     super(props);
     this.state = { 
       editBookTitle:false,
-      bookInfo:this.props.bookInfo,
      }
   }
   eyeClickHandler = () =>{
@@ -52,22 +49,6 @@ class ListContent extends Component {
   starClickHandler = () =>{
     this.saveLikeChange()
     this.forceUpdate();
-  }
-  saveLikeChange = () => {
-    console.log(this.state.bookInfo.like)
-    if (this.state.bookInfo.like === 'true') {
-      console.log("here")
-      var like = 'false'
-    } else {
-      console.log("there")
-      like = 'true'
-    }
-    axios.post('api/create/like',{
-      bookId : this.state.bookInfo._id,
-      like: like
-    }).then(res => {
-        console.log(res)
-      })
   }
 
   editBookTitleHandler = () =>{
@@ -81,7 +62,7 @@ class ListContent extends Component {
     }));
   }
   render() { 
-    const info = this.state.bookInfo;
+    const info = this.props.bookInfo;
     const date = info.date.slice(0,10)
     const update_date = info.date.slice(0,10)
     return ( 
@@ -100,8 +81,8 @@ class ListContent extends Component {
           <li>{date}</li>
           <li>{update_date}</li>
           <li><CategoryMoveModal/></li>
-          <li>{info.like === 'true' ? <StarTwoTone onClick={this.starClickHandler} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
-                                  <StarOutlined onClick={this.starClickHandler} style={{fontSize:'14px'}}/>}
+          <li>{info.like === 'true' ? <StarTwoTone onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
+                                      <StarOutlined onClick={()=>this.props.onClickLike({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}
           </li>
           <li>
           <ArrowUpOutlined style={{fontSize:'14px'}}/>
@@ -118,15 +99,9 @@ class ListContent extends Component {
 }
 
 class ListSectionContent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      bookTitle:this.props.bookTitle
-     }
-  }
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <ListContent key={book_title._id} bookInfo={book_title}/>
+      <ListContent key={book_title._id} bookInfo={book_title} onClickLike={this.props.onClickLike} />
     ))
     return ( 
       <div className="like_list_container">

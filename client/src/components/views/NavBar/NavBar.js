@@ -1,7 +1,7 @@
 import React from 'react';
-import LeftMenu from './Sections/LeftMenu';
+// import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
-import { Layout, Menu, Row, Col, Input } from 'antd';
+import { Layout, Menu, Row, Col } from 'antd';
 import './Sections/Navbar.css';
 import { NavLink} from 'react-router-dom';
 import { HomeOutlined, ReadOutlined, FormOutlined,
