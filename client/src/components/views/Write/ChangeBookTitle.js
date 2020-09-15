@@ -5,7 +5,6 @@ const ChangeBookTitle = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = value => {
-    console.log(value);
     props.changeBookTitleHandler({value, bookId:props.bookTitle._id})
     props.onClick()
   };

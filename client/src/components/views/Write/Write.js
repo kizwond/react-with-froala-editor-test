@@ -16,7 +16,8 @@ class WriteMain extends Component {
     this.state = { 
       isToggleOn: true,
       user:'',
-      bookTitle:[]
+      bookTitle:[],
+      message:''
      }
   }
   onClickToggle = () => {
@@ -57,7 +58,6 @@ class WriteMain extends Component {
   }
 
   eyeClickHandler = (value) =>{
-    console.log('hide or show buttn clicked!!!')
     if (value.value === 'true') {
       var eye = 'false'
     } else {
@@ -74,7 +74,6 @@ class WriteMain extends Component {
     })
   }
   bookDeleteHandler = (value) => {
-    console.log('delete book clicked!!!')
     axios.post('api/create/delete-book',{
       bookId : value.bookId,
       userId : userId
@@ -87,19 +86,27 @@ class WriteMain extends Component {
   }
 
   changeBookTitleHandler = (value) => {
-    console.log('change book_title clicked!!!')
-    console.log(value)
     axios.post('api/create/change-book-title',{
       bookId : value.bookId,
       userId : userId,
       newName : value.value.newName
-    }).then(res => {
-      console.log(res.data)
-      this.setState({
-        bookTitle:res.data.bookTitle
-      })
+    })
+    .then(res => {
+      console.log(res)
+      if(res.data.error === "동일한 이름의 책이 이미 존재합니다."){
+        this.setState({
+          message:res.data.error
+        })
+        alert(this.state.message)
+      } else {
+        this.setState({
+          bookTitle:res.data.bookTitle
+        })
+      }
     })
   }
+
+  
 
   render() { 
     return ( 
