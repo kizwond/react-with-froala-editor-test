@@ -85,6 +85,10 @@ router.post('/hide-or-show', async (req, res) => {
 })
 
 router.post('/delete-book', async (req, res) => {
+  // const currentOrder = await BookTitle.findOne({_id: req.body.bookId},'list_order').exec();
+  // let others = await BookTitle.updateMany({_id: req.body.userId}, update, {
+  //   new: true
+  // })
   let doc = await BookTitle.deleteOne({_id: req.body.bookId});
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   try{
@@ -109,6 +113,23 @@ router.post('/change-book-title', async (req, res) => {
       res.status(400).send(err)
     }
   }
+})
+
+router.post('/change-list-order', async (req, res) => {
+  const currentOrder = await BookTitle.findOne({_id: req.body.bookId},'list_order').exec();
+  console.log('현재순서 : ', currentOrder)
+  // if (currentOrder) {return res.send({'error':'동일한 이름의 책이 이미 존재합니다.'})}
+  // else {
+  //   let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
+  //     new: true
+  //   })
+  // const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  //   try{
+  //     res.send({bookTitle})
+  //   }catch(err){
+  //     res.status(400).send(err)
+  //   }
+  // }
 })
 
 module.exports = router;

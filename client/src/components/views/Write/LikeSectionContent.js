@@ -109,8 +109,8 @@ class LikeListContent extends Component {
                                   <StarOutlined onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}
           </li>
           <li>
-          <ArrowUpOutlined style={{fontSize:'14px'}}/>
-          <ArrowDownOutlined style={{fontSize:'14px'}}/>
+          <ArrowUpOutlined onClick={()=>this.props.listOrderHandler({action: 'up', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
+          <ArrowDownOutlined onClick={()=>this.props.listOrderHandler({action: 'down', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
           </li>
           <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={()=>this.props.onClickHideOrShow({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>:
                                   <EyeInvisibleOutlined onClick={()=>this.props.onClickHideOrShow({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}</li>
@@ -128,7 +128,7 @@ class LikeListContent extends Component {
 class LikeSectionContent extends Component {
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <LikeListContent key={book_title._id} bookInfo={book_title} changeBookTitleHandler={this.props.changeBookTitleHandler} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
+      <LikeListContent key={book_title._id} bookInfo={book_title} listOrderHandler={this.props.listOrderHandler} changeBookTitleHandler={this.props.changeBookTitleHandler} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
     return ( 
       <div className="like_list_container">
