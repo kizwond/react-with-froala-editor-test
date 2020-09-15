@@ -84,4 +84,14 @@ router.post('/hide-or-show', async (req, res) => {
   }
 })
 
+router.post('/delete-book', async (req, res) => {
+  let doc = await BookTitle.deleteOne({_id: req.body.bookId});
+  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  try{
+    res.send({bookTitle})
+  }catch(err){
+    res.status(400).send(err)
+  }
+})
+
 module.exports = router;

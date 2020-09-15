@@ -73,7 +73,18 @@ class WriteMain extends Component {
       })
     })
   }
-
+  bookDeleteHandler = (value) => {
+    console.log('delete book clicked!!!')
+    axios.post('api/create/delete-book',{
+      bookId : value.bookId,
+      userId : userId
+    }).then(res => {
+      console.log(res.data)
+      this.setState({
+        bookTitle:res.data.bookTitle
+      })
+    })
+  }
 
   render() { 
     return ( 
@@ -93,7 +104,7 @@ class WriteMain extends Component {
         </div>
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
-          <ListSectionContent onClickLike={this.saveLikeChange} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
+          <ListSectionContent onClickLike={this.saveLikeChange} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
         </div>
       </div>
      );
