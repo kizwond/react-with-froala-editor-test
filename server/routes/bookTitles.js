@@ -85,10 +85,18 @@ router.post('/hide-or-show', async (req, res) => {
 })
 
 router.post('/delete-book', async (req, res) => {
-  // const currentOrder = await BookTitle.findOne({_id: req.body.bookId},'list_order').exec();
-  // let others = await BookTitle.updateMany({_id: req.body.userId}, update, {
-  //   new: true
-  // })
+  const currentOrder = await BookTitle.findOne({_id: req.body.bookId},'list_order').exec();
+  console.log(currentOrder.list_order)
+  const others = await BookTitle.find({user_id: req.body.userId, list_order : {$gt : currentOrder.list_order}}).exec()
+  .then((result) => {
+    {result.map((value, index) => {
+      console.log('result.list_order : ', index ,value.list_order)
+      return BookTitle.updateMany({ list_order: value.list_order }, { list_order: value.list_order - 1 }).exec();
+    })}
+  })
+  .catch((err) => {
+    console.error(err);
+  });
   let doc = await BookTitle.deleteOne({_id: req.body.bookId});
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   try{
