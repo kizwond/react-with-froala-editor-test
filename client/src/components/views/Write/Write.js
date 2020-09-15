@@ -86,12 +86,27 @@ class WriteMain extends Component {
     })
   }
 
+  changeBookTitleHandler = (value) => {
+    console.log('change book_title clicked!!!')
+    console.log(value)
+    axios.post('api/create/change-book-title',{
+      bookId : value.bookId,
+      userId : userId,
+      newName : value.value.newName
+    }).then(res => {
+      console.log(res.data)
+      this.setState({
+        bookTitle:res.data.bookTitle
+      })
+    })
+  }
+
   render() { 
     return ( 
       <div className="write_container">
         <div style={{fontSize:"13px", fontWeight:"700"}}>즐겨찾기</div>
         <br/>
-        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/> : ''}
+        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/> : ''}
         
         <div style={{textAlign:"center", marginTop:"-20px"}}>
         {this.state.isToggleOn ? <UpCircleTwoTone twoToneColor="#bfbfbf" onClick={this.onClickToggle} style={{fontSize:'25px'}}/> 
@@ -103,7 +118,7 @@ class WriteMain extends Component {
         </div>
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
-          <ListSectionContent onClickLike={this.saveLikeChange} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
+          <ListSectionContent onClickLike={this.saveLikeChange} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
         </div>
       </div>
      );

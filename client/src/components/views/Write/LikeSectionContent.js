@@ -95,7 +95,7 @@ class LikeListContent extends Component {
         <div className={classes}>
         <ul>
           <li>{info.category}</li>
-          <li>{this.state.editBookTitle ? <ChangeBookTitle onClick={this.titleChangeHandleClick}/> : info.book_title}</li>
+          <li>{this.state.editBookTitle ? <ChangeBookTitle bookTitle={info} changeBookTitleHandler={this.props.changeBookTitleHandler} onClick={this.titleChangeHandleClick}/> : info.book_title}</li>
           <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
           <li>{info.division}</li>
           <li>{info.user_nick}</li>
@@ -128,7 +128,7 @@ class LikeListContent extends Component {
 class LikeSectionContent extends Component {
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <LikeListContent key={book_title._id} bookInfo={book_title} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
+      <LikeListContent key={book_title._id} bookInfo={book_title} changeBookTitleHandler={this.props.changeBookTitleHandler} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
     return ( 
       <div className="like_list_container">

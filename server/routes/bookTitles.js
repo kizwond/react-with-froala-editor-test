@@ -94,4 +94,17 @@ router.post('/delete-book', async (req, res) => {
   }
 })
 
+router.post('/change-book-title', async (req, res) => {
+  const update = { book_title: req.body.newName };
+  let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
+    new: true
+  });
+  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  try{
+    res.send({bookTitle})
+  }catch(err){
+    res.status(400).send(err)
+  }
+})
+
 module.exports = router;
