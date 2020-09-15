@@ -114,9 +114,10 @@ class LikeListContent extends Component {
           </li>
           <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={()=>this.props.onClickHideOrShow({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>:
                                   <EyeInvisibleOutlined onClick={()=>this.props.onClickHideOrShow({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}</li>
-          <li><DeleteBook /></li>
+          <li><DeleteBook bookTitle={info} bookDeleteHandler={this.props.bookDeleteHandler} /></li>
         </ul>
-      </div> : ''} 
+      </div> 
+      : ''} 
       </>
      );
   }
@@ -127,7 +128,7 @@ class LikeListContent extends Component {
 class LikeSectionContent extends Component {
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <LikeListContent key={book_title._id} bookInfo={book_title} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
+      <LikeListContent key={book_title._id} bookInfo={book_title} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
     return ( 
       <div className="like_list_container">
