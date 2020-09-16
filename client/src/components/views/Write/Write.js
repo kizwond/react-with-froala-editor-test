@@ -17,6 +17,7 @@ class WriteMain extends Component {
       isToggleOn: true,
       user:'',
       bookTitle:[],
+      likeTitle:[],
       message:''
      }
   }
@@ -29,7 +30,8 @@ class WriteMain extends Component {
     axios.get('api/create/get-all-title',{params: { userId: userId }})
     .then(res => {
       this.setState({
-        bookTitle:res.data.bookTitle
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle
       })
     })
   }
@@ -52,7 +54,8 @@ class WriteMain extends Component {
       userId: userId
     }).then(res => {
       this.setState({
-        bookTitle:res.data.bookTitle
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle
       })
     })
   }
@@ -69,7 +72,8 @@ class WriteMain extends Component {
       userId: userId
     }).then(res => {
       this.setState({
-        bookTitle:res.data.bookTitle
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle
       })
     })
   }
@@ -79,7 +83,8 @@ class WriteMain extends Component {
       userId : userId
     }).then(res => {
       this.setState({
-        bookTitle:res.data.bookTitle
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle
       })
     })
   }
@@ -98,7 +103,8 @@ class WriteMain extends Component {
         alert(this.state.message)
       } else {
         this.setState({
-          bookTitle:res.data.bookTitle
+          bookTitle:res.data.bookTitle,
+          likeTitle:res.data.likeTitle
         })
       }
     })
@@ -113,7 +119,8 @@ class WriteMain extends Component {
     }).then(res => {
       console.log(res.data)
       this.setState({
-        bookTitle:res.data.bookTitle
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle
       })
     })
   }
@@ -125,7 +132,7 @@ class WriteMain extends Component {
       <div className="write_container">
         <div style={{fontSize:"13px", fontWeight:"700"}}>즐겨찾기</div>
         <br/>
-        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/> : ''}
+        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.likeTitle}/> : ''}
         
         <div style={{textAlign:"center", marginTop:"-20px"}}>
         {this.state.isToggleOn ? <UpCircleTwoTone twoToneColor="#bfbfbf" onClick={this.onClickToggle} style={{fontSize:'25px'}}/> 
