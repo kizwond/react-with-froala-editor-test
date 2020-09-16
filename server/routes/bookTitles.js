@@ -109,7 +109,6 @@ router.post('/delete-book', async (req, res) => {
     const likes = await BookTitle.find({user_id: req.body.userId, like:'true', like_order : {$gt : currentOrder.like_order}}).exec()
     .then((result) => {
       {result.map((value, index) => {
-        console.log('result.like_order : ', index ,value.like_order)
         return BookTitle.updateMany({ like_order: value.like_order }, { like_order: value.like_order - 1 }).exec();
       })}
     })
