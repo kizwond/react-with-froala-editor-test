@@ -166,13 +166,6 @@ router.post('/change-book-title', async (req, res) => {
 
 router.post('/change-list-order', async (req, res) => {
   const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec(); //현재 선택된 책
-  console.log('현재 list 순서 : ', currentOrder.list_order)
-  console.log('현재 like 순서 : ', currentOrder.like_order)
-  console.log('현재 책 카테고리 : ', currentOrder.category)
-  console.log('action : ', req.body.action)
-  console.log('from : ', req.body.from)
-  console.log('bookId : ', req.body.bookId)
-  console.log('userId : ', req.body.userId)
   const lastBookOrder = await BookTitle.findOne({user_id: req.body.userId, category: currentOrder.category}).sort({ 'list_order' : -1 }).exec(); //현재 선택된 책 다음 책
   const lastLikeOrder = await BookTitle.findOne({user_id: req.body.userId}).sort({ 'like_order' : -1 }).exec(); //현재 선택된 책 다음 책
   if (req.body.from === 'list'){
@@ -240,7 +233,6 @@ router.post('/change-list-order', async (req, res) => {
     }catch(err){
       res.status(400).send(err)
     }
-  
 })
 
 module.exports = router;
