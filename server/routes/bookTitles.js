@@ -105,7 +105,6 @@ router.post('/hide-or-show', async (req, res) => {
 
 router.post('/delete-book', async (req, res) => {
   const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec();
-  console.log('hello : ', currentOrder.list_order,'hi :', currentOrder.like, 'why : ', currentOrder.like_order)
 
   if (currentOrder.like === 'true'){
     const likes = await BookTitle.find({user_id: req.body.userId, like:'true', like_order : {$gt : currentOrder.like_order}}).exec()
