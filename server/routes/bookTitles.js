@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { BookTitle } = require('../models/BookTitle');
 const { User } = require("../models/User");
 
+
+//책 만들기, 책 만든 후 기존 책 순서에 따라 새책 순서 입력.
 router.post('/naming', async (req, res) => {
   const useremail = await User.findOne({_id: req.body.userId}).exec();
   const bookExist = await BookTitle.findOne({user_email: useremail.email, book_title: req.body.book_title})
@@ -40,6 +42,7 @@ router.post('/naming', async (req, res) => {
     }
 })
 
+//책 생성 후 마지막으로 생성된 책 화면에 표시
 router.get('/get-book-title', async (req, res) => {
   const bookTitle = await BookTitle.findOne({user_id: req.query.userId}).sort({ 'date' : -1 }).exec();
   try{
@@ -49,6 +52,7 @@ router.get('/get-book-title', async (req, res) => {
   }
 })
 
+//전체 책 목록 출력, 즐겨찾기 및 기본목록
 router.get('/get-all-title', async (req, res) => {
   const bookTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'like_order': 1 }).exec();
@@ -59,6 +63,7 @@ router.get('/get-all-title', async (req, res) => {
   }
 })
 
+//즐겨찾기 등록 및 해제 로직, 즐겨찾기 해제시 해당 순서 재조정 로직
 router.post('/like', async (req, res) => {
   const bookLikeOrder = await BookTitle.findOne({user_id: req.body.userId}).sort({ 'like_order' : -1 }).exec();
   const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec(); //현재 선택된 책
@@ -98,6 +103,7 @@ router.post('/like', async (req, res) => {
   }
 })
 
+//책 목록에서 감추기 및 보이기 
 router.post('/hide-or-show', async (req, res) => {
   const update = { hide_or_show: req.body.hide_or_show };
   let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
@@ -112,6 +118,7 @@ router.post('/hide-or-show', async (req, res) => {
   }
 })
 
+//책 삭제 로직, 삭제시 즐겨찾기 및 기본순서 재조정 로직
 router.post('/delete-book', async (req, res) => {
   const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec();
 
@@ -146,6 +153,7 @@ router.post('/delete-book', async (req, res) => {
   }
 })
 
+//책이름 변경 로직, 변경시 동일이름의 책이 있다면 변경불가
 router.post('/change-book-title', async (req, res) => {
   const update = { book_title: req.body.newName };
   const bookExist = await BookTitle.findOne({user_id: req.body.userId, book_title: req.body.newName})
@@ -164,12 +172,13 @@ router.post('/change-book-title', async (req, res) => {
   }
 })
 
+//책 표시 순서 변경 로직, 즐겨찾기 및 기본순서 
 router.post('/change-list-order', async (req, res) => {
   const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec(); //현재 선택된 책
   const lastBookOrder = await BookTitle.findOne({user_id: req.body.userId, category: currentOrder.category}).sort({ 'list_order' : -1 }).exec(); //현재 선택된 책 다음 책
   const lastLikeOrder = await BookTitle.findOne({user_id: req.body.userId}).sort({ 'like_order' : -1 }).exec(); //현재 선택된 책 다음 책
-  if (req.body.from === 'list'){
-    if(req.body.action === 'up') {
+  if (req.body.from === 'list'){ //기본순서 변경, category: current.category로 쿼리, (참고. 순서변경시 앞 또는 뒤에 있는 책의 순서부터 변경 후 해당책 순서 update, 즐겨찾기도 동일)
+    if(req.body.action === 'up') { 
       if (currentOrder.list_order === 1){
         console.log('순서변경 불필요')
       } else {
@@ -196,7 +205,7 @@ router.post('/change-list-order', async (req, res) => {
         })
       }
     }
-  } else if (req.body.from === 'like'){
+  } else if (req.body.from === 'like'){ //즐겨찾기 순서 변경, like:'true'로 쿼리
     if(req.body.action === 'up') {
       if (currentOrder.like_order === 1){
         console.log('순서변경 불필요')
