@@ -51,7 +51,7 @@ router.get('/get-book-title', async (req, res) => {
 
 router.get('/get-all-title', async (req, res) => {
   const bookTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
-  const likeTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'category' : 1,'like_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'like_order': 1 }).exec();
   try{
     res.send({bookTitle,likeTitle})
   }catch(err){
@@ -61,7 +61,7 @@ router.get('/get-all-title', async (req, res) => {
 
 router.post('/like', async (req, res) => {
   const bookLikeOrder = await BookTitle.findOne({user_id: req.body.userId}).sort({ 'like_order' : -1 }).exec();
-
+  const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec(); //현재 선택된 책
   if (!bookLikeOrder) {
     var likeOrder = 1
   } else {
@@ -69,10 +69,19 @@ router.post('/like', async (req, res) => {
   }
 
   if (req.body.like === 'false') {
+    const likes = await BookTitle.find({user_id: req.body.userId, like:'true', like_order : {$gt : currentOrder.like_order}}).exec()
+    .then((result) => {
+      {result.map((value, index) => {
+        return BookTitle.updateMany({ like_order: value.like_order }, { like_order: value.like_order - 1 }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    })
     const update = { like: req.body.like, like_order: 0 };
     let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
       new: true
-    });
+    })
   } else {
     const update = { like: req.body.like, like_order: likeOrder };
     let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
@@ -81,7 +90,7 @@ router.post('/like', async (req, res) => {
   }
  
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
-  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'like_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
   try{
     res.send({bookTitle,likeTitle})
   }catch(err){
@@ -95,7 +104,7 @@ router.post('/hide-or-show', async (req, res) => {
     new: true
   });
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
-  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'like_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
   try{
     res.send({bookTitle,likeTitle})
   }catch(err){
@@ -129,7 +138,7 @@ router.post('/delete-book', async (req, res) => {
   });
   let doc = await BookTitle.deleteOne({_id: req.body.bookId});
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
-  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'like_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
   try{
     res.send({bookTitle,likeTitle})
   }catch(err){
@@ -146,7 +155,7 @@ router.post('/change-book-title', async (req, res) => {
       new: true
     })
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
-  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'like_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
     try{
       res.send({bookTitle,likeTitle})
     }catch(err){
@@ -156,14 +165,81 @@ router.post('/change-book-title', async (req, res) => {
 })
 
 router.post('/change-list-order', async (req, res) => {
-  const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec();
-  
+  const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec(); //현재 선택된 책
   console.log('현재 list 순서 : ', currentOrder.list_order)
   console.log('현재 like 순서 : ', currentOrder.like_order)
+  console.log('현재 책 카테고리 : ', currentOrder.category)
   console.log('action : ', req.body.action)
   console.log('from : ', req.body.from)
   console.log('bookId : ', req.body.bookId)
   console.log('userId : ', req.body.userId)
+  const lastBookOrder = await BookTitle.findOne({user_id: req.body.userId, category: currentOrder.category}).sort({ 'list_order' : -1 }).exec(); //현재 선택된 책 다음 책
+  const lastLikeOrder = await BookTitle.findOne({user_id: req.body.userId}).sort({ 'like_order' : -1 }).exec(); //현재 선택된 책 다음 책
+  if (req.body.from === 'list'){
+    if(req.body.action === 'up') {
+      if (currentOrder.list_order === 1){
+        console.log('순서변경 불필요')
+      } else {
+        const updateBefore = { list_order : currentOrder.list_order };
+        const beforeThis = await BookTitle.findOneAndUpdate({user_id: req.body.userId, category: currentOrder.category, list_order: currentOrder.list_order - 1}, updateBefore, {
+          new: true
+        })
+        const updateThis = { list_order : currentOrder.list_order - 1 };
+        let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateThis, {
+          new: true
+        })
+      }
+    } else if(req.body.action === 'down') {
+      if (currentOrder.list_order === lastBookOrder.list_order){
+        console.log('순서변경 불필요')
+      } else {
+        const updateAfter = { list_order : currentOrder.list_order };
+        const afterThis = await BookTitle.findOneAndUpdate({user_id: req.body.userId, category: currentOrder.category, list_order: currentOrder.list_order + 1}, updateAfter, {
+          new: true
+        }) 
+        const updateThis = { list_order : currentOrder.list_order + 1 };
+        let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateThis, {
+          new: true
+        })
+      }
+    }
+  } else if (req.body.from === 'like'){
+    if(req.body.action === 'up') {
+      if (currentOrder.like_order === 1){
+        console.log('순서변경 불필요')
+      } else {
+        const updateBefore = { like_order : currentOrder.like_order };
+        const beforeThis = await BookTitle.findOneAndUpdate({user_id: req.body.userId, like:'true', like_order: currentOrder.like_order - 1}, updateBefore, {
+          new: true
+        })
+        const updateThis = { like_order : currentOrder.like_order - 1 };
+        let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateThis, {
+          new: true
+        })
+      }
+    } else if(req.body.action === 'down') {
+      if (currentOrder.like_order === lastLikeOrder.like_order){
+        console.log('순서변경 불필요')
+      } else {
+        const updateAfter = { like_order : currentOrder.like_order };
+        const afterThis = await BookTitle.findOneAndUpdate({user_id: req.body.userId, like:'true', like_order: currentOrder.like_order + 1}, updateAfter, {
+          new: true
+        }) 
+        const updateThis = { like_order : currentOrder.like_order + 1 };
+        let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateThis, {
+          new: true
+        })
+      }
+    }
+  }
+
+  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+    try{
+      res.send({bookTitle,likeTitle})
+    }catch(err){
+      res.status(400).send(err)
+    }
   
 })
 
