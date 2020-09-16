@@ -156,8 +156,14 @@ router.post('/change-book-title', async (req, res) => {
 })
 
 router.post('/change-list-order', async (req, res) => {
-  const currentOrder = await BookTitle.findOne({_id: req.body.bookId},'list_order').exec();
-  console.log('현재순서 : ', currentOrder)
+  const currentOrder = await BookTitle.findOne({_id: req.body.bookId}).exec();
+  
+  console.log('현재 list 순서 : ', currentOrder.list_order)
+  console.log('현재 like 순서 : ', currentOrder.like_order)
+  console.log('action : ', req.body.action)
+  console.log('from : ', req.body.from)
+  console.log('bookId : ', req.body.bookId)
+  console.log('userId : ', req.body.userId)
   
 })
 

@@ -115,7 +115,8 @@ class WriteMain extends Component {
     axios.post('api/create/change-list-order',{
       bookId : value.bookId,
       userId : userId,
-      action : value.action
+      action : value.action,
+      from : value.from
     }).then(res => {
       console.log(res.data)
       this.setState({
