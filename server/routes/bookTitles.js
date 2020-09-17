@@ -105,11 +105,63 @@ router.post('/like', async (req, res) => {
 
 //책 목록에서 감추기 및 보이기 
 router.post('/hide-or-show', async (req, res) => {
-  const update = { hide_or_show: req.body.hide_or_show };
-  let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
-    new: true
-  });
-  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  const selectedBook = await BookTitle.findOne({_id: req.body.bookId}).exec();
+  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'list_order' : -1 }).exec();
+  console.log(bookListOrder)
+  const bookLikeOrder = await BookTitle.findOne({user_id: req.body.userId, like:'true'}).sort({ 'like_order' : -1 }).exec();
+  console.log(bookLikeOrder)
+  if (!bookListOrder) {
+    var listOrder = 0
+  } else {
+    var listOrder = bookListOrder.list_order
+  }
+  if (!bookLikeOrder) {
+    var likeOrder = 0
+  } else {
+    var likeOrder = bookLikeOrder.like_order
+  }
+  console.log(bookListOrder)
+  console.log(bookLikeOrder)
+  if(req.body.hide_or_show === 'false') { 
+    const listOthers = await BookTitle.find({user_id: req.body.userId, category:selectedBook.category, list_order : {$gt : selectedBook.list_order}}).exec()
+    .then((result) => {
+      {result.map((value, index) => {
+        return BookTitle.updateMany({ category:selectedBook.category, list_order: value.list_order }, { list_order: value.list_order - 1 }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+    const likeOthers = await BookTitle.find({user_id: req.body.userId, like:true, like_order : {$gt : selectedBook.like_order}}).exec()
+    .then((result) => {
+      {result.map((value, index) => {
+        return BookTitle.updateMany({ like:true, like_order: value.like_order }, { like_order: value.like_order - 1 }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+    const update = { hide_or_show: req.body.hide_or_show, list_order: 0, like_order: 0 };
+    let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
+      new: true
+    });
+  } else if(req.body.hide_or_show === 'true'){
+    const updateListOrder = { hide_or_show: req.body.hide_or_show, list_order: listOrder + 1};
+      let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateListOrder, {
+        new: true
+    });
+    if (selectedBook.like === 'true'){
+        const updateLikeOrder = { hide_or_show: req.body.hide_or_show, like_order: likeOrder + 1};
+        let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateLikeOrder, {
+          new: true
+      });
+    }
+  }
+
+  
+  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
   try{
     res.send({bookTitle,likeTitle})
