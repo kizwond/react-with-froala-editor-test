@@ -67,11 +67,6 @@ class ListContent extends Component {
      }
   }
 
-  starClickHandler = () =>{
-    this.saveLikeChange()
-    this.forceUpdate();
-  }
-
   editBookTitleHandler = () =>{
     this.setState(state => ({
       editBookTitle: !state.editBookTitle

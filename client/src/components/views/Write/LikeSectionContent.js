@@ -43,16 +43,7 @@ class LikeListContent extends Component {
       editBookTitle:false,
      }
   }
-  eyeClickHandler = () =>{
-    this.setState(state => ({
-      showToggle: !state.showToggle
-    }));
-  }
-  starClickHandler = () =>{
-    this.setState(state => ({
-      starOn: !state.starOn
-    }));
-  }
+
   editBookTitleHandler = () =>{
     this.setState(state => ({
       editBookTitle: !state.editBookTitle
