@@ -103,10 +103,10 @@ router.post('/like', async (req, res) => {
   }
 })
 
-//책 목록에서 감추기 및 보이기 
+//책 목록에서 감추기 및 보이기, 감춘책은 해당 리스트의 0번순으로 변경되고 나타나지 않음, 다른 책 순서는 관련해서 변경, 다시 보이기로 설정시 해당 리스트의 마지막으로 추가. 
 router.post('/hide-or-show', async (req, res) => {
   const selectedBook = await BookTitle.findOne({_id: req.body.bookId}).exec();
-  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'list_order' : -1 }).exec();
+  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:selectedBook.category}).sort({ 'list_order' : -1 }).exec();
   console.log(bookListOrder)
   const bookLikeOrder = await BookTitle.findOne({user_id: req.body.userId, like:'true'}).sort({ 'like_order' : -1 }).exec();
   console.log(bookLikeOrder)
@@ -120,8 +120,8 @@ router.post('/hide-or-show', async (req, res) => {
   } else {
     var likeOrder = bookLikeOrder.like_order
   }
-  console.log(bookListOrder)
-  console.log(bookLikeOrder)
+  console.log(listOrder)
+  console.log(likeOrder)
   if(req.body.hide_or_show === 'false') { 
     const listOthers = await BookTitle.find({user_id: req.body.userId, category:selectedBook.category, list_order : {$gt : selectedBook.list_order}}).exec()
     .then((result) => {
@@ -148,13 +148,14 @@ router.post('/hide-or-show', async (req, res) => {
       new: true
     });
   } else if(req.body.hide_or_show === 'true'){
-    const updateListOrder = { hide_or_show: req.body.hide_or_show, list_order: listOrder + 1};
-      let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateListOrder, {
-        new: true
-    });
     if (selectedBook.like === 'true'){
-        const updateLikeOrder = { hide_or_show: req.body.hide_or_show, like_order: likeOrder + 1};
+        const updateLikeOrder = { hide_or_show: req.body.hide_or_show, list_order: listOrder + 1, like_order: likeOrder + 1};
         let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateLikeOrder, {
+          new: true
+      })
+    } else {
+        const updateListOrder = { hide_or_show: req.body.hide_or_show, list_order: listOrder + 1};
+        let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateListOrder, {
           new: true
       });
     }
