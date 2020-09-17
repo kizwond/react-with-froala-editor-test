@@ -9,31 +9,9 @@ class LikeListColumns extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      hideOrShowClass : false
      }
   }
-  hideOrShowToggle = () => {
-    var elements = document.querySelectorAll('.hide_or_show_false')
-    var i
-    if (this.state.hideOrShowClass === false){
-      this.setState((prevState)=>({
-          hideOrShowClass : !prevState.hideOrShowClass
-        })
-      )
-      
-      for (i = 0; i < elements.length; i++) { 
-        elements[i].style.display='block';
-      }
-    } else {
-      this.setState((prevState)=>({
-          hideOrShowClass : !prevState.hideOrShowClass
-        })
-      )
-      for (i = 0; i < elements.length; i++) { 
-        elements[i].style.display='none';
-      }
-    }
-  }
+  
   render() { 
     return ( 
       <ul className="like_list_columns">
@@ -50,7 +28,8 @@ class LikeListColumns extends Component {
         <li>카테고리<br/>이동</li>
         <li>즐겨찾기</li>
         <li>순서이동</li>
-        <li>목록에서<br/><span onClick={this.hideOrShowToggle} className="hide_or_show_title_btn">감추기</span></li>
+        <li>목록에서<br/>감추기 {this.props.hideOrShowClass === false  ? <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">OFF</span> : 
+                                                    <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">ON</span>}</li>
         <li>삭제</li>
       </ul> 
     );
@@ -132,7 +111,7 @@ class LikeSectionContent extends Component {
     ))
     return ( 
       <div className="like_list_container">
-        <LikeListColumns />
+        <LikeListColumns hideOrShowClass={this.props.hideOrShowClass} hideOrShowToggle={this.props.hideOrShowToggle}/>
         {bookList}
       </div>
      );

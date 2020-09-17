@@ -18,7 +18,8 @@ class WriteMain extends Component {
       user:'',
       bookTitle:[],
       likeTitle:[],
-      message:''
+      message:'',
+      hideOrShowClass : false
      }
   }
   onClickToggle = () => {
@@ -126,14 +127,35 @@ class WriteMain extends Component {
     })
   }
 
-  
+  hideOrShowToggle = () => {
+    var elements = document.querySelectorAll('.hide_or_show_false')
+    var i
+    if (this.state.hideOrShowClass === false){
+      this.setState((prevState)=>({
+          hideOrShowClass : !prevState.hideOrShowClass
+        })
+      )
+      
+      for (i = 0; i < elements.length; i++) { 
+        elements[i].style.display='block';
+      }
+    } else {
+      this.setState((prevState)=>({
+          hideOrShowClass : !prevState.hideOrShowClass
+        })
+      )
+      for (i = 0; i < elements.length; i++) { 
+        elements[i].style.display='none';
+      }
+    }
+  }
 
   render() { 
     return ( 
       <div className="write_container">
         <div style={{fontSize:"13px", fontWeight:"700"}}>즐겨찾기</div>
         <br/>
-        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.likeTitle}/> : ''}
+        {this.state.isToggleOn ? <LikeSectionContent onClickLike={this.saveLikeChange} hideOrShowClass={this.state.hideOrShowClass} hideOrShowToggle={this.hideOrShowToggle} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.likeTitle}/> : ''}
         
         <div style={{textAlign:"center", marginTop:"-20px"}}>
         {this.state.isToggleOn ? <UpCircleTwoTone twoToneColor="#bfbfbf" onClick={this.onClickToggle} style={{fontSize:'25px'}}/> 
@@ -145,7 +167,7 @@ class WriteMain extends Component {
         </div>
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
-          <ListSectionContent onClickLike={this.saveLikeChange} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
+          <ListSectionContent onClickLike={this.saveLikeChange} hideOrShowClass={this.state.hideOrShowClass} hideOrShowToggle={this.hideOrShowToggle} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
         </div>
       </div>
      );

@@ -46,6 +46,11 @@
   .like_list_contents ul li:nth-child(10){
     width:80px;
   }
+
+  .like_list_columns li:nth-child(14),
+  .like_list_contents ul li:nth-child(14){
+    width:60px;
+  }
   
   .down_arrow {
     -webkit-transform: scaleY(-1);
@@ -94,5 +99,5 @@
     cursor:pointer;
     border:1px solid grey;
     border-radius:3px;
-    background-color:white;
+    background-color:white; 
   }
