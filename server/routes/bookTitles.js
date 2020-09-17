@@ -319,7 +319,7 @@ router.post('/book-category-move', async (req, res) => {
     .catch((err) => {
       console.error(err);
     })
-    const update = { category: req.body.category, list_order: bookListOrder.list_order + 1 };
+    const update = { category: req.body.category, list_order: listOrder + 1 };
     let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update);
    
     const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
