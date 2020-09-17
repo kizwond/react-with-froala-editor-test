@@ -77,7 +77,7 @@ router.post('/like', async (req, res) => {
     const likes = await BookTitle.find({user_id: req.body.userId, like:'true', like_order : {$gt : currentOrder.like_order}}).exec()
     .then((result) => {
       {result.map((value, index) => {
-        return BookTitle.updateMany({ like_order: value.like_order }, { like_order: value.like_order - 1 }).exec();
+        return BookTitle.updateMany({ like:'true', like_order: value.like_order }, { like_order: value.like_order - 1 }).exec();
       })}
     })
     .catch((err) => {
@@ -107,9 +107,8 @@ router.post('/like', async (req, res) => {
 router.post('/hide-or-show', async (req, res) => {
   const selectedBook = await BookTitle.findOne({_id: req.body.bookId}).exec();
   const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:selectedBook.category}).sort({ 'list_order' : -1 }).exec();
-  console.log(bookListOrder)
   const bookLikeOrder = await BookTitle.findOne({user_id: req.body.userId, like:'true'}).sort({ 'like_order' : -1 }).exec();
-  console.log(bookLikeOrder)
+
   if (!bookListOrder) {
     var listOrder = 0
   } else {
@@ -120,8 +119,7 @@ router.post('/hide-or-show', async (req, res) => {
   } else {
     var likeOrder = bookLikeOrder.like_order
   }
-  console.log(listOrder)
-  console.log(likeOrder)
+
   if(req.body.hide_or_show === 'false') { 
     const listOthers = await BookTitle.find({user_id: req.body.userId, category:selectedBook.category, list_order : {$gt : selectedBook.list_order}}).exec()
     .then((result) => {
@@ -179,7 +177,7 @@ router.post('/delete-book', async (req, res) => {
     const likes = await BookTitle.find({user_id: req.body.userId, like:'true', like_order : {$gt : currentOrder.like_order}}).exec()
     .then((result) => {
       {result.map((value, index) => {
-        return BookTitle.updateMany({ like_order: value.like_order }, { like_order: value.like_order - 1 }).exec();
+        return BookTitle.updateMany({like:'true', like_order: value.like_order }, { like_order: value.like_order - 1 }).exec();
       })}
     })
     .catch((err) => {
@@ -296,5 +294,38 @@ router.post('/change-list-order', async (req, res) => {
       res.status(400).send(err)
     }
 })
+
+//책 카테고리 변경 및 관련하여 책 순서 변경
+router.post('/book-category-move', async (req, res) => {
+  const selectedBook = await BookTitle.findOne({_id: req.body.bookId}).exec();
+  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'list_order' : -1 }).exec();
+  
+  if(req.body.prevCategory === req.body.category) {
+    return res.send({'error':'같은 카테고리를 선택하셨습니다.'})
+  } else {
+    const lists = await BookTitle.find({user_id: req.body.userId, category:req.body.prevCategory, list_order : {$gt : selectedBook.list_order}}).exec()
+    .then((result) => {
+      console.log(result)
+      {result.map((value, index) => {
+        console.log('hello:', value)
+        return BookTitle.updateMany({category:req.body.prevCategory, list_order: value.list_order }, { list_order: value.list_order - 1 }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    const update = { category: req.body.category, list_order: bookListOrder.list_order + 1 };
+    let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update);
+   
+    const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+    const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+    try{
+      res.send({bookTitle,likeTitle})
+    }catch(err){
+      res.status(400).send(err)
+    }
+  }
+})
+
 
 module.exports = router;

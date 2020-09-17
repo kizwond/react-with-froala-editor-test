@@ -97,7 +97,7 @@ class ListContent extends Component {
           <li>단면 {info.single_cards}장<br/>양면 {info.dual_cards}장</li>
           <li>{date}</li>
           <li>{update_date}</li>
-          <li><CategoryMoveModal/></li>
+          <li><CategoryMoveModal bookTitle={info} bookCategoryMove={this.props.bookCategoryMove}/></li>
           <li>{info.like === 'true' ? <StarTwoTone onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
                                       <StarOutlined onClick={()=>this.props.onClickLike({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}
           </li>
@@ -119,7 +119,7 @@ class ListContent extends Component {
 class ListSectionContent extends Component {
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <ListContent key={book_title._id} bookInfo={book_title} listOrderHandler={this.props.listOrderHandler} changeBookTitleHandler={this.props.changeBookTitleHandler} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
+      <ListContent key={book_title._id} bookCategoryMove={this.props.bookCategoryMove} bookInfo={book_title} listOrderHandler={this.props.listOrderHandler} changeBookTitleHandler={this.props.changeBookTitleHandler} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
     return ( 
       <div className="like_list_container">
