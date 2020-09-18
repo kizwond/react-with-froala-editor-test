@@ -12,7 +12,7 @@ router.post('/add-category', async (req, res) => {
   const categoryExist = await Category.findOne({user_id: req.body.userId, category_name: req.body.newCategory})
   const categoryListOrder = await Category.findOne({_id: req.body.prevCategoryId}).exec();
 
-  if (categoryExist) {return res.status(400).json({'error':'동일한 이름의 카테고리명이 이미 존재합니다.'})}
+  if (categoryExist) {return res.send({'error':'동일한 이름의 카테고리명이 이미 존재합니다.'})}
   else {
     const newCategory = new Category({
       category_name: req.body.newCategory,
@@ -24,11 +24,11 @@ router.post('/add-category', async (req, res) => {
     })
       
         const saveCategory = await newCategory.save()
-        const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
-        const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+        // const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
+        // const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
         const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
         try{
-          res.send({bookTitle,likeTitle,category})
+          res.send({category})
         }catch(err){
           res.status(400).send(err)
         }
