@@ -1,14 +1,47 @@
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Popover,Form, Input, Button, Space  } from 'antd';
 import './CategorySettingModal.css'
 import { SettingOutlined, PlusOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 
 
+      
+
 const CategoryList = (props) =>{
+  const [form] = Form.useForm();
+
+  const onFinish = value => {
+    props.addCategory({value, prevCategoryId:props.category._id})
+    // props.onClick()
+  };
+  const text = <span>새로운 카테고리 이름을 입력해 주세요.</span>;
+  const content = (
+    <Form
+        layout={'inline'}
+        form={form}
+        size="small"
+        onFinish={onFinish}
+        className="change_book_title_input_form"
+      >
+        <Space>
+        <Form.Item name={['newCategory']} rules={[{ required: true }]} >
+          <Input placeholder='' />
+        </Form.Item>
+        <Form.Item className="change_book_title_buttons">
+          <Button type="primary" htmlType="submit">완료</Button>
+          <Button type="primary" onClick={props.onClick}>취소</Button>
+        </Form.Item>
+        </Space>
+      </Form>
+  );
+
   return(
         <div className="category_setting_content">
           <ul>
-            <li><PlusOutlined style={{fontSize:'14px'}} /></li>
+            <li>
+              <Popover placement="rightTop" editCategory title={text} content={content} trigger="click">
+                <PlusOutlined style={{fontSize:'14px'}} />
+              </Popover>
+            </li>
             <li>{props.category.category_name}/순서:{props.category.category_order}</li>
             <li><EditOutlined style={{fontSize:'14px'}}/></li>
             <li>
@@ -25,11 +58,11 @@ const CategoryList = (props) =>{
 
 
 const CategoryModal = (props) => {
-  console.log(props)
   const [visible, setVisible] = useState(false);
   const categoryList = props.category.map((category)=>(
-    <CategoryList key={category._id} category={category}/>
+    <CategoryList addCategory={props.addCategory} key={category._id} category={category}/>
   ))
+  
   return (
     <>
       <SettingOutlined  onClick={() => setVisible(true)} style={{fontSize:'14px'}}/>

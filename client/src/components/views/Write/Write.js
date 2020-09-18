@@ -115,7 +115,6 @@ class WriteMain extends Component {
   }
 
   listOrder = (value) => {
-    console.log(value)
     axios.post('api/create/change-list-order',{
       bookId : value.bookId,
       userId : userId,
@@ -153,7 +152,6 @@ class WriteMain extends Component {
     }
   }
   bookCategoryMove = (value) => {
-    console.log(value)
     axios.post('api/create/book-category-move',{
       bookId : value.bookId,
       userId : userId,
@@ -175,8 +173,30 @@ class WriteMain extends Component {
     })
   }
 
+  addCategory = (value) => {
+    console.log(userId)
+    console.log(value.prevCategoryId)
+    console.log(value.value.newCategory)
+    axios.post('api/create/add-category',{
+      userId : userId,
+      prevCategoryId : value.prevCategoryId,
+      newCategory : value.value.newCategory,
+    }).then(res => {
+      console.log(res.data)
+      if(res.data.error === "같은 카테고리를 선택하셨습니다."){
+        this.setState({
+          message:res.data.error
+        })
+        alert(this.state.message)
+      } else {
+        this.setState({
+          category:res.data.category
+        })
+      }
+    })
+  }
+
   render() { 
-    console.log(this.state.category)
     return ( 
       <div className="write_container">
         <div style={{fontSize:"13px", fontWeight:"700"}}>즐겨찾기</div>
@@ -193,7 +213,7 @@ class WriteMain extends Component {
         </div>
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
-          <ListSectionContent category={this.state.category} bookCategoryMove={this.bookCategoryMove} onClickLike={this.saveLikeChange} hideOrShowClass={this.state.hideOrShowClass} hideOrShowToggle={this.hideOrShowToggle} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
+          <ListSectionContent addCategory={this.addCategory} category={this.state.category} bookCategoryMove={this.bookCategoryMove} onClickLike={this.saveLikeChange} hideOrShowClass={this.state.hideOrShowClass} hideOrShowToggle={this.hideOrShowToggle} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
         </div>
       </div>
      );

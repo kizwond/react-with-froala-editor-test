@@ -57,12 +57,8 @@ router.get('/get-book-title', async (req, res) => {
 router.get('/get-all-title', async (req, res) => {
   const bookTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'like_order': 1 }).exec();
-  const categoryList = await Category.find({user_id: req.query.userId}).sort({ 'category_order': 1 }).exec();
-  if(!categoryList){
-    var category = []
-  } else {
-    var category = categoryList
-  }
+  const category = await Category.find({user_id: req.query.userId}).sort({ 'category_order': 1 }).exec();
+
   try{
     res.send({bookTitle,likeTitle,category})
   }catch(err){

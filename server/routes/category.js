@@ -9,32 +9,31 @@ router.post('/add-category', async (req, res) => {
   console.log('add-category clicked')
   console.log(req.body)
   const useremail = await User.findOne({_id: req.body.userId}).exec();
-  const categoryExist = await Category.findOne({user_id: req.body.userId, category_name: req.body.category_name})
-  const categoryListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'category_order' : -1 }).exec();
-
-  if (!categoryExist) {
-    var categoryOrder = 0
-  } else {
-    var categoryOrder = categoryListOrder.category_order
-  }
+  const categoryExist = await Category.findOne({user_id: req.body.userId, category_name: req.body.newCategory})
+  const categoryListOrder = await Category.findOne({_id: req.body.prevCategoryId}).exec();
 
   if (categoryExist) {return res.status(400).json({'error':'동일한 이름의 카테고리명이 이미 존재합니다.'})}
   else {
-    const category = new Category({
-      category_name: req.body.category_name,
-      category_order: categoryOrder,
+    const newCategory = new Category({
+      category_name: req.body.newCategory,
+      category_order: categoryListOrder.category_order + 1,
       contents_quantity: 0,
       user_email: useremail.email,
       user_id: req.body.userId,
       user_nick: useremail.name,
     })
-      try{
-        const saveCategory = await category.save()
-        res.send({category_name:category.category_name, user_nick:category.user_nick})
-      }catch(err){
-        res.status(400).send(err)
-      }
+      
+        const saveCategory = await newCategory.save()
+        const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
+        const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+        const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
+        try{
+          res.send({bookTitle,likeTitle,category})
+        }catch(err){
+          res.status(400).send(err)
+        }
     }
+  
 })
 
 //카테고리 이름변경

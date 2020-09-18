@@ -37,8 +37,9 @@ app.use('/api/users', require('./routes/users'));
 
 
 //책이름 저장하기 라우터
-const saveBookTitleRoute = require('./routes/bookTitles')
-app.use('/api/create', saveBookTitleRoute)
+const bookTitleRoute = require('./routes/bookTitles')
+const categoryRoute = require('./routes/category')
+app.use('/api/create', bookTitleRoute, categoryRoute)
 
 
 //use this to show the image you have in node js server to client (react js)
