@@ -19,6 +19,24 @@ const categorySchema = new mongoose.Schema({
     max:255,
     default:0
   },
+  user_email:{
+    type:String,
+    required:true,
+    min:1,
+    max:255,
+  },
+  user_id:{
+    type:String,
+    required:true,
+    min:1,
+    max:255,
+  },
+  user_nick:{
+    type:String,
+    required:true,
+    min:1,
+    max:255
+  },
   date:{
     type:Date,
     default:Date.now

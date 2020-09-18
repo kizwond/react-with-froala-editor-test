@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { BookTitle } = require('../models/BookTitle');
 const { User } = require("../models/User");
+const { Category } = require("../models/Category");
 
 
 //책 만들기, 책 만든 후 기존 책 순서에 따라 새책 순서 입력.
@@ -56,8 +57,14 @@ router.get('/get-book-title', async (req, res) => {
 router.get('/get-all-title', async (req, res) => {
   const bookTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'like_order': 1 }).exec();
+  const categoryList = await Category.find({user_id: req.query.userId}).sort({ 'category_order': 1 }).exec();
+  if(!categoryList){
+    var category = []
+  } else {
+    var category = categoryList
+  }
   try{
-    res.send({bookTitle,likeTitle})
+    res.send({bookTitle,likeTitle,category})
   }catch(err){
     res.status(400).send(err)
   }

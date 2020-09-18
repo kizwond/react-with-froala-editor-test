@@ -4,19 +4,19 @@ import './CategorySettingModal.css'
 import { SettingOutlined, PlusOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 
 
-const CategoryList = () =>{
+const CategoryList = (props) =>{
   return(
         <div className="category_setting_content">
           <ul>
             <li><PlusOutlined style={{fontSize:'14px'}} /></li>
-            <li>한국사</li>
+            <li>{props.category.category_name}/순서:{props.category.category_order}</li>
             <li><EditOutlined style={{fontSize:'14px'}}/></li>
             <li>
               <ArrowUpOutlined style={{fontSize:'14px'}}/>
               <ArrowDownOutlined style={{fontSize:'14px'}}/>
             </li>
-            <li><DeleteOutlined style={{fontSize:'14px'}}/></li>
-            <li>8권</li>
+            <li>{props.category.category_name === '미지정' ? '' :<DeleteOutlined style={{fontSize:'14px'}}/>}</li>
+            <li>{props.category.contents_quantity}</li>
             <li>한국사1, 한국사2, 한국사3, 한국사4, 한국사5, 한국사6, 한국사7, 한국사8</li>
           </ul>
         </div>
@@ -24,8 +24,12 @@ const CategoryList = () =>{
 }
 
 
-const CategoryModal = () => {
+const CategoryModal = (props) => {
+  console.log(props)
   const [visible, setVisible] = useState(false);
+  const categoryList = props.category.map((category)=>(
+    <CategoryList key={category._id} category={category}/>
+  ))
   return (
     <>
       <SettingOutlined  onClick={() => setVisible(true)} style={{fontSize:'14px'}}/>
@@ -48,15 +52,7 @@ const CategoryModal = () => {
             <li>책 제목모음</li>
           </ul>
         </div>
-        <CategoryList/>
-        <CategoryList/>
-        <CategoryList/>
-        <CategoryList/>
-        <CategoryList/>
-        <CategoryList/>
-        <CategoryList/>
-        <CategoryList/>
-        <CategoryList/>
+        {categoryList}
       </Modal>
     </>
   );
