@@ -3,7 +3,15 @@ const { BookTitle } = require('../models/BookTitle');
 const { User } = require("../models/User");
 const { Category } = require("../models/Category");
 
-
+//카테고리 불러오기
+router.get('/get-all-category', async (req, res) => {
+  const category = await Category.find({user_id: req.query.userId}).sort({ 'category_order': 1 }).exec();
+  try{
+    res.send({category})
+  }catch(err){
+    res.status(400).send(err)
+  }
+})
 //카테고리 추가
 router.post('/add-category', async (req, res) => {
   console.log('add-category clicked')

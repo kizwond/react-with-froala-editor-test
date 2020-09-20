@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button,Select } from 'antd';
 import { BookOutlined } from '@ant-design/icons';
 import './BookNaming.css'
+import axios from 'axios'
 
 const { Option } = Select;
 const HorizontalLoginForm = () => {
@@ -18,6 +19,34 @@ const HorizontalLoginForm = () => {
   useEffect(() => {
     setUser({user:userId});
   }, []);
+
+  // getAllTitle() {
+  //   axios.get('api/create/get-all-title',{params: { userId: userId }})
+  //   .then(res => {
+  //     console.log(res)
+  //     this.setState({
+  //       bookTitle:res.data.bookTitle,
+  //       likeTitle:res.data.likeTitle,
+  //       category:res.data.category
+  //     })
+  //   })
+  // }
+
+  const [data, setData] = useState({});
+  const [query, setQuery] = useState("react");
+
+  useEffect(() => {
+    let completed = false; 
+
+    async function get() {
+      const result = await axios.get('api/create/get-all-category',{params: { userId: userId }})
+      if (!completed) setData(result.data.category);
+    }
+    get();
+    return () => {
+      completed = true;
+    };
+  }, [query]); 
 
   const handleSubmit = (values) => {
     var url = '/api/create/naming';
@@ -43,12 +72,12 @@ const HorizontalLoginForm = () => {
   }
 
   const onFinish = values => {
-    console.log(values);
     values.userId = user.user
-    console.log(user)
-    console.log(values);
     handleSubmit(values)
   };
+
+  console.log(data)
+
   return (
     <div className="naming_book_container">
       <div className="book_layout">
@@ -60,8 +89,9 @@ const HorizontalLoginForm = () => {
             rules={[{ required: true, message: '카테고리를 선택해 주세요' }]}
           >
             <Select placeholder="카테고리를 선택해 주세요">
-              <Option value="미지정">미지정</Option>
-              <Option value="한국사">한국사</Option>
+              {data.length > 0 ? data.map((category)=>(
+                                    <Option key={category._id} value={category.category_name}>{category.category_name}</Option>
+                                  )) : <Option value="미지정">미지정</Option>}
             </Select>
           </Form.Item>
           <Form.Item
