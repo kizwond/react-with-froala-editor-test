@@ -30,10 +30,18 @@ router.post('/add-category', async (req, res) => {
       user_id: req.body.userId,
       user_nick: useremail.name,
     })
-      
+
+        const likes = await Category.find({user_id: req.body.userId, category_order : {$gt : categoryListOrder.category_order}}).exec()
+        .then((result) => {
+          {result.map((value, index) => {
+            return Category.updateMany({ _id: value._id }, { category_order: value.category_order + 1 }).exec();
+          })}
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+
         const saveCategory = await newCategory.save()
-        // const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
-        // const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
         const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
         try{
           res.send({category})

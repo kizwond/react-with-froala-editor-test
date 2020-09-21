@@ -9,7 +9,19 @@ router.post('/naming', async (req, res) => {
   const useremail = await User.findOne({_id: req.body.userId}).exec();
   const bookExist = await BookTitle.findOne({user_email: useremail.email, book_title: req.body.book_title})
   const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'list_order' : -1 }).exec();
-
+  const category = await Category.find({user_id: req.body.userId}).exec();
+  if (category.length === 0) {
+    const newCategory = new Category({
+      category_name: '미지정',
+      category_order: 0,
+      contents_quantity: 0,
+      user_email: useremail.email,
+      user_id: req.body.userId,
+      user_nick: useremail.name,
+    })
+      const saveCategory = await newCategory.save()
+      console.log("category saved!!")
+  }
   if (!bookListOrder) {
     var listOrder = 0
   } else {
