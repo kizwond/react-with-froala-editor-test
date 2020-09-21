@@ -2,17 +2,28 @@ import React, { useState } from 'react';
 import { Modal, Popover,Form, Input, Button, Space  } from 'antd';
 import './CategorySettingModal.css'
 import { SettingOutlined, PlusOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
-
+import ChangeCategoryName from './ChangeCategoryName'
 
       
 
 const CategoryList = (props) =>{
   const [form] = Form.useForm();
+  const [inputArea, SetInputArea] = useState(false)
+  
 
   const onFinish = value => {
     props.addCategory({value, prevCategoryId:props.category._id})
     // props.onClick()
   };
+  const inputAreaVisible = () =>{
+    SetInputArea({
+      inputArea: !inputArea
+    });
+    console.log(inputArea)
+  }
+  
+
+
   const text = <span>새로운 카테고리 이름을 입력해 주세요.</span>;
   const content = (
     <Form
@@ -42,11 +53,13 @@ const CategoryList = (props) =>{
                 <PlusOutlined style={{fontSize:'14px'}} />
               </Popover>
             </li>
-            <li>{props.category.category_name}/순서:{props.category.category_order}</li>
-            <li><EditOutlined style={{fontSize:'14px'}}/></li>
+            <li>{inputArea ? <ChangeCategoryName visible={inputArea} onClick={inputAreaVisible} category={props.category} changeCategoryHandler={props.changeCategoryHandler}/> : <>{props.category.category_name}/순서:{props.category.category_order} </>}</li>
             <li>
-              <ArrowUpOutlined style={{fontSize:'14px'}}/>
-              <ArrowDownOutlined style={{fontSize:'14px'}}/>
+              {props.category.category_name === '미지정' ? '' :<EditOutlined onClick={inputAreaVisible} style={{fontSize:'14px'}}/>}
+            </li>
+            <li>
+              {props.category.category_name === '미지정' ? '' : <><ArrowUpOutlined style={{fontSize:'14px'}}/>
+                                                            <ArrowDownOutlined style={{fontSize:'14px'}}/></>}
             </li>
             <li>{props.category.category_name === '미지정' ? '' :<DeleteOutlined style={{fontSize:'14px'}}/>}</li>
             <li>{props.category.contents_quantity}</li>
@@ -60,7 +73,7 @@ const CategoryList = (props) =>{
 const CategoryModal = (props) => {
   const [visible, setVisible] = useState(false);
   const categoryList = props.category.map((category)=>(
-    <CategoryList addCategory={props.addCategory} key={category._id} category={category}/>
+    <CategoryList changeCategoryHandler={props.changeCategoryHandler} addCategory={props.addCategory} key={category._id} category={category}/>
   ))
   
   return (

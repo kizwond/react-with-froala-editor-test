@@ -53,11 +53,34 @@ router.post('/add-category', async (req, res) => {
 })
 
 //카테고리 이름변경
-router.post('/category-name-change', async (req, res) => {
-  console.log('category-name-change clicked')
-  console.log(req.body)
-})
+router.post('/change-category-name', async (req, res) => {
+  const update = { category_name: req.body.newName };
+  const bookExist = await Category.findOne({user_id: req.body.userId, category_name: req.body.newName})
+  const categoryCurrent = await Category.findOne({_id:req.body.categoryId})
+  if (bookExist) {return res.send({'error':'동일한 카테고리명이 존재합니다.'})}
+  else {
+    let doc = await Category.findOneAndUpdate({_id: req.body.categoryId}, update)
+    const lists = await BookTitle.find({user_id: req.body.userId, category:categoryCurrent.category_name}).exec()
+    .then((result) => {
+      console.log(result)
+      {result.map((value, index) => {
+        return BookTitle.updateMany({ _id: value._id }, { category: req.body.newName }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    })
 
+    const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+    const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+    const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
+    try{
+      res.send({bookTitle,likeTitle,category})
+    }catch(err){
+      res.status(400).send(err)
+    }
+  }
+})
 //카테고리 순서변경
 router.post('/category-order-change', async (req, res) => {
   console.log('category-order-change clicked')

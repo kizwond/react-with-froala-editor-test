@@ -48,6 +48,8 @@ router.post('/naming', async (req, res) => {
       })
       try{
         const saveBookTitle = await bookTitle.save()
+        const categoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.category}).exec();
+        const addQuantity = await Category.findOneAndUpdate({_id: categoryInfo._id},{contents_quantity:categoryInfo.contents_quantity + 1}).exec();
         res.send({book_title:bookTitle.book_title, category:bookTitle.category, user_email:bookTitle.user_email})
       }catch(err){
         res.status(400).send(err)
@@ -209,11 +211,15 @@ router.post('/delete-book', async (req, res) => {
   .catch((err) => {
     console.error(err);
   });
+  const categoryInfo = await Category.findOne({user_id:req.body.userId, category_name:currentOrder.category}).exec();
+  const minusQuantity = await Category.findOneAndUpdate({_id: categoryInfo._id},{contents_quantity:categoryInfo.contents_quantity - 1}).exec();
+
   let doc = await BookTitle.deleteOne({_id: req.body.bookId});
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+  const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
   try{
-    res.send({bookTitle,likeTitle})
+    res.send({bookTitle,likeTitle,category})
   }catch(err){
     res.status(400).send(err)
   }
@@ -336,11 +342,18 @@ router.post('/book-category-move', async (req, res) => {
     })
     const update = { category: req.body.category, list_order: listOrder + 1 };
     let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update);
+
+    const prevCategoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.prevCategory}).exec();
+    const minusQuantity = await Category.findOneAndUpdate({_id: prevCategoryInfo._id},{contents_quantity:prevCategoryInfo.contents_quantity - 1}).exec();
+
+    const moveToCategoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.category}).exec();
+    const addQuantity = await Category.findOneAndUpdate({_id: moveToCategoryInfo._id},{contents_quantity:moveToCategoryInfo.contents_quantity + 1}).exec();
    
     const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
     const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+    const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
     try{
-      res.send({bookTitle,likeTitle})
+      res.send({bookTitle,likeTitle,category})
     }catch(err){
       res.status(400).send(err)
     }
