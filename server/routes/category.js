@@ -82,9 +82,47 @@ router.post('/change-category-name', async (req, res) => {
   }
 })
 //카테고리 순서변경
-router.post('/category-order-change', async (req, res) => {
-  console.log('category-order-change clicked')
+router.post('/change-category-order', async (req, res) => {
+  console.log('change-category-order clicked')
   console.log(req.body)
+  const currentOrder = await Category.findOne({_id: req.body.categoryId}).exec(); //현재 선택된 책
+  const lastBookOrder = await Category.findOne({user_id: req.body.userId}).sort({ 'category_order' : -1 }).exec(); //현재 선택된 책 다음 책
+
+  if(req.body.action === 'up') { 
+    if (currentOrder.category_order === 1){
+      console.log('순서변경 불필요')
+    } else {
+      const updateBefore = { category_order : currentOrder.category_order }; //이전 순서의 카테고리를 선택 카테고리 순서로 업데이트
+      const beforeThis = await Category.findOneAndUpdate({user_id: req.body.userId, category_order: currentOrder.category_order - 1}, updateBefore, {
+        new: true
+      })
+      const updateThis = { category_order : currentOrder.category_order - 1 }; //선택 카테고리 순서를 -1 
+      let doc = await Category.findOneAndUpdate({_id: req.body.categoryId}, updateThis, {
+        new: true
+      })
+    }
+  } else if(req.body.action === 'down') {
+    if (currentOrder.category_order === lastBookOrder.category_order){
+      console.log('순서변경 불필요')
+    } else {
+      const updateAfter = { category_order : currentOrder.category_order }; //이후 순서의 카테고리를 선택 카테고리 순서로 업데이트
+      const afterThis = await Category.findOneAndUpdate({user_id: req.body.userId, category_order: currentOrder.category_order + 1}, updateAfter, {
+        new: true
+      }) 
+      const updateThis = { category_order : currentOrder.category_order + 1 }; //선택 카테고리 순서를 + 1
+      let doc = await Category.findOneAndUpdate({_id: req.body.categoryId}, updateThis, {
+        new: true
+      })
+    }
+  }
+  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+  const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
+  try{
+    res.send({bookTitle,likeTitle,category})
+  }catch(err){
+    res.status(400).send(err)
+  }
 })
 
 //카테고리 삭제

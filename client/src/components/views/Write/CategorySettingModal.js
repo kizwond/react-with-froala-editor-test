@@ -66,8 +66,8 @@ class CategoryList extends Component {
               {this.props.category.category_name === '미지정' ? '' :<EditOutlined onClick={this.inputAreaVisible} style={{fontSize:'14px'}}/>}
             </li>
             <li>
-              {this.props.category.category_name === '미지정' ? '' : <><ArrowUpOutlined style={{fontSize:'14px'}}/>
-                                                            <ArrowDownOutlined style={{fontSize:'14px'}}/></>}
+              {this.props.category.category_name === '미지정' ? '' : <><ArrowUpOutlined onClick={()=>this.props.categoryListOrderHandler({action: 'up', categoryId: this.props.category._id})} style={{fontSize:'14px'}}/>
+                                                                       <ArrowDownOutlined onClick={()=>this.props.categoryListOrderHandler({action: 'down', categoryId: this.props.category._id})} style={{fontSize:'14px'}}/></>}
             </li>
             <li>{this.props.category.category_name === '미지정' ? '' :<DeleteCategory categoryTotal={this.props.categoryTotal} category={this.props.category} categoryDeleteHandler={this.props.categoryDeleteHandler}/>}</li>
             <li>{this.props.category.contents_quantity}</li>
@@ -90,7 +90,7 @@ class CategoryModal extends Component {
 
   render() {
     const categoryList = this.props.category.map((category)=>(
-      <CategoryList categoryDeleteHandler={this.props.categoryDeleteHandler} changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} key={category._id} categoryTotal={this.props.category} category={category}/>
+      <CategoryList categoryListOrderHandler={this.props.categoryListOrderHandler} categoryDeleteHandler={this.props.categoryDeleteHandler} changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} key={category._id} categoryTotal={this.props.category} category={category}/>
     ))
     
     return (
