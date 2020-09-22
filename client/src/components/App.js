@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
 // pages for this product
@@ -25,12 +25,11 @@ const { Header, Content, Footer } = Layout;
 //false  logged in user can't go inside
 
 function App() {
-  const [top, setTop] = useState(0);
   return (
     <Suspense fallback={(<div>Loading...</div>)}>
       <Layout className="layout">
         <Header>
-          <Affix offsetTop={top}>
+          <Affix offsetTop={0}>
             <NavBar />
           </Affix>
         </Header>
