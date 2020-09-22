@@ -14,8 +14,6 @@ router.get('/get-all-category', async (req, res) => {
 })
 //카테고리 추가
 router.post('/add-category', async (req, res) => {
-  console.log('add-category clicked')
-  console.log(req.body)
   const useremail = await User.findOne({_id: req.body.userId}).exec();
   const categoryExist = await Category.findOne({user_id: req.body.userId, category_name: req.body.newCategory})
   const categoryListOrder = await Category.findOne({_id: req.body.prevCategoryId}).exec();
@@ -30,7 +28,6 @@ router.post('/add-category', async (req, res) => {
       user_id: req.body.userId,
       user_nick: useremail.name,
     })
-
         const likes = await Category.find({user_id: req.body.userId, category_order : {$gt : categoryListOrder.category_order}}).exec()
         .then((result) => {
           {result.map((value, index) => {
@@ -62,7 +59,6 @@ router.post('/change-category-name', async (req, res) => {
     let doc = await Category.findOneAndUpdate({_id: req.body.categoryId}, update)
     const lists = await BookTitle.find({user_id: req.body.userId, category:categoryCurrent.category_name}).exec()
     .then((result) => {
-      console.log(result)
       {result.map((value, index) => {
         return BookTitle.updateMany({ _id: value._id }, { category: req.body.newName }).exec();
       })}
@@ -127,7 +123,6 @@ router.post('/change-category-order', async (req, res) => {
 router.post('/delete-category', async (req, res) => {
   const currentOrder = await Category.findOne({_id: req.body.categoryId}).exec();
   const willAddHere = await BookTitle.findOne({user_id: req.body.userId, category : req.body.moveTo}).sort({ 'list_order' : -1 }).exec(); 
-
   if (req.body.moveTo === '') {
     //카테고리와 함께 포함된 책들도 삭제, 즐겨찾기 순서 재조정
     const books = await BookTitle.deleteMany({user_id : req.body.userId, category:currentOrder.category_name}).exec() 
@@ -140,7 +135,6 @@ router.post('/delete-category', async (req, res) => {
     .catch((err) => {
       console.error(err);
     });
-    
   } else {
     //카테고리 이동후 삭제시, 이동 카테고리에 추가된 책 수만큼 Add contents_quantity 
     const booksToMove = await BookTitle.find({user_id : req.body.userId, category:currentOrder.category_name})
@@ -173,7 +167,6 @@ router.post('/delete-category', async (req, res) => {
   .catch((err) => {
     console.error(err);
   });
-
  
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
