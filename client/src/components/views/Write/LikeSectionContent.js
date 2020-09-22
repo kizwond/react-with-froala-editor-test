@@ -29,7 +29,7 @@ class LikeListColumns extends Component {
         <li>즐겨찾기</li>
         <li>순서이동</li>
         <li>목록에서<br/>감추기 {this.props.hideOrShowClass === false  ? <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">OFF</span> : 
-                                                    <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">ON</span>}</li>
+                                                                        <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">ON</span>}</li>
         <li>삭제</li>
       </ul> 
     );
@@ -76,14 +76,14 @@ class LikeListContent extends Component {
           <li>{update_date}</li>
           <li><CategoryMoveModal category={this.props.category} bookTitle={info} bookCategoryMove={this.props.bookCategoryMove}/></li>
           <li>{info.like === 'true'  ? <StarTwoTone onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
-                                  <StarOutlined onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}
+                                       <StarOutlined onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}
           </li>
           <li>
           <ArrowUpOutlined onClick={()=>this.props.listOrderHandler({action: 'up', from:'like', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
           <ArrowDownOutlined onClick={()=>this.props.listOrderHandler({action: 'down', from:'like', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
           </li>
           <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={()=>this.props.onClickHideOrShow({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>:
-                                  <EyeInvisibleOutlined onClick={()=>this.props.onClickHideOrShow({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}</li>
+                                              <EyeInvisibleOutlined onClick={()=>this.props.onClickHideOrShow({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}</li>
           <li><DeleteBook bookTitle={info} bookDeleteHandler={this.props.bookDeleteHandler} /></li>
         </ul>
       </div> 
@@ -98,7 +98,15 @@ class LikeListContent extends Component {
 class LikeSectionContent extends Component {
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <LikeListContent key={book_title._id} category={this.props.category} bookCategoryMove={this.props.bookCategoryMove} bookInfo={book_title} listOrderHandler={this.props.listOrderHandler} changeBookTitleHandler={this.props.changeBookTitleHandler} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
+      <LikeListContent key={book_title._id} 
+                      category={this.props.category} 
+                      bookCategoryMove={this.props.bookCategoryMove} 
+                      bookInfo={book_title} 
+                      listOrderHandler={this.props.listOrderHandler} 
+                      changeBookTitleHandler={this.props.changeBookTitleHandler} 
+                      bookDeleteHandler={this.props.bookDeleteHandler} 
+                      onClickLike={this.props.onClickLike} 
+                      onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
     return ( 
       <div className="like_list_container">

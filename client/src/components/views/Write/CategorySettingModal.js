@@ -1,7 +1,7 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import { Modal, Popover,Form, Input, Button, Space  } from 'antd';
 import './CategorySettingModal.css'
-import { SettingOutlined, PlusOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
+import { SettingOutlined, PlusOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 import ChangeCategoryName from './ChangeCategoryName'
 import DeleteCategory from './DeleteCategory'
 
@@ -90,7 +90,13 @@ class CategoryModal extends Component {
 
   render() {
     const categoryList = this.props.category.map((category)=>(
-      <CategoryList categoryListOrderHandler={this.props.categoryListOrderHandler} categoryDeleteHandler={this.props.categoryDeleteHandler} changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} key={category._id} categoryTotal={this.props.category} category={category}/>
+      <CategoryList categoryListOrderHandler={this.props.categoryListOrderHandler} 
+                    categoryDeleteHandler={this.props.categoryDeleteHandler} 
+                    changeCategoryHandler={this.props.changeCategoryHandler} 
+                    addCategory={this.props.addCategory} 
+                    key={category._id} 
+                    categoryTotal={this.props.category} 
+                    category={category}/>
     ))
     
     return (

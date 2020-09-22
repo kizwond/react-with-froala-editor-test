@@ -39,7 +39,11 @@ class ListColumns extends Component {
   render() { 
     return ( 
       <ul className="like_list_columns">
-        <li>카테고리 <CategorySettingModal categoryListOrderHandler={this.props.categoryListOrderHandler} categoryDeleteHandler={this.props.categoryDeleteHandler} addCategory={this.props.addCategory} changeCategoryHandler={this.props.changeCategoryHandler} category={this.props.category}/></li>
+        <li>카테고리 <CategorySettingModal categoryListOrderHandler={this.props.categoryListOrderHandler} 
+                                          categoryDeleteHandler={this.props.categoryDeleteHandler} 
+                                          addCategory={this.props.addCategory} 
+                                          changeCategoryHandler={this.props.changeCategoryHandler} 
+                                          category={this.props.category}/></li>
         <li>책이름</li>
         <li>책이름<br/>변경</li>
         <li>구분</li>
@@ -53,7 +57,7 @@ class ListColumns extends Component {
         <li>즐겨찾기</li>
         <li>순서이동</li>
         <li>목록에서<br/>감추기 {this.props.hideOrShowClass === false  ? <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">OFF</span> : 
-                                                    <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">ON</span>}</li>
+                                                                        <span onClick={this.props.hideOrShowToggle} className="hide_or_show_title_btn">ON</span>}</li>
         <li>삭제</li>
       </ul> 
     );
@@ -89,7 +93,10 @@ class ListContent extends Component {
         <div className={classes}>
         <ul>
           <li>{info.category}</li>
-          <li>{this.state.editBookTitle ? <ChangeBookTitle bookTitle={info} category={this.props.category} changeBookTitleHandler={this.props.changeBookTitleHandler} onClick={this.titleChangeHandleClick}/> : info.book_title}</li>
+          <li>{this.state.editBookTitle ? <ChangeBookTitle bookTitle={info} 
+                                                          category={this.props.category} 
+                                                          changeBookTitleHandler={this.props.changeBookTitleHandler} 
+                                                          onClick={this.titleChangeHandleClick}/> : info.book_title}</li>
           <li><EditOutlined onClick={this.editBookTitleHandler} style={{fontSize:'14px'}}/></li>
           <li>{info.division}</li>
           <li>{info.user_nick}</li>
@@ -120,11 +127,25 @@ class ListContent extends Component {
 class ListSectionContent extends Component {
   render() { 
     const bookList = this.props.bookTitle.map((book_title)=>(
-      <ListContent category={this.props.category} key={book_title._id} bookCategoryMove={this.props.bookCategoryMove} bookInfo={book_title} listOrderHandler={this.props.listOrderHandler} changeBookTitleHandler={this.props.changeBookTitleHandler} bookDeleteHandler={this.props.bookDeleteHandler} onClickLike={this.props.onClickLike} onClickHideOrShow={this.props.onClickHideOrShow}/>
+      <ListContent category={this.props.category} 
+                  key={book_title._id} 
+                  bookCategoryMove={this.props.bookCategoryMove} 
+                  bookInfo={book_title} 
+                  listOrderHandler={this.props.listOrderHandler} 
+                  changeBookTitleHandler={this.props.changeBookTitleHandler} 
+                  bookDeleteHandler={this.props.bookDeleteHandler} 
+                  onClickLike={this.props.onClickLike} 
+                  onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
     return ( 
       <div className="like_list_container">
-        <ListColumns categoryListOrderHandler={this.props.categoryListOrderHandler} categoryDeleteHandler={this.props.categoryDeleteHandler} changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} category={this.props.category} hideOrShowClass={this.props.hideOrShowClass} hideOrShowToggle={this.props.hideOrShowToggle} />
+        <ListColumns categoryListOrderHandler={this.props.categoryListOrderHandler} 
+                    categoryDeleteHandler={this.props.categoryDeleteHandler} 
+                    changeCategoryHandler={this.props.changeCategoryHandler} 
+                    addCategory={this.props.addCategory} 
+                    category={this.props.category} 
+                    hideOrShowClass={this.props.hideOrShowClass} 
+                    hideOrShowToggle={this.props.hideOrShowToggle} />
         {bookList}
       </div>
      );

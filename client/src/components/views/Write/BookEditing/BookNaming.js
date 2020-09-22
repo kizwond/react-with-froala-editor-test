@@ -4,9 +4,11 @@ import { BookOutlined } from '@ant-design/icons';
 import './BookNaming.css'
 import axios from 'axios'
 
+const userId = localStorage.getItem('userId')
+
 const { Option } = Select;
 const HorizontalLoginForm = () => {
-  const userId = localStorage.getItem('userId')
+  
   const [form] = Form.useForm();
   const [, forceUpdate] = useState(); // To disable submit button at the beginning.
   const [ user, setUser ] = useState();
