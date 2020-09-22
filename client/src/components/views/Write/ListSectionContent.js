@@ -6,6 +6,7 @@ import CategoryMoveModal from './CategoryMoveModal'
 import DeleteBook from './DeleteBookModal'
 import ChangeBookTitle from './ChangeBookTitle'
 
+
 class ListColumns extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +39,7 @@ class ListColumns extends Component {
   render() { 
     return ( 
       <ul className="like_list_columns">
-        <li>카테고리 <CategorySettingModal addCategory={this.props.addCategory} changeCategoryHandler={this.props.changeCategoryHandler} category={this.props.category}/></li>
+        <li>카테고리 <CategorySettingModal categoryDeleteHandler={this.props.categoryDeleteHandler} addCategory={this.props.addCategory} changeCategoryHandler={this.props.changeCategoryHandler} category={this.props.category}/></li>
         <li>책이름</li>
         <li>책이름<br/>변경</li>
         <li>구분</li>
@@ -123,7 +124,7 @@ class ListSectionContent extends Component {
     ))
     return ( 
       <div className="like_list_container">
-        <ListColumns changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} category={this.props.category} hideOrShowClass={this.props.hideOrShowClass} hideOrShowToggle={this.props.hideOrShowToggle} />
+        <ListColumns categoryDeleteHandler={this.props.categoryDeleteHandler} changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} category={this.props.category} hideOrShowClass={this.props.hideOrShowClass} hideOrShowToggle={this.props.hideOrShowToggle} />
         {bookList}
       </div>
      );

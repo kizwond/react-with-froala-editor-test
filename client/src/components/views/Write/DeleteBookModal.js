@@ -13,9 +13,6 @@ class DeleteBook extends Component {
       bookTitle:this.props.bookTitle,
      }
   }
-  hello=()=>{
-    console.log('this is hello')
-  }
 
   showPromiseConfirm = (book_id, event) => {
     confirm({

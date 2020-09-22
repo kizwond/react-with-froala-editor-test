@@ -219,6 +219,22 @@ class WriteMain extends Component {
       }
     })
   }
+  categoryDeleteHandler = (value) => {
+    console.log(value.moveTo)
+    console.log(value.value.categoryId)
+
+    axios.post('api/create/delete-category',{
+      categoryId : value.value.categoryId,
+      moveTo : value.moveTo,
+      userId : userId
+    }).then(res => {
+      this.setState({
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle,
+        category:res.data.category
+      })
+    })
+  }
 
   render() { 
     return ( 
@@ -237,7 +253,7 @@ class WriteMain extends Component {
         </div>
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
-          <ListSectionContent addCategory={this.addCategory} changeCategoryHandler={this.changeCategoryHandler} category={this.state.category} bookCategoryMove={this.bookCategoryMove} onClickLike={this.saveLikeChange} hideOrShowClass={this.state.hideOrShowClass} hideOrShowToggle={this.hideOrShowToggle} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
+          <ListSectionContent addCategory={this.addCategory} categoryDeleteHandler={this.categoryDeleteHandler} changeCategoryHandler={this.changeCategoryHandler} category={this.state.category} bookCategoryMove={this.bookCategoryMove} onClickLike={this.saveLikeChange} hideOrShowClass={this.state.hideOrShowClass} hideOrShowToggle={this.hideOrShowToggle} listOrderHandler={this.listOrder} changeBookTitleHandler={this.changeBookTitleHandler} bookDeleteHandler={this.bookDeleteHandler} onClickHideOrShow={this.eyeClickHandler} bookTitle={this.state.bookTitle}/>
         </div>
       </div>
      );

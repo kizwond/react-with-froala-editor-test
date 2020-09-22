@@ -3,6 +3,7 @@ import { Modal, Popover,Form, Input, Button, Space  } from 'antd';
 import './CategorySettingModal.css'
 import { SettingOutlined, PlusOutlined,DeleteOutlined,ArrowUpOutlined,ArrowDownOutlined,EditOutlined} from '@ant-design/icons';
 import ChangeCategoryName from './ChangeCategoryName'
+import DeleteCategory from './DeleteCategory'
 
 // const [form] = Form.useForm();
 
@@ -68,7 +69,7 @@ class CategoryList extends Component {
               {this.props.category.category_name === '미지정' ? '' : <><ArrowUpOutlined style={{fontSize:'14px'}}/>
                                                             <ArrowDownOutlined style={{fontSize:'14px'}}/></>}
             </li>
-            <li>{this.props.category.category_name === '미지정' ? '' :<DeleteOutlined style={{fontSize:'14px'}}/>}</li>
+            <li>{this.props.category.category_name === '미지정' ? '' :<DeleteCategory categoryTotal={this.props.categoryTotal} category={this.props.category} categoryDeleteHandler={this.props.categoryDeleteHandler}/>}</li>
             <li>{this.props.category.contents_quantity}</li>
             <li>한국사1, 한국사2, 한국사3, 한국사4, 한국사5, 한국사6, 한국사7, 한국사8</li>
           </ul>
@@ -89,7 +90,7 @@ class CategoryModal extends Component {
 
   render() {
     const categoryList = this.props.category.map((category)=>(
-      <CategoryList changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} key={category._id} category={category}/>
+      <CategoryList categoryDeleteHandler={this.props.categoryDeleteHandler} changeCategoryHandler={this.props.changeCategoryHandler} addCategory={this.props.addCategory} key={category._id} categoryTotal={this.props.category} category={category}/>
     ))
     
     return (

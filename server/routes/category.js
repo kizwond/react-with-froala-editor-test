@@ -89,8 +89,42 @@ router.post('/category-order-change', async (req, res) => {
 
 //카테고리 삭제
 router.post('/delete-category', async (req, res) => {
-  console.log('delete-category clicked')
-  console.log(req.body)
+  const currentOrder = await Category.findOne({_id: req.body.categoryId}).exec();
+  const willAddHere = await BookTitle.findOne({user_id: req.body.userId, category : req.body.moveTo}).sort({ 'list_order' : -1 }).exec(); 
+
+  if (req.body.moveTo === '') {
+    console.log('category not selected')
+    const books = await BookTitle.deleteMany({user_id : req.body.userId, category:currentOrder.category_name}).exec()
+  } else {
+    const books = await BookTitle.find({user_id : req.body.userId, category:currentOrder.category_name}).exec()
+    .then((result) => {
+      {result.map((value, index) => {
+        return BookTitle.updateMany({ _id: value._id }, { category: req.body.moveTo, list_order: value.list_order + willAddHere.list_order }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
+  const others = await Category.find({user_id: req.body.userId, category_order : {$gt : currentOrder.category_order}}).exec()
+  .then((result) => {
+    {result.map((value, index) => {
+      return Category.updateMany({ _id: value._id }, { category_order: value.category_order - 1 }).exec();
+    })}
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+  let doc = await Category.deleteOne({_id: req.body.categoryId});
+  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+  const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
+  try{
+    res.send({bookTitle,likeTitle,category})
+  }catch(err){
+    res.status(400).send(err)
+  }
 })
 
 module.exports = router;
