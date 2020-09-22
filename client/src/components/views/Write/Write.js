@@ -237,8 +237,6 @@ class WriteMain extends Component {
   }
 
   categoryListOrder = (value) => {
-    console.log(value.categoryId)
-    console.log(value.action)
     axios.post('api/create/change-category-order',{
       categoryId : value.categoryId,
       userId : userId,

@@ -83,8 +83,6 @@ router.post('/change-category-name', async (req, res) => {
 })
 //카테고리 순서변경
 router.post('/change-category-order', async (req, res) => {
-  console.log('change-category-order clicked')
-  console.log(req.body)
   const currentOrder = await Category.findOne({_id: req.body.categoryId}).exec(); //현재 선택된 책
   const lastBookOrder = await Category.findOne({user_id: req.body.userId}).sort({ 'category_order' : -1 }).exec(); //현재 선택된 책 다음 책
 
