@@ -93,8 +93,17 @@ router.post('/delete-category', async (req, res) => {
   const willAddHere = await BookTitle.findOne({user_id: req.body.userId, category : req.body.moveTo}).sort({ 'list_order' : -1 }).exec(); 
 
   if (req.body.moveTo === '') {
-    console.log('category not selected')
-    const books = await BookTitle.deleteMany({user_id : req.body.userId, category:currentOrder.category_name}).exec()
+    const books = await BookTitle.deleteMany({user_id : req.body.userId, category:currentOrder.category_name}).exec() 
+    const likes = await BookTitle.find({user_id : req.body.userId, like: 'true' }).sort({like_order : 1}).exec()
+    .then((result) => {
+      {result.map((value, index) => {
+        return BookTitle.updateMany({ _id: value._id }, { like_order: index + 1 }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+    
   } else {
     const books = await BookTitle.find({user_id : req.body.userId, category:currentOrder.category_name}).exec()
     .then((result) => {
