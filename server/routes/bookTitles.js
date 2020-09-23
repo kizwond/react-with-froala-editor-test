@@ -173,7 +173,14 @@ router.post('/hide-or-show', async (req, res) => {
     const update = { hide_or_show: req.body.hide_or_show, list_order: 100000, like:'false', like_order: 0 }; //책 숨기기시 즐겨찾기에서 해제
     let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
       new: true
-    });
+    })
+    const bookTitle = await BookTitle.find({user_id: req.body.userId, hide_or_show:'true'}).sort({ 'category' : 1, 'list_order': 1 }).exec();
+    const likeTitle = await BookTitle.find({user_id: req.body.userId, hide_or_show:'true'}).sort({ 'like_order': 1 }).exec();
+    try{
+      res.send({bookTitle,likeTitle})
+    }catch(err){
+      res.status(400).send(err)
+    }
   } else if(req.body.hide_or_show === 'true'){ //책 보이기
     if (selectedBook.like === 'true'){
         const updateLikeOrder = { hide_or_show: req.body.hide_or_show, list_order: listOrder + 1, like_order: likeOrder + 1};
@@ -186,15 +193,13 @@ router.post('/hide-or-show', async (req, res) => {
           new: true
       });
     }
-  }
-
-  
-  const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
-  const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
-  try{
-    res.send({bookTitle,likeTitle})
-  }catch(err){
-    res.status(400).send(err)
+    const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
+    const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
+    try{
+      res.send({bookTitle,likeTitle})
+    }catch(err){
+      res.status(400).send(err)
+    }
   }
 })
 

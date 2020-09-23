@@ -31,6 +31,7 @@ class WriteMain extends Component {
   getAllTitle() {
     axios.get('api/create/get-all-title',{params: { userId: userId }})
     .then(res => {
+      console.log('get all')
       this.setState({
         bookTitle:res.data.bookTitle,
         likeTitle:res.data.likeTitle,
@@ -41,6 +42,7 @@ class WriteMain extends Component {
   getOnlyShowTitle() {
     axios.get('api/create/get-show-title',{params: { userId: userId }})
     .then(res => {
+      console.log('get show')
       this.setState({
         bookTitle:res.data.bookTitle,
         likeTitle:res.data.likeTitle,
@@ -48,6 +50,23 @@ class WriteMain extends Component {
       })
     })
   }
+
+  hideOrShowToggle = () => {
+    if (this.state.hideOrShowClass === false){
+      this.getAllTitle()
+      this.setState((prevState)=>({
+          hideOrShowClass : !prevState.hideOrShowClass
+        })
+      )
+    } else if (this.state.hideOrShowClass === true){
+      this.getOnlyShowTitle()
+      this.setState((prevState)=>({
+          hideOrShowClass : !prevState.hideOrShowClass
+        })
+      )
+    }
+  }
+
   componentDidMount() {
     this.setState({
       user: userId
@@ -138,21 +157,6 @@ class WriteMain extends Component {
     })
   }
 
-  hideOrShowToggle = () => {
-    if (this.state.hideOrShowClass === false){
-      this.getAllTitle()
-      this.setState((prevState)=>({
-          hideOrShowClass : !prevState.hideOrShowClass
-        })
-      )
-    } else if (this.state.hideOrShowClass === true){
-      this.getOnlyShowTitle()
-      this.setState((prevState)=>({
-          hideOrShowClass : !prevState.hideOrShowClass
-        })
-      )
-    }
-  }
   bookCategoryMove = (value) => {
     axios.post('api/create/book-category-move',{
       bookId : value.bookId,
@@ -243,7 +247,7 @@ class WriteMain extends Component {
       })
     })
   }
-  
+
   render() { 
     return ( 
       <div className="write_container">
