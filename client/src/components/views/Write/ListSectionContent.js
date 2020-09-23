@@ -87,6 +87,17 @@ class ListContent extends Component {
     const date = info.date.slice(0,10)
     const update_date = info.date.slice(0,10)
     const classes = `like_list_contents hide_or_show_${info.hide_or_show}`
+    const renderLike = () => {
+      if(info.hide_or_show === 'true'){
+          if(info.like === 'true') {
+            return <StarTwoTone onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>
+          }else {
+            return <StarOutlined onClick={()=>this.props.onClickLike({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
+          } 
+        } else{
+          return 
+        }
+      }
     return ( 
       <>
       {info.category === this.props.currentCategory ? 
@@ -107,12 +118,11 @@ class ListContent extends Component {
             <li>{date}</li>
             <li>{update_date}</li>
             <li><CategoryMoveModal category={this.props.category} bookTitle={info} bookCategoryMove={this.props.bookCategoryMove}/></li>
-            <li>{info.like === 'true' ? <StarTwoTone onClick={()=>this.props.onClickLike({value:'true',bookId:this.props.bookInfo._id})} twoToneColor="#52c41a" style={{fontSize:'14px'}}/>:
-                                        <StarOutlined onClick={()=>this.props.onClickLike({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}
-            </li>
             <li>
-            <ArrowUpOutlined onClick={()=>this.props.listOrderHandler({action: 'up', from:'list', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
-            <ArrowDownOutlined onClick={()=>this.props.listOrderHandler({action: 'down', from:'list', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
+              {renderLike()}
+            </li>
+            <li>{info.hide_or_show === 'true' ? <><ArrowUpOutlined onClick={()=>this.props.listOrderHandler({action: 'up', from:'list', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/>
+                                              <ArrowDownOutlined onClick={()=>this.props.listOrderHandler({action: 'down', from:'list', bookId: this.props.bookInfo._id})} style={{fontSize:'14px'}}/></> : ''}
             </li>
             <li>{info.hide_or_show === 'true' ? <EyeOutlined onClick={()=>this.props.onClickHideOrShow({value:'true',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>:
                                     <EyeInvisibleOutlined onClick={()=>this.props.onClickHideOrShow({value:'false',bookId:this.props.bookInfo._id})} style={{fontSize:'14px'}}/>}</li>

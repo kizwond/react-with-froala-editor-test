@@ -123,7 +123,7 @@ router.post('/like', async (req, res) => {
 //책 목록에서 감추기 및 보이기, 감춘책은 해당 리스트의 0번순으로 변경되고 나타나지 않음, 다른 책 순서는 관련해서 변경, 다시 보이기로 설정시 해당 리스트의 마지막으로 추가. 
 router.post('/hide-or-show', async (req, res) => {
   const selectedBook = await BookTitle.findOne({_id: req.body.bookId}).exec();
-  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:selectedBook.category}).sort({ 'list_order' : -1 }).exec();
+  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:selectedBook.category, hide_or_show:'true'}).sort({ 'list_order' : -1 }).exec();
   const bookLikeOrder = await BookTitle.findOne({user_id: req.body.userId, like:'true'}).sort({ 'like_order' : -1 }).exec();
 
   if (!bookListOrder) {
@@ -137,7 +137,7 @@ router.post('/hide-or-show', async (req, res) => {
     var likeOrder = bookLikeOrder.like_order
   }
 
-  if(req.body.hide_or_show === 'false') { 
+  if(req.body.hide_or_show === 'false') { //책 감추기
     const listOthers = await BookTitle.find({user_id: req.body.userId, category:selectedBook.category, list_order : {$gt : selectedBook.list_order}}).exec()
     .then((result) => {
       {result.map((value, index) => {
@@ -158,11 +158,11 @@ router.post('/hide-or-show', async (req, res) => {
       console.error(err);
     });
 
-    const update = { hide_or_show: req.body.hide_or_show, list_order: 0, like_order: 0 };
+    const update = { hide_or_show: req.body.hide_or_show, list_order: 100000, like:'false', like_order: 0 }; //책 숨기기시 즐겨찾기에서 해제
     let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update, {
       new: true
     });
-  } else if(req.body.hide_or_show === 'true'){
+  } else if(req.body.hide_or_show === 'true'){ //책 보이기
     if (selectedBook.like === 'true'){
         const updateLikeOrder = { hide_or_show: req.body.hide_or_show, list_order: listOrder + 1, like_order: likeOrder + 1};
         let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, updateLikeOrder, {
@@ -318,10 +318,10 @@ router.post('/change-list-order', async (req, res) => {
 
 //책 카테고리 변경 및 관련하여 책 순서 변경
 router.post('/book-category-move', async (req, res) => {
-  const selectedBook = await BookTitle.findOne({_id: req.body.bookId}).exec();
-  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'list_order' : -1 }).exec();
+  const selectedBook = await BookTitle.findOne({_id: req.body.bookId}).exec(); //이동할 책 정보
+  const bookListOrder = await BookTitle.findOne({user_id: req.body.userId, category:req.body.category}).sort({ 'list_order' : -1 }).exec(); //이동할 대상의 카테고리내에 마지막 순서의 책 가져오기
 
-  if (!bookListOrder) {
+  if (!bookListOrder) { //이동대상 카테고리가 빈 카테고리일때 
     var listOrder = 0
   } else {
     var listOrder = bookListOrder.list_order
@@ -330,23 +330,28 @@ router.post('/book-category-move', async (req, res) => {
   if(req.body.prevCategory === req.body.category) {
     return res.send({'error':'같은 카테고리를 선택하셨습니다.'})
   } else {
-    const lists = await BookTitle.find({user_id: req.body.userId, category:req.body.prevCategory, list_order : {$gt : selectedBook.list_order}}).exec()
-    .then((result) => {
-      console.log(result)
-      {result.map((value, index) => {
-        return BookTitle.updateMany({ _id: value._id }, { list_order: value.list_order - 1 }).exec();
-      })}
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    const update = { category: req.body.category, list_order: listOrder + 1 };
-    let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update);
-
-    const prevCategoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.prevCategory}).exec();
+    if (selectedBook.hide_or_show === 'true') { //숨긴책이 아닐경우
+      //해당 책이 숨긴책이 아닐경우 해당 책 이후 순서의 책 순서를 -1씩 감소.
+      const lists = await BookTitle.find({user_id: req.body.userId, category:req.body.prevCategory, list_order : {$gt : selectedBook.list_order}}).exec()
+      .then((result) => {
+        console.log(result)
+        {result.map((value, index) => {
+          return BookTitle.updateMany({ _id: value._id }, { list_order: value.list_order - 1 }).exec();
+        })}
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      const update = { category: req.body.category, list_order: listOrder + 1 };
+      let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update); //이동할 대상의 카테고리내에 마지막 순서책 번호 + 1로 업데이트해서 마지막 순번으로 저장하기
+    } else { //숨긴책일경우
+      const update = { category: req.body.category, like:'false', like_order: 0}; // 숨긴책일경우 순서정보는 상관없이 카테고리만 변경
+      let doc = await BookTitle.findOneAndUpdate({_id: req.body.bookId}, update);
+    }
+    const prevCategoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.prevCategory}).exec(); //이전 카테고리 책 수량 -1 감소
     const minusQuantity = await Category.findOneAndUpdate({_id: prevCategoryInfo._id},{contents_quantity:prevCategoryInfo.contents_quantity - 1}).exec();
 
-    const moveToCategoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.category}).exec();
+    const moveToCategoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.category}).exec(); //이동대상 카테고리 책 수량 + 1 상승
     const addQuantity = await Category.findOneAndUpdate({_id: moveToCategoryInfo._id},{contents_quantity:moveToCategoryInfo.contents_quantity + 1}).exec();
    
     const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1, 'list_order': 1 }).exec();
