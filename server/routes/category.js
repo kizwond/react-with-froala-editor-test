@@ -142,7 +142,8 @@ router.post('/delete-category', async (req, res) => {
     const addQuantity = await Category.findOneAndUpdate({user_id : req.body.userId, category_name : req.body.moveTo},{contents_quantity:categoryTo.contents_quantity + booksToMove.length})
 
     //카테고리 이동 후, 이동한 카테고리의 리스트 순서 뒤부터 넘버링
-    const books = await BookTitle.find({user_id : req.body.userId, category:currentOrder.category_name}).exec()
+
+    const booksShow = await BookTitle.find({user_id : req.body.userId, hide_or_show:'true',category:currentOrder.category_name}).exec()
     .then((result) => {
       {result.map((value, index) => {
         return BookTitle.updateMany({ _id: value._id }, { category: req.body.moveTo, list_order: value.list_order + willAddHere.list_order }).exec();
@@ -151,8 +152,17 @@ router.post('/delete-category', async (req, res) => {
     .catch((err) => {
       console.error(err);
     });
-    
-    
+
+    const booksHidden = await BookTitle.find({user_id : req.body.userId, hide_or_show:'false', category:currentOrder.category_name}).exec()
+    .then((result) => {
+      {result.map((value, index) => {
+        return BookTitle.updateMany({ _id: value._id }, { category: req.body.moveTo }).exec();
+      })}
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  
   }
   // 카테고리 삭제
   let doc = await Category.deleteOne({_id: req.body.categoryId});
