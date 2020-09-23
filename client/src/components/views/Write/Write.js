@@ -229,6 +229,21 @@ class WriteMain extends Component {
     })
   }
 
+  categoryListOrder = (value) => {
+    axios.post('api/create/change-category-order',{
+      categoryId : value.categoryId,
+      userId : userId,
+      action : value.action,
+    }).then(res => {
+      console.log(res.data)
+      this.setState({
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle,
+        category:res.data.category
+      })
+    })
+  }
+  
   render() { 
     return ( 
       <div className="write_container">
@@ -256,6 +271,7 @@ class WriteMain extends Component {
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
           <ListSectionContent addCategory={this.addCategory} 
+                              categoryListOrderHandler={this.categoryListOrder}
                               categoryDeleteHandler={this.categoryDeleteHandler} 
                               changeCategoryHandler={this.changeCategoryHandler} 
                               category={this.state.category} 
