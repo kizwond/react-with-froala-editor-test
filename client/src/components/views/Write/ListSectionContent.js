@@ -165,17 +165,6 @@ class ListSectionContent extends Component {
                                                                                       onClickLike={this.props.onClickLike} 
                                                                                       onClickHideOrShow={this.props.onClickHideOrShow}/>
     ))
-    // const bookList = this.props.bookTitle.map((book_title)=>(
-    //   <ListContent category={this.props.category} 
-    //               key={book_title._id} 
-    //               bookCategoryMove={this.props.bookCategoryMove} 
-    //               bookInfo={book_title} 
-    //               listOrderHandler={this.props.listOrderHandler} 
-    //               changeBookTitleHandler={this.props.changeBookTitleHandler} 
-    //               bookDeleteHandler={this.props.bookDeleteHandler} 
-    //               onClickLike={this.props.onClickLike} 
-    //               onClickHideOrShow={this.props.onClickHideOrShow}/>
-    // ))
     return ( 
       <div className="like_list_container">
         <ListColumns categoryListOrderHandler={this.props.categoryListOrderHandler} 
@@ -185,8 +174,6 @@ class ListSectionContent extends Component {
                     category={this.props.category} 
                     hideOrShowClass={this.props.hideOrShowClass} 
                     hideOrShowToggle={this.props.hideOrShowToggle} />
-                    
-        {/* {bookList} */}
         {categoryList}
       </div>
      );
