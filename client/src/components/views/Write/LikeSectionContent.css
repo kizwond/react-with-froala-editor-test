@@ -101,3 +101,11 @@
     border-radius:3px;
     background-color:white; 
   }
+  .each_category_container{
+    border-bottom:1px solid lightgrey;
+    margin-bottom:10px;
+  }
+
+  .each_category_container .like_list_contents:not(:first-child) ul li:nth-child(1){
+    visibility: hidden;
+  }
