@@ -79,6 +79,18 @@ router.get('/get-all-title', async (req, res) => {
     res.status(400).send(err)
   }
 })
+//숨긴책 제외한 리스트 불러오기
+router.get('/get-show-title', async (req, res) => {
+  const bookTitle = await BookTitle.find({user_id: req.query.userId, hide_or_show:'true'}).sort({ 'category' : 1,'list_order': 1 }).exec();
+  const likeTitle = await BookTitle.find({user_id: req.query.userId, hide_or_show:'true'}).sort({ 'like_order': 1 }).exec();
+  const category = await Category.find({user_id: req.query.userId}).sort({ 'category_order': 1 }).exec();
+
+  try{
+    res.send({bookTitle,likeTitle,category})
+  }catch(err){
+    res.status(400).send(err)
+  }
+})
 
 //즐겨찾기 등록 및 해제 로직, 즐겨찾기 해제시 해당 순서 재조정 로직
 router.post('/like', async (req, res) => {

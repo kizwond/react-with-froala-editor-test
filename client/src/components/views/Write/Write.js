@@ -31,7 +31,16 @@ class WriteMain extends Component {
   getAllTitle() {
     axios.get('api/create/get-all-title',{params: { userId: userId }})
     .then(res => {
-      console.log(res)
+      this.setState({
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle,
+        category:res.data.category
+      })
+    })
+  }
+  getOnlyShowTitle() {
+    axios.get('api/create/get-show-title',{params: { userId: userId }})
+    .then(res => {
       this.setState({
         bookTitle:res.data.bookTitle,
         likeTitle:res.data.likeTitle,
@@ -43,7 +52,7 @@ class WriteMain extends Component {
     this.setState({
       user: userId
     })
-    this.getAllTitle()
+    this.getOnlyShowTitle()
     
   }
   saveLikeChange = (value) => {
@@ -122,7 +131,6 @@ class WriteMain extends Component {
       action : value.action,
       from : value.from
     }).then(res => {
-      console.log(res.data)
       this.setState({
         bookTitle:res.data.bookTitle,
         likeTitle:res.data.likeTitle
@@ -131,25 +139,18 @@ class WriteMain extends Component {
   }
 
   hideOrShowToggle = () => {
-    var elements = document.querySelectorAll('.hide_or_show_false')
-    var i
     if (this.state.hideOrShowClass === false){
+      this.getAllTitle()
       this.setState((prevState)=>({
           hideOrShowClass : !prevState.hideOrShowClass
         })
       )
-      
-      for (i = 0; i < elements.length; i++) { 
-        elements[i].style.display='block';
-      }
-    } else {
+    } else if (this.state.hideOrShowClass === true){
+      this.getOnlyShowTitle()
       this.setState((prevState)=>({
           hideOrShowClass : !prevState.hideOrShowClass
         })
       )
-      for (i = 0; i < elements.length; i++) { 
-        elements[i].style.display='none';
-      }
     }
   }
   bookCategoryMove = (value) => {
@@ -159,7 +160,6 @@ class WriteMain extends Component {
       prevCategory : value.prevCategory,
       category : value.category,
     }).then(res => {
-      console.log(res.data)
       if(res.data.error === "같은 카테고리를 선택하셨습니다."){
         this.setState({
           message:res.data.error
@@ -176,15 +176,11 @@ class WriteMain extends Component {
   }
 
   addCategory = (value) => {
-    console.log(userId)
-    console.log(value.prevCategoryId)
-    console.log(value.value.newCategory)
     axios.post('api/create/add-category',{
       userId : userId,
       prevCategoryId : value.prevCategoryId,
       newCategory : value.value.newCategory,
     }).then(res => {
-      console.log(res.data)
       if(res.data.error === "동일한 이름의 카테고리명이 이미 존재합니다."){
         this.setState({
           message:res.data.error
@@ -220,9 +216,6 @@ class WriteMain extends Component {
     })
   }
   categoryDeleteHandler = (value) => {
-    console.log(value.moveTo)
-    console.log(value.value.categoryId)
-
     axios.post('api/create/delete-category',{
       categoryId : value.value.categoryId,
       moveTo : value.moveTo,
@@ -236,35 +229,21 @@ class WriteMain extends Component {
     })
   }
 
-  categoryListOrder = (value) => {
-    axios.post('api/create/change-category-order',{
-      categoryId : value.categoryId,
-      userId : userId,
-      action : value.action,
-    }).then(res => {
-      console.log(res.data)
-      this.setState({
-        bookTitle:res.data.bookTitle,
-        likeTitle:res.data.likeTitle,
-        category:res.data.category
-      })
-    })
-  }
-
   render() { 
     return ( 
       <div className="write_container">
         <div style={{fontSize:"13px", fontWeight:"700"}}>즐겨찾기</div>
         <br/>
-        {this.state.isToggleOn ? <LikeSectionContent category={this.state.category} bookCategoryMove={this.bookCategoryMove} 
-                                                    onClickLike={this.saveLikeChange} 
-                                                    hideOrShowClass={this.state.hideOrShowClass} 
-                                                    hideOrShowToggle={this.hideOrShowToggle} 
-                                                    listOrderHandler={this.listOrder} 
-                                                    changeBookTitleHandler={this.changeBookTitleHandler} 
-                                                    bookDeleteHandler={this.bookDeleteHandler} 
-                                                    onClickHideOrShow={this.eyeClickHandler} 
-                                                    bookTitle={this.state.likeTitle}/> : ''}
+        {this.state.isToggleOn ? <LikeSectionContent category={this.state.category} 
+                                                     bookCategoryMove={this.bookCategoryMove} 
+                                                     onClickLike={this.saveLikeChange} 
+                                                     hideOrShowClass={this.state.hideOrShowClass} 
+                                                     hideOrShowToggle={this.hideOrShowToggle} 
+                                                     listOrderHandler={this.listOrder} 
+                                                     changeBookTitleHandler={this.changeBookTitleHandler} 
+                                                     bookDeleteHandler={this.bookDeleteHandler} 
+                                                     onClickHideOrShow={this.eyeClickHandler} 
+                                                     bookTitle={this.state.likeTitle}/> : ''}
         
         <div style={{textAlign:"center", marginTop:"-20px"}}>
         {this.state.isToggleOn ? <UpCircleTwoTone twoToneColor="#bfbfbf" onClick={this.onClickToggle} style={{fontSize:'25px'}}/> 
@@ -277,7 +256,6 @@ class WriteMain extends Component {
         <NavLink to="/naming" exact ><Button type="primary" className="make_new_book" size="small">새로만들기</Button></NavLink> 
         <div className="book_list_container_in_write">
           <ListSectionContent addCategory={this.addCategory} 
-                              categoryListOrderHandler={this.categoryListOrder} 
                               categoryDeleteHandler={this.categoryDeleteHandler} 
                               changeCategoryHandler={this.changeCategoryHandler} 
                               category={this.state.category} 
