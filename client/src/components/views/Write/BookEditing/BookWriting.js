@@ -22,37 +22,9 @@ export class BookWriting extends Component {
        category:'',
        userEmail:'',
        user : '',
-       editor1: 'editor1',
-       editor2: 'editor2'
     }
   }
-
-  handleModelChangeEditor1 = (model) => {
-    this.setState({
-      editor1: model
-    })
-  }
-  handleModelChangeEditor2 = (model) => {
-    this.setState({
-      editor2: model
-    })
-  }
-
-  handleSubmit = () => {
-    axios.post('api/create/add-contents', {
-      content: this.state.editor1,
-      userId: userId,
-      bookTitle: this.state.bookTitle,
-      userEmail: this.state.userEmail,
-      category: this.state.category,
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+  
   componentDidMount() {
     this.setState({
       user: userId
@@ -70,55 +42,13 @@ export class BookWriting extends Component {
       })
   }
   render() {
-    const config={
-      imageUploadURL: 'api/create/upload_image',
-      saveParam: 'content',
-      width: 'auto',
-      theme: "gray",
-      tabSpaces: 4,
-      toolbarContainer: '#toolbarContainer',
-      attribution: false,
-      charCounterCount: false,
-      language: 'ko',
-      toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 
-                       'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 
-                       'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 
-                       'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 
-                       'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 
-                       'help', 'html', '|', 'undo', 'redo']
-    }
+    
     return (
       <>
       <div style={{width:"200px", margin:"auto", marginTop:"100px"}}>
         <div>작성자 : {this.state.userEmail}</div>
         <div>분류 : {this.state.category}</div>
         <div>제목 : {this.state.bookTitle}</div>
-      </div>
-      <div  id="editor">
-        <div id="toolbarContainer"></div>
-        <div><hr/></div>
-        <label className="control-label">에디터 1</label>
-      <FroalaEditorComponent
-          tag='textarea'
-          config={config}
-          model={this.state.editor1}
-          onModelChange={this.handleModelChangeEditor1}
-        />
-        <div><hr/></div>
-        <label className="control-label">에디터 2</label>
-        <FroalaEditorComponent
-          tag='textarea'
-          config={config}
-          model={this.state.editor2}
-          onModelChange={this.handleModelChangeEditor2}
-        />
-        <button onClick={this.handleSubmit} id="saveButton">Save</button>
-          <FroalaEditorView
-            model={this.state.editor1}
-          />
-          <FroalaEditorView
-            model={this.state.editor2}
-          />
       </div>
       </>
     )
