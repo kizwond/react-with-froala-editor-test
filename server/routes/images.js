@@ -9,11 +9,7 @@ router.post('/upload_image', function (req, res) {
   FroalaEditor.Image.upload(req, '/uploads/', function(err, data) {
     // Return data.
     var thishost = req.protocol + '://' + req.get('host');
-    console.log("thishost = " + thishost);
     var fullurl = thishost + data.link;
-    console.log("fullurl = " + fullurl);
-    // update the original data.link that contained only
-    // the URI to the complete URL that includes hostname
     data.link = fullurl;
 
     console.log("Modified data = " + JSON.stringify(data));
