@@ -8,12 +8,6 @@ const cookieParser = require("cookie-parser");
 
 const config = require("./config/key");
 
-// const mongoose = require("mongoose");
-// mongoose
-//   .connect(config.mongoURI, { useNewUrlParser: true })
-//   .then(() => console.log("DB connected"))
-//   .catch(err => console.error(err));
-
 const mongoose = require("mongoose");
 const connect = mongoose.connect(config.mongoURI,
   {
@@ -24,6 +18,10 @@ const connect = mongoose.connect(config.mongoURI,
   .catch(err => console.log(err));
 
 app.use(cors())
+
+const FroalaEditor = require('wysiwyg-editor-node-sdk/lib/froalaEditor.js');
+app.use(express.static(__dirname + '/'));
+app.use('/bower_components',  express.static(path.join(__dirname, '../bower_components')));
 
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
@@ -40,7 +38,8 @@ app.use('/api/users', require('./routes/users'));
 const bookTitleRoute = require('./routes/bookTitles')
 const categoryRoute = require('./routes/category')
 const contentsRoute = require('./routes/contents')
-app.use('/api/create', bookTitleRoute, categoryRoute,contentsRoute)
+const imageUploadRoute = require('./routes/images')
+app.use('/api/create', bookTitleRoute, categoryRoute,contentsRoute,imageUploadRoute)
 
 
 //use this to show the image you have in node js server to client (react js)

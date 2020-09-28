@@ -97,8 +97,6 @@ export class BookWriting extends Component {
     const config={
       imageUploadURL: 'api/create/upload_image',
       saveParam: 'content',
-      saveURL: 'http://example.com/save',
-      saveMethod: 'POST',
       width: 'auto',
       theme: "gray",
       tabSpaces: 4,
