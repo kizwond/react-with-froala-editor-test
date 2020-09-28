@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import LeftDrawer from './BookWritingLeftDrawer'
+import RightDrawer from './BookWritingRightDrawer'
+import './BookWriting.css'
+
+import SettingTabs from './SettingTabs'
 
 var userId = localStorage.getItem('userId')
 
@@ -11,6 +16,8 @@ export class BookWriting extends Component {
        category:'',
        userEmail:'',
        user : '',
+       table_of_contents:[],
+       hide_show_toggle:false
     }
   }
   
@@ -30,14 +37,31 @@ export class BookWriting extends Component {
         });
       })
   }
+  handleClick = () => {
+    console.log('clicked!!')
+    this.setState({
+      hide_show_toggle : !this.state.hide_show_toggle
+    })
+  }
   render() {
+    if (this.state.hide_show_toggle === false){
+      var toggle = '-300px' 
+    } else {
+      var toggle = '0px' 
+    }
     
     return (
       <>
-      <div>
-        <div>작성자 : {this.state.userEmail}</div>
-        <div>분류 : {this.state.category}</div>
-        <div>제목 : {this.state.bookTitle}</div>
+      <div className="book_writing_container">
+        <div className="left_side_container">
+        <LeftDrawer/>
+        </div>
+        <div className="editor_container">
+          editor 영역
+        </div>
+        <div className="right_side_container" style={{marginRight:toggle}}>
+          <SettingTabs handleClick={this.handleClick}/>
+        </div>
       </div>
       </>
     )

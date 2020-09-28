@@ -1,0 +1,19 @@
+.book_writing_container{
+  margin-top:10px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  position: relative;
+}
+
+
+footer{
+  display:none;
+}
+.ant-drawer-left, .ant-drawer-right{
+  margin-top:54px;
+}
+
+.right_side_container{
+  width:400px;
+}
