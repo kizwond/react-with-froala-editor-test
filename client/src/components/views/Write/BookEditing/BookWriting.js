@@ -28,7 +28,6 @@ export class BookWriting extends Component {
   }
 
   handleModelChangeEditor1 = (model) => {
-    console.log(model)
     this.setState({
       editor1: model
     })
@@ -38,28 +37,6 @@ export class BookWriting extends Component {
       editor2: model
     })
   }
-  // handleSubmit = (values) => {
-  //   var url = '/api/create/naming';
-  //   var data = this.state.editor1;
-  //   console.log(data)
-
-  //   fetch(url, {
-  //     method: 'POST', 
-  //     body: JSON.stringify(data), 
-  //     headers:{
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }).then(res => res.json())
-  //   .then(function(response){
-  //     console.log(response)
-  //     if(response.error === "동일한 이름의 책이 이미 존재합니다."){
-  //       setMessage(response.error)
-  //     } else {
-  //       window.location.href = '/writing'
-  //     }
-  //   })
-  //   .catch(error => console.error('Error:', error));
-  // }
 
   handleSubmit = () => {
     axios.post('api/create/add-contents', {
@@ -82,7 +59,6 @@ export class BookWriting extends Component {
     })
     axios.get('api/create/get-book-title',{params: { userId: userId }})
       .then(res => {
-        console.log(res)
         const bookTitle = res.data.bookTitle.book_title;
         const category = res.data.bookTitle.category;
         const userEmail = res.data.bookTitle.user_email;
