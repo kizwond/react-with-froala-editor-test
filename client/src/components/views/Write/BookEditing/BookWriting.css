@@ -1,9 +1,10 @@
 .book_writing_container{
-  margin-top:10px;
+  margin-top:2px;
   display:flex;
   flex-direction:row;
   justify-content: space-between;
   position: relative;
+  overflow-x: hidden;
 }
 
 
@@ -16,4 +17,17 @@ footer{
 
 .right_side_container{
   width:400px;
+}
+
+.ant-tabs-tab-btn {
+  writing-mode: vertical-rl;
+  vertical-align: middle;
+}
+.ant-tabs-card.ant-tabs-small > .ant-tabs-nav .ant-tabs-tab{
+  padding:10px 0px;
+  width:25px;
+  margin-left:25px;
+}
+.ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane{
+  padding:0px;
 }

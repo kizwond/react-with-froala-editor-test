@@ -17,7 +17,7 @@ export class BookWriting extends Component {
        userEmail:'',
        user : '',
        table_of_contents:[],
-       hide_show_toggle:false
+       hide_show_toggle:true
     }
   }
   
@@ -37,15 +37,35 @@ export class BookWriting extends Component {
         });
       })
   }
-  handleClick = () => {
+  handleClick = (key) => {
     console.log('clicked!!')
-    this.setState({
-      hide_show_toggle : !this.state.hide_show_toggle
-    })
+    console.log(key)
+    if(key === '1' ){
+      this.setState({
+        hide_show_toggle : true
+      })
+    } else if(key === '2' ){
+      this.setState({
+        hide_show_toggle : true
+      })
+    } else if(key === '3' ){
+      this.setState({
+        hide_show_toggle : true
+      })
+    } else if(key === '4' ){
+      this.setState({
+        hide_show_toggle : true
+      })
+    } else if(key === '0' ){
+      this.setState({
+        hide_show_toggle : false
+      })
+    }
+    
   }
   render() {
     if (this.state.hide_show_toggle === false){
-      var toggle = '-300px' 
+      var toggle = '-350px' 
     } else {
       var toggle = '0px' 
     }
@@ -60,7 +80,7 @@ export class BookWriting extends Component {
           editor 영역
         </div>
         <div className="right_side_container" style={{marginRight:toggle}}>
-          <SettingTabs handleClick={this.handleClick}/>
+          <SettingTabs toggle={this.state.hide_show_toggle} onClick={this.handleClick}/>
         </div>
       </div>
       </>
