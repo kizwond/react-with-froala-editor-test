@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
+import { Affix, Button } from 'antd';
 
 const { TabPane } = Tabs;
 
@@ -92,6 +93,17 @@ class PageSetting extends Component {
         </div>
         <div className="select_page_padding">
           <div>페이지 여백</div>
+          <div className="page_padding_container">
+            <div className="padding_top">상 <input type="number"/> px</div>
+            <div className="page_padding_mid_container">
+              <div>좌 <input type="number"/> px</div>
+              <div className="padding_img_outer">
+                <div>본문</div>
+              </div>
+              <div>우 <input type="number"/> px</div>
+            </div>
+            <div className="padding_bottom">하 <input type="number"/> px</div>
+          </div>
         </div>
         <div className="select_page_color">
           <div>색 지정</div>
@@ -105,11 +117,13 @@ class PageSetting extends Component {
         <div className="select_page_bottom">
           <div>바닥글</div>
         </div>
-        <div className="save_page_setting">
-          <button>적용</button>
-          <button>취소</button>
-          <button>설정초기화</button>
-        </div>
+        <Affix offsetBottom={0}>
+          <div className="save_page_setting">
+            <Button type="primary" shape="round" size="small">적용</Button>
+            <Button type="primary" shape="round" size="small">취소</Button>
+            <Button type="primary" shape="round" size="small">설정초기화</Button>
+          </div>
+        </Affix>
       </div>
     );
   }
