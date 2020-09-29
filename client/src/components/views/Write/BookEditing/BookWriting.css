@@ -7,7 +7,6 @@
   overflow-x: hidden;
 }
 
-
 footer{
   display:none;
 }
@@ -16,7 +15,7 @@ footer{
 }
 
 .right_side_container{
-  width:400px;
+  width:360px;
 }
 
 .ant-tabs-tab-btn {
@@ -30,4 +29,96 @@ footer{
 }
 .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane{
   padding:0px;
+}
+.editor_container{
+  width:60%;
+}
+
+.page_setting_container{
+  display:flex;
+  flex-direction:column;
+  font-size:12px;
+}
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active{
+  background:#efefef;
+}
+.ant-tabs-tabpane-active{
+  background:#efefef;
+}
+.ant-tabs-card.ant-tabs-left > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card.ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab-active{
+  border-right-color: #efefef;
+}
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
+  border:1px solid lightgrey;
+}
+.select_page_templete_container{
+  height:60px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
+}
+.select_page_templete_select_container{
+  padding-left:30px;
+}
+.select_page_templete_container select{
+  width:270px;
+}
+.select_page_size_div select{
+  width:190px;
+}
+.select_page_size{
+  height:80px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
+}
+.select_page_size_div{
+  margin-top:5px;
+  width:300px;
+  padding-left:30px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.select_page_size_div div:nth-child(1){
+  width:80px;
+}
+.select_page_size input{
+  width:60px;
+  height:20px;
+  border:1px solid rgb(122, 111, 111);
+}
+
+.select_page_padding{
+  height:140px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
+}
+
+.select_page_color{
+  height:80px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
+}
+
+.select_page_numbering{
+  height:140px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
+}
+
+.select_page_top{
+  height:300px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
+}
+
+.select_page_bottom{
+  height:300px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
+}
+
+.save_page_setting{
+  height:50px;
+  padding:5px;
+  border-bottom:1px dashed #bfbfbf;
 }
