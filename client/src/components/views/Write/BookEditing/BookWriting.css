@@ -104,7 +104,21 @@ footer{
   padding:5px;
   border-bottom:1px dashed #bfbfbf;
 }
-
+.select_page_color .show_color_value{
+  width:100px;
+  height:20px;
+  border:1px solid rgb(122, 111, 111);
+}
+.page_color_picker{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left:30px;
+}
+.page_color_picker div:nth-child(1){
+  width:80px;
+}
 .select_page_numbering{
   height:140px;
   padding:5px;

@@ -107,6 +107,16 @@ class PageSetting extends Component {
         </div>
         <div className="select_page_color">
           <div>색 지정</div>
+          <div className="page_color_picker">
+            <div>본문색</div>
+            <div><input type="color"/></div>
+            <div><input className="show_color_value" type="text"/></div>
+          </div>
+          <div className="page_color_picker">
+            <div>내부여백 색</div>
+            <div><input type="color"/></div>
+            <div><input className="show_color_value"  type="text"/></div>
+          </div>
         </div>
         <div className="select_page_numbering">
           <div>페이지 번호</div>
