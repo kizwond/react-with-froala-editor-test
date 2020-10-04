@@ -120,6 +120,38 @@ class PageSetting extends Component {
         </div>
         <div className="select_page_numbering">
           <div>페이지 번호</div>
+          <div>
+            <div>폰트</div>
+            <div>
+              <select>
+                <option value="맑은고딕">맑은고딕</option>
+              </select>
+            </div>
+            <div><input type="text"/> px</div>
+          </div>
+          <div>
+            <div>bold</div>
+            <div>
+              <select>
+                <option value="off">off</option>
+              </select>
+            </div>
+            <div>italic</div>
+            <div>
+              <select>
+                <option value="off">off</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div>위치</div>
+            <div>
+              <select>
+                <option value="위바깥">위바깥</option>
+              </select>
+            </div>
+            <div>책모양그림</div>
+          </div>
         </div>
         <div className="select_page_top">
           <div>머릿글</div>
