@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
 import { Affix, Button, Collapse, Switch } from 'antd';
-
+import { SettingOutlined, DoubleRightOutlined  } from '@ant-design/icons';
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
@@ -24,9 +24,9 @@ class SettingTabs extends Component {
   render() {
     const { mode } = this.state;
     if(this.props.toggle === false) {
-      var toggle = '설정'
+      var toggle = <SettingOutlined />
     } else {
-      var toggle = '접기'
+      var toggle = <DoubleRightOutlined />
     }
     return (
         <Tabs defaultActiveKey={this.state.key} onChange={this.handleChange} type="card" size='small' tabPosition={mode} >

@@ -77,7 +77,13 @@ export class BookWriting extends Component {
         <LeftDrawer/>
         </div>
         <div className="editor_container" style={{marginRight:main}}>
-          editor 영역
+          <div className="editor_container_templete"></div>
+        </div>
+        <div className="editor_container_templete_position_absolute">
+          <div className="editor_top_menu">
+            <button>카드 이동/삭제</button><span>책 제목 : {this.state.bookTitle}</span>
+          </div>
+          <div className="editor_panel">12121sdfasdfasdfasfd21</div>
         </div>
         <div className="right_side_container" style={{marginRight:toggle}}>
           <SettingTabs toggle={this.state.hide_show_toggle} onClick={this.handleClick}/>
