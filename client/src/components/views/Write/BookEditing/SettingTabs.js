@@ -68,7 +68,7 @@ class PageSetting extends Component {
     return (
       <div className="page_setting_container">
         <Collapse defaultActiveKey={['1','2','3','4','5','6','7']} >
-          <Panel header="페이지템플릿 선택" key="1" className="data_collapse_panel">
+          <Panel header="페이지템플릿 선택" key="1" className="data_collapse_panel"> 
             <PageTemplete/>
           </Panel>
           <Panel header="페이지 크기" key="2" className="data_collapse_panel">
@@ -247,7 +247,20 @@ class PageNumbering extends Component {
                 <option value="위바깥">위바깥</option>
               </select>
             </div>
-            <div>책모양그림</div>
+            <div className="location_box">
+              <div className="location_left_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div className="location_right_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
           </div>
         </div>
       </>
@@ -298,7 +311,20 @@ class PageTop extends Component {
                 <option value="위바깥">위바깥</option>
               </select>
             </div>
-            <div>책모양그림</div>
+            <div className="location_box">
+              <div className="location_left_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div className="location_right_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
           </div>
           <div>
             <div className="select_page_location_img_upload"> 
@@ -323,7 +349,20 @@ class PageTop extends Component {
                 <option value="위바깥">위바깥</option>
               </select>
             </div>
-            <div>책모양그림</div>
+            <div className="location_box">
+              <div className="location_left_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div className="location_right_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
           </div>
         </div>
       </>
@@ -374,7 +413,20 @@ class PageBottom extends Component {
                 <option value="위바깥">위바깥</option>
               </select>
             </div>
-            <div>책모양그림</div>
+            <div className="location_box">
+              <div className="location_left_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div className="location_right_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
           </div>
           <div>
             <div className="select_page_location_img_upload"> 
@@ -399,7 +451,20 @@ class PageBottom extends Component {
                 <option value="위바깥">위바깥</option>
               </select>
             </div>
-            <div>책모양그림</div>
+            <div className="location_box">
+              <div className="location_left_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div className="location_right_box" style={{width:"50%"}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
           </div>
         </div>
       </>

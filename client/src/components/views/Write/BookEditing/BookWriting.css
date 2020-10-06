@@ -297,5 +297,82 @@ footer{
   position: absolute;
   top:1px;
   right:5px;
+}
+.location_box{
+  display:flex;
+  flex-direction:row;
+  border:1px solid grey;
+  width:120px;
+  height:80px;
+  margin-left:10px;
+  background-color:white;
+}
 
+.location_right_box{
+  position: relative;
+  width:60px;
+  height:80px;
+}
+.location_left_box div{
+  border:1px solid grey;
+  width:10px;
+  height:10px;
+}
+.location_right_box div{
+  border:1px solid grey;
+  width:10px;
+  height:10px;
+}
+.location_left_box div:nth-child(1){
+  position: absolute;
+  left:3px;
+  top:3px;
+  width:10px;
+  height:10px;
+}
+.location_left_box div:nth-child(2){
+  position: absolute;
+  left:25px;
+  top:3px;
+}
+.location_left_box div:nth-child(3){
+  position: absolute;
+  left:25px;
+  bottom:4px;
+}
+.location_left_box div:nth-child(4){
+  position: absolute;
+  left:3px;
+  bottom:4px;
+}
+.location_box .location_left_box{
+  position: relative;
+  height:80px;
+  border-right:1px solid grey;
+}
+.location_box .location_right_box{
+  position: relative;
+  height:80px;
+}
+.location_right_box div:nth-child(1){
+  position: absolute;
+  right:3px;
+  top:3px;
+  width:10px;
+  height:10px;
+}
+.location_right_box div:nth-child(2){
+  position: absolute;
+  right:25px;
+  top:3px;
+}
+.location_right_box div:nth-child(3){
+  position: absolute;
+  right:25px;
+  bottom:4px;
+}
+.location_right_box div:nth-child(4){
+  position: absolute;
+  right:3px;
+  bottom:4px;
 }
