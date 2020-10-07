@@ -1,52 +1,45 @@
 import React, { Component } from 'react';
-import { Drawer, Button, Space } from 'antd';
+import { Tabs } from 'antd';
+import { Affix, Button, Collapse, Switch } from 'antd';
+import { UnorderedListOutlined, DoubleLeftOutlined  } from '@ant-design/icons';
+const { TabPane } = Tabs;
+const { Panel } = Collapse;
 
 class LeftDrawer extends Component {
-  state = { visible: false, placement: 'left' };
+  constructor(props) {
+    super(props);
+    this.state = {
+      mode: 'right',
+      order_key:'none',
+    };
+  }
 
-  showDrawer = () => {
+  handleChange = (key) => {
     this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  onChange = e => {
-    this.setState({
-      placement: e.target.value,
-    });
-  };
+      order_key:key
+    })
+    this.props.onClick(key)
+  }
 
   render() {
-    const { placement, visible } = this.state;
+    const { mode } = this.state;
+    if(this.props.toggle === false) {
+      var toggle = <UnorderedListOutlined />
+    } else {
+      var toggle = <DoubleLeftOutlined />
+    }
     return (
-      <>
-        <Space>
-          <Button type="primary" onClick={this.showDrawer}>
-            목차
-          </Button>
-        </Space>
-        <Drawer
-          placement={placement}
-          closable={true}
-          onClose={this.onClose}
-          visible={visible}
-          key={placement}
-          maskClosable={false}
-          mask={false}
-          width={300}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Drawer>
-      </>
+        <Tabs defaultActiveKey={this.state.order_key} className="left_drawer" onChange={this.handleChange} type="card" size='small' tabPosition={mode} >
+          <TabPane tab={toggle} key="none">
+          </TabPane>
+          <TabPane className="left_drawer_mokcha" tab="목차" key="목차">
+            1111
+          </TabPane>
+        </Tabs>
     );
   }
 }
+
+
+
 export default LeftDrawer

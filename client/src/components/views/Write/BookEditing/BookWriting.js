@@ -17,7 +17,8 @@ export class BookWriting extends Component {
        userEmail:'',
        user : '',
        table_of_contents:[],
-       hide_show_toggle:false
+       hide_show_toggle:false,
+       left_drawer_toggle:false
     }
   }
   
@@ -60,6 +61,17 @@ export class BookWriting extends Component {
       })
     }
   }
+  leftDrawerHandleClick = (key) => {
+    if(key === 'none' ){
+      this.setState({
+        left_drawer_toggle : false
+      })
+    } else if(key === '목차' ){
+      this.setState({
+        left_drawer_toggle : true
+      })
+    }
+  }
   render() {
     if (this.state.hide_show_toggle === false){
       var toggle = '-308px' 
@@ -68,13 +80,18 @@ export class BookWriting extends Component {
       var toggle = '0px' 
       var main = '-308px'
     }
+    if (this.state.left_drawer_toggle === false){
+      var toggleLeft = '-21px' 
+    } else {
+      var toggleLeft = '0px' 
+    }
 
     
     return (
       <>
       <div className="book_writing_container">
-        <div className="left_side_container">
-        <LeftDrawer/>
+        <div className="left_side_container" style={{marginLeft:toggleLeft}}>
+        <LeftDrawer toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
         </div>
         <div className="editor_container" style={{marginRight:main}}>
           <div className="editor_container_templete"></div>

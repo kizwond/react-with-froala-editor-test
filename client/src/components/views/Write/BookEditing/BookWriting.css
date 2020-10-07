@@ -416,3 +416,22 @@ footer{
 .ant-tabs-left>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane, .ant-tabs-left>div>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane{
   z-index:10;
 }
+
+.left_side_container{
+  z-index: 10;
+  transition-duration: 0.3s;
+}
+.left_drawer_mokcha{
+  width:310px;
+}
+.left_drawer.ant-tabs-small > .ant-tabs-nav .ant-tabs-tab{
+  margin-left:0px;
+}
+.left_drawer > .ant-tabs-content-holder{
+  background-color: #fafafa;;
+  height:100vh;
+  overflow: auto;
+}
+.ant-layout-header{
+  z-index: 11;
+}
