@@ -81,7 +81,7 @@ export class BookWriting extends Component {
       var main = '-308px'
     }
     if (this.state.left_drawer_toggle === false){
-      var toggleLeft = '-21px' 
+      var toggleLeft = '-31px' 
     } else {
       var toggleLeft = '0px' 
     }

@@ -428,10 +428,19 @@ footer{
   margin-left:0px;
 }
 .left_drawer > .ant-tabs-content-holder{
-  background-color: #fafafa;;
+  background-color: #fafafa;
   height:100vh;
   overflow: auto;
+  padding:5px;
+  border-right:1px solid lightgrey;
 }
 .ant-layout-header{
   z-index: 11;
+}
+.left_drawer .ant-tabs-tabpane-active{
+  background-color:#fafafa;
+}
+.ant-tabs-card.ant-tabs-right > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card.ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab-active{
+  border-left:1px solid #fafafa;
+  background-color:#fafafa;
 }

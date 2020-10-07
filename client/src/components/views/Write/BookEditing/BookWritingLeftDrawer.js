@@ -33,7 +33,7 @@ class LeftDrawer extends Component {
           <TabPane tab={toggle} key="none">
           </TabPane>
           <TabPane className="left_drawer_mokcha" tab="목차" key="목차">
-            1111
+            <div><button>목차편집</button> </div>
           </TabPane>
         </Tabs>
     );
