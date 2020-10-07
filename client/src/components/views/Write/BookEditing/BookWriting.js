@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import LeftDrawer from './BookWritingLeftDrawer'
-import RightDrawer from './BookWritingRightDrawer'
 import './BookWriting.css'
-
+import {Button } from 'antd';
 import SettingTabs from './SettingTabs'
 
 var userId = localStorage.getItem('userId')
@@ -98,7 +97,7 @@ export class BookWriting extends Component {
         </div>
         <div className="editor_container_templete_position_absolute">
           <div className="editor_top_menu">
-            <button>카드 이동/삭제</button><span>책 제목 : {this.state.bookTitle}</span>
+            <Button size='small'>카드 이동/삭제</Button><span>책 제목 : {this.state.bookTitle}</span>
           </div>
           <div className="editor_panel">
             <div className="a4"></div>

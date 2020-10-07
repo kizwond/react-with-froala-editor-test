@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
-import { Affix, Button, Collapse, Switch } from 'antd';
+import { Button } from 'antd';
 import { UnorderedListOutlined, DoubleLeftOutlined  } from '@ant-design/icons';
 const { TabPane } = Tabs;
-const { Panel } = Collapse;
 
 class LeftDrawer extends Component {
   constructor(props) {
@@ -33,7 +32,7 @@ class LeftDrawer extends Component {
           <TabPane tab={toggle} key="none">
           </TabPane>
           <TabPane className="left_drawer_mokcha" tab="목차" key="목차">
-            <div><button>목차편집</button> </div>
+            <div><Button size="small">목차편집</Button> </div>
           </TabPane>
         </Tabs>
     );

@@ -93,74 +93,13 @@ footer{
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
   border:1px solid lightgrey;
 }
-.select_page_templete_container{
-  height:60px;
-  padding:5px;
-}
-.select_page_templete_select_container{
-  margin-top:5px;
-  padding-left:30px;
-}
-.select_page_templete_container select{
-  width:270px;
-}
-.select_page_size_div select{
-  width:190px;
-}
-.select_page_size{
-  height:80px;
-  padding:5px;
-}
-.select_page_size_div{
-  margin-top:5px;
-  width:300px;
-  padding-left:30px;
-  display:flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.select_page_size_div div:nth-child(1){
-  width:80px;
-}
-.select_page_size input{
-  width:60px;
-  height:20px;
-  border:1px solid rgb(122, 111, 111);
-}
 
-.select_page_padding{
-  height:155px;
-  padding:5px;
-}
 
-.select_page_color{
-  height:80px;
-  padding:5px;
-}
-.select_page_color .show_color_value{
-  width:100px;
-  height:20px;
-  border:1px solid rgb(122, 111, 111);
-}
-.page_color_picker{
-  display:flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-left:30px;
-}
-.page_color_picker div:nth-child(1){
-  width:80px;
-}
-.select_page_numbering{
-  height:140px;
-  padding:5px;
-}
 
-.select_page_top{
-  height:300px;
-  padding:5px;
-}
+
+
+
+
 
 .select_page_bottom{
   height:300px;
@@ -189,6 +128,112 @@ footer{
 .ant-btn-primary{
   font-weight:400;
   font-size:12px;
+}
+
+
+
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header{
+  padding:0px;
+  padding-left:20px;
+}
+.ant-collapse-content{
+  background-color:#f5f5f5;
+}
+.ant-collapse-content > .ant-collapse-content-box{
+  padding:0px;
+}
+.ant-collapse{
+  font-size:12px;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
+  left:4px;
+}
+.data_collapse_panel_page_top{
+  position: relative;
+}
+.page_top_toggle{
+  position: absolute;
+  top:1px;
+  right:5px;
+}
+
+.ant-tabs-left>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane, .ant-tabs-left>div>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane{
+  z-index:10;
+}
+
+.left_side_container{
+  z-index: 10;
+  transition-duration: 0.3s;
+}
+.left_drawer_mokcha{
+  width:310px;
+}
+.left_drawer.ant-tabs-small > .ant-tabs-nav .ant-tabs-tab{
+  margin-left:0px;
+}
+.left_drawer > .ant-tabs-content-holder{
+  background-color: #fafafa;
+  height:100vh;
+  overflow: auto;
+  padding:5px;
+  border-right:1px solid lightgrey;
+}
+.ant-layout-header{
+  z-index: 11;
+}
+.left_drawer .ant-tabs-tabpane-active{
+  background-color:#fafafa;
+}
+.ant-tabs-card.ant-tabs-right > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card.ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab-active{
+  border-left:1px solid #fafafa;
+  background-color:#fafafa;
+}
+
+
+/* 페이지 템플릿 선택 */
+.select_page_templete_container{
+  height:60px;
+  padding:5px;
+}
+.select_page_templete_select_container{
+  margin-top:5px;
+  padding-left:30px;
+}
+.select_page_templete_container select{
+  width:270px;
+}
+
+
+/* 페이지 크기 */
+.select_page_size_div select{
+  width:190px;
+}
+.select_page_size{
+  height:80px;
+  padding:5px;
+}
+.select_page_size_div{
+  margin-top:5px;
+  width:300px;
+  padding-left:30px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.select_page_size_div div:nth-child(1){
+  width:80px;
+}
+.select_page_size input{
+  width:60px;
+  height:20px;
+  border:1px solid rgb(122, 111, 111);
+}
+
+/* 페이지 여백 */
+.select_page_padding{
+  height:155px;
+  padding:5px;
 }
 .page_padding_container{
   display:flex;
@@ -226,6 +271,34 @@ footer{
   text-align:center;
 }
 
+
+/* 페이지 색 */
+.select_page_color{
+  height:80px;
+  padding:5px;
+}
+.select_page_color .show_color_value{
+  width:100px;
+  height:20px;
+  border:1px solid rgb(122, 111, 111);
+}
+.page_color_picker{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left:30px;
+}
+.page_color_picker div:nth-child(1){
+  width:80px;
+}
+
+
+/* 페이지 번호 */
+.select_page_numbering{
+  height:140px;
+  padding:5px;
+}
 .select_page_font{
   display:flex;
   flex-direction: row;
@@ -258,6 +331,12 @@ footer{
 }
 .select_page_location div:nth-child(1){
   width:80px;
+}
+
+/* 머릿글 */
+.select_page_top{
+  height:300px;
+  padding:5px;
 }
 .select_page_top_font{
   display:flex;
@@ -310,30 +389,6 @@ footer{
   width:60px;
   height:20px;
   border:1px solid rgb(122, 111, 111);
-}
-.ant-collapse > .ant-collapse-item > .ant-collapse-header{
-  padding:0px;
-  padding-left:20px;
-}
-.ant-collapse-content{
-  background-color:#f5f5f5;
-}
-.ant-collapse-content > .ant-collapse-content-box{
-  padding:0px;
-}
-.ant-collapse{
-  font-size:12px;
-}
-.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
-  left:4px;
-}
-.data_collapse_panel_page_top{
-  position: relative;
-}
-.page_top_toggle{
-  position: absolute;
-  top:1px;
-  right:5px;
 }
 .location_box{
   display:flex;
@@ -412,35 +467,4 @@ footer{
   position: absolute;
   right:3px;
   bottom:4px;
-}
-.ant-tabs-left>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane, .ant-tabs-left>div>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane{
-  z-index:10;
-}
-
-.left_side_container{
-  z-index: 10;
-  transition-duration: 0.3s;
-}
-.left_drawer_mokcha{
-  width:310px;
-}
-.left_drawer.ant-tabs-small > .ant-tabs-nav .ant-tabs-tab{
-  margin-left:0px;
-}
-.left_drawer > .ant-tabs-content-holder{
-  background-color: #fafafa;
-  height:100vh;
-  overflow: auto;
-  padding:5px;
-  border-right:1px solid lightgrey;
-}
-.ant-layout-header{
-  z-index: 11;
-}
-.left_drawer .ant-tabs-tabpane-active{
-  background-color:#fafafa;
-}
-.ant-tabs-card.ant-tabs-right > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card.ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab-active{
-  border-left:1px solid #fafafa;
-  background-color:#fafafa;
 }
