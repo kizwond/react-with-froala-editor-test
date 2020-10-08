@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import { UnorderedListOutlined, DoubleLeftOutlined  } from '@ant-design/icons';
+import ContentsTable from './ContentsTable'
 const { TabPane } = Tabs;
 
 class LeftDrawer extends Component {
@@ -10,6 +11,7 @@ class LeftDrawer extends Component {
     this.state = {
       mode: 'right',
       order_key:'none',
+      visible: false
     };
   }
 
@@ -19,6 +21,23 @@ class LeftDrawer extends Component {
     })
     this.props.onClick(key)
   }
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
 
   render() {
     const { mode } = this.state;
@@ -32,7 +51,8 @@ class LeftDrawer extends Component {
           <TabPane tab={toggle} key="none">
           </TabPane>
           <TabPane className="left_drawer_mokcha" tab="목차" key="목차">
-            <div><Button size="small">목차편집</Button> </div>
+            <div><Button onClick={this.showModal} size="small">목차편집</Button> </div>
+            <ContentsTable handleOk={this.handleOk} showModal={this.showModal} handleCancel={this.handleCancel} visible={this.state.visible}/>
           </TabPane>
         </Tabs>
     );
