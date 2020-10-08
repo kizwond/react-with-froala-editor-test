@@ -8,6 +8,7 @@ class ContentsTable extends Component {
     this.state = {  };
   }
   render() {
+    console.log(this.props.table_of_contents)
     return (
       <Modal
         title={[<SettingOutlined />, " 목차편집"]}
@@ -35,25 +36,45 @@ class ContentsTable extends Component {
             </div>
           </div>
           <div className="mokcha_contents">
-            <div className="mokcha_levels">
-              <div></div>
-              <div><PlusCircleOutlined /></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-            <div className="mokcha_tools">
-              <div><EditOutlined /></div>
-              <div><StepBackwardOutlined /> <StepForwardOutlined /></div>
-              <div><CaretUpOutlined /> <CaretDownOutlined /></div>
-              <div><DeleteOutlined /></div>
-            </div>
+            <ContentsTableList table_of_contents={this.props.table_of_contents}/>
           </div>
         </div>
       </Modal>
     );
   }
 }
+
+class ContentsTableList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    const contentsTableList = this.props.table_of_contents.map((content)=>(
+      <>
+        <div className="mokcha_levels">
+          <div></div>
+          <div><PlusCircleOutlined /> {content.table_name}</div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div className="mokcha_tools">
+          <div><EditOutlined /></div>
+          <div><StepBackwardOutlined /> <StepForwardOutlined /></div>
+          <div><CaretUpOutlined /> <CaretDownOutlined /></div>
+          <div><DeleteOutlined /></div>
+        </div>
+    </>
+    ))
+    return (
+      <>
+        {contentsTableList}
+      </>
+    );
+  }
+}
+
 
 export default ContentsTable;

@@ -27,13 +27,16 @@ export class BookWriting extends Component {
     })
     axios.get('api/create/get-book-title',{params: { userId: userId }})
       .then(res => {
+        console.log(res.data)
         const bookTitle = res.data.bookTitle.book_title;
         const category = res.data.bookTitle.category;
         const userEmail = res.data.bookTitle.user_email;
+        const contentsTable = res.data.contentsTable
         this.setState({ 
           bookTitle:bookTitle, 
           category:category,
           userEmail:userEmail,
+          table_of_contents:contentsTable,
         });
       })
   }
@@ -85,12 +88,12 @@ export class BookWriting extends Component {
       var toggleLeft = '0px' 
     }
 
-    
+    console.log(this.state.table_of_contents)
     return (
       <>
       <div className="book_writing_container">
         <div className="left_side_container" style={{marginLeft:toggleLeft}}>
-        <LeftDrawer toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
+        <LeftDrawer table_of_contents={this.state.table_of_contents} toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
         </div>
         <div className="editor_container" style={{marginRight:main}}>
           <div className="editor_container_templete"></div>

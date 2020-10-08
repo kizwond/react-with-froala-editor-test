@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { BookTitle } = require('../models/BookTitle');
 const { User } = require("../models/User");
 const { Category } = require("../models/Category");
+const { ContentsTable } = require("../models/ContentsTable");
+const Contents = require('../models/Contents');
 
 
 //책 만들기, 책 만든 후 기존 책 순서에 따라 새책 순서 입력.
@@ -46,8 +48,21 @@ router.post('/naming', async (req, res) => {
         list_order: listOrder + 1,
         hide_or_show: 'true',
       })
+      const contentsTable = new ContentsTable({
+        book_id: bookTitle._id,
+        table_name:'기본',
+        order: 1,
+        level: 1,
+        level_in_order: 1,
+        parent: 'default',
+        user_email: useremail.email,
+        user_id: req.body.userId,
+        user_nick: useremail.name,
+      })
+      console.log(contentsTable)
       try{
         const saveBookTitle = await bookTitle.save()
+        const saveContentsTable = await contentsTable.save()
         const categoryInfo = await Category.findOne({user_id:req.body.userId, category_name:req.body.category}).exec();
         const addQuantity = await Category.findOneAndUpdate({_id: categoryInfo._id},{contents_quantity:categoryInfo.contents_quantity + 1}).exec();
         res.send({book_title:bookTitle.book_title, category:bookTitle.category, user_email:bookTitle.user_email})
@@ -60,8 +75,10 @@ router.post('/naming', async (req, res) => {
 //책 생성 후 마지막으로 생성된 책 화면에 표시
 router.get('/get-book-title', async (req, res) => {
   const bookTitle = await BookTitle.findOne({user_id: req.query.userId}).sort({ 'date' : -1 }).exec();
+  const contentsTable = await ContentsTable.find({user_id: req.query.userId, book_id:bookTitle._id}).sort({'order': 1}).exec();
+
   try{
-    res.send({bookTitle})
+    res.send({bookTitle,contentsTable})
   }catch(err){
     res.status(400).send(err)
   }
@@ -232,6 +249,7 @@ router.post('/delete-book', async (req, res) => {
   const minusQuantity = await Category.findOneAndUpdate({_id: categoryInfo._id},{contents_quantity:categoryInfo.contents_quantity - 1}).exec();
 
   let doc = await BookTitle.deleteOne({_id: req.body.bookId});
+  let deleteContentsTable = await ContentsTable.deleteMany({book_id: req.body.bookId});
   const bookTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.body.userId}).sort({ 'like_order': 1 }).exec();
   const category = await Category.find({user_id: req.body.userId}).sort({ 'category_order': 1 }).exec();
