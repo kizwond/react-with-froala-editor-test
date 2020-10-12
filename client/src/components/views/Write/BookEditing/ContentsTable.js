@@ -53,15 +53,36 @@ class ContentsTableList extends Component {
       <div className="mokcha_contents">
         <div className="mokcha_levels">
           <div></div>
-          <div>
+          {this.props.table.level === 1 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.props.table.table_name}</div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+            {this.props.table.table_name}
+          </div> : <div></div>}
+          {this.props.table.level === 2 ? <div>
+          <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
+            <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
+          </Popover>
+            {this.props.table.table_name}
+          </div> : <div></div>}
+          {this.props.table.level === 3 ? <div>
+          <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
+            <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
+          </Popover>
+            {this.props.table.table_name}
+          </div> : <div></div>}
+          {this.props.table.level === 4 ? <div>
+          <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
+            <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
+          </Popover>
+            {this.props.table.table_name}
+          </div> : <div></div>}
+          {this.props.table.level === 5 ? <div>
+          <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
+            <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
+          </Popover>
+            {this.props.table.table_name}
+          </div> : <div></div>}
         </div>
         <div className="mokcha_tools">
           <div><EditOutlined /></div>
