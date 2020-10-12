@@ -57,7 +57,7 @@ class CategoryList extends Component {
         <div className="category_setting_content">
           <ul>
             <li>
-              <Popover placement="rightTop" editCategory title={text} visible={this.state.newInput} content={content} trigger="click">
+              <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
                 <PlusOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} />
               </Popover>
             </li>

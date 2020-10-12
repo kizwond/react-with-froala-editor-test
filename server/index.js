@@ -39,7 +39,11 @@ const bookTitleRoute = require('./routes/bookTitles')
 const categoryRoute = require('./routes/category')
 const contentsRoute = require('./routes/contents')
 const imageUploadRoute = require('./routes/images')
+
 app.use('/api/create', bookTitleRoute, categoryRoute,contentsRoute,imageUploadRoute)
+
+const contentsTableRoute = require('./routes/contentsTable')
+app.use('/api/edit', contentsTableRoute)
 
 
 //use this to show the image you have in node js server to client (react js)

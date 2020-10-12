@@ -40,6 +40,23 @@ export class BookWriting extends Component {
         });
       })
   }
+  addTable =(value) => {
+    console.log(value)
+    axios.post('api/edit/add-table',{
+      prevTableId : value.prevTableId,
+      prevTableLevel : value.prevTableLevel,
+      prevTableOrder : value.prevTableOrder,
+      userId : userId,
+      newTable : value.value.newTable,
+    }).then(res => {
+      console.log(res.data)
+      this.setState({
+        bookTitle:res.data.bookTitle,
+        likeTitle:res.data.likeTitle,
+        category:res.data.category
+      })
+    })
+  }
   handleClick = (key) => {
     if(key === '1' ){
       this.setState({
@@ -93,7 +110,7 @@ export class BookWriting extends Component {
       <>
       <div className="book_writing_container">
         <div className="left_side_container" style={{marginLeft:toggleLeft}}>
-        <LeftDrawer table_of_contents={this.state.table_of_contents} toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
+        <LeftDrawer addTable={this.addTable} table_of_contents={this.state.table_of_contents} toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
         </div>
         <div className="editor_container" style={{marginRight:main}}>
           <div className="editor_container_templete"></div>
