@@ -51,9 +51,7 @@ export class BookWriting extends Component {
     }).then(res => {
       console.log(res.data)
       this.setState({
-        bookTitle:res.data.bookTitle,
-        likeTitle:res.data.likeTitle,
-        category:res.data.category
+        table_of_contents:res.data.table_of_contents
       })
     })
   }

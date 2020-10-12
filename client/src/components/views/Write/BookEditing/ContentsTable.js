@@ -50,7 +50,7 @@ class ContentsTableList extends Component {
         </Form>
     );
     return (
-      <>
+      <div className="mokcha_contents">
         <div className="mokcha_levels">
           <div></div>
           <div>
@@ -69,7 +69,7 @@ class ContentsTableList extends Component {
           <div><CaretUpOutlined /> <CaretDownOutlined /></div>
           <div><DeleteOutlined /></div>
         </div>
-      </>
+      </div>
     );
   }
 }
@@ -116,9 +116,9 @@ class ContentsTable extends Component {
               <div>삭제</div>
             </div>
           </div>
-          <div className="mokcha_contents">
+          
             {contentsTableList}
-          </div>
+         
         </div>
       </Modal>
     );
