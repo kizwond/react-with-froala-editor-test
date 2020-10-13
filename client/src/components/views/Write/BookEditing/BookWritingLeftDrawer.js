@@ -55,7 +55,7 @@ class LeftDrawer extends Component {
           </TabPane>
           <TabPane className="left_drawer_mokcha" tab="목차" key="목차">
             <div><Button onClick={this.showModal} size="small">목차편집</Button> </div>
-            <ContentsTable tableOrderlHandler={this.props.tableOrderlHandler} tableLevelHandler={this.props.tableLevelHandler} changeTableNameHandler={this.props.changeTableNameHandler}  addTable={this.props.addTable} table_of_contents={this.props.table_of_contents} handleOk={this.handleOk} showModal={this.showModal} handleCancel={this.handleCancel} visible={this.state.visible}/>
+            <ContentsTable tableDeleteHandler={this.props.tableDeleteHandler} tableOrderlHandler={this.props.tableOrderlHandler} tableLevelHandler={this.props.tableLevelHandler} changeTableNameHandler={this.props.changeTableNameHandler}  addTable={this.props.addTable} table_of_contents={this.props.table_of_contents} handleOk={this.handleOk} showModal={this.showModal} handleCancel={this.handleCancel} visible={this.state.visible}/>
             <div className="table_of_contents_container">
               {contentsTableList}
             </div>

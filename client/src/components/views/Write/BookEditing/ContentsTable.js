@@ -3,6 +3,7 @@ import { Modal, Popover,Form, Input, Button, Space } from 'antd';
 import { PlusCircleOutlined,DeleteOutlined,CaretDownOutlined,CaretUpOutlined,SettingOutlined,EditOutlined,StepBackwardOutlined,StepForwardOutlined } from '@ant-design/icons';
 import './ContentsTable.css'
 import ContentsTableChangeName from './ContentsTableChangeName'
+import DeleteTable from './DeleteTable'
 
 class ContentsTableList extends Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class ContentsTableList extends Component {
           <div><EditOutlined onClick={this.inputAreaVisible} style={{fontSize:'14px'}}/></div>
           <div><StepBackwardOutlined onClick={()=>this.props.tableLevelHandler({action:'minus', tableId:this.props.table._id, presentLevel:this.props.table.level})}/> <StepForwardOutlined onClick={()=>this.props.tableLevelHandler({action:'plus', tableId:this.props.table._id, presentLevel:this.props.table.level})}/></div>
           <div><CaretUpOutlined onClick={()=>this.props.tableOrderlHandler({action:'up', bookId:this.props.table.book_id, tableId:this.props.table._id, presentOrder:this.props.table.order})}/> <CaretDownOutlined onClick={()=>this.props.tableOrderlHandler({action:'down', bookId:this.props.table.book_id, tableId:this.props.table._id, presentOrder:this.props.table.order})}/></div>
-          <div><DeleteOutlined /></div>
+          <div><DeleteTable table={this.props.table} tableDeleteHandler={this.props.tableDeleteHandler}/></div>
         </div>
       </div>
     );
@@ -111,7 +112,8 @@ class ContentsTable extends Component {
                          table_of_contents={this.props.table_of_contents}
                          changeTableNameHandler={this.props.changeTableNameHandler}
                          tableLevelHandler={this.props.tableLevelHandler} 
-                         tableOrderlHandler={this.props.tableOrderlHandler}/>
+                         tableOrderlHandler={this.props.tableOrderlHandler}
+                         tableDeleteHandler={this.props.tableDeleteHandler}/>
     ))
     return (
       <Modal

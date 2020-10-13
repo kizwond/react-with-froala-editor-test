@@ -132,6 +132,32 @@ router.post('/change-table-order', async (req, res) => {
   
 })
 
+//목차 삭제 및 순서재조정
+router.post('/delete-table', async (req, res) => {
+  console.log(req.body)
+  let doc = await ContentsTable.deleteOne({_id: req.body.tableId}).exec();
+
+  //삭제된 카테고리 이후 순서 카테고리들 순서 재조정, 카테고리 순서 소트 후 인덱스 + 1로 재조정
+  const others = await ContentsTable.find({user_id: req.body.userId, book_id:req.body.bookId}).sort({order: 1 }).exec()
+  .then((result) => {
+    console.log(result)
+    {result.map((value, index) => {
+      return ContentsTable.updateMany({ _id: value._id }, { order: index + 1 }).exec();
+    })}
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+  const table_of_contents = await ContentsTable.find({user_id: req.body.userId, book_id:req.body.bookId}).sort({ 'order': 1 }).exec();
+    try{
+      res.send({table_of_contents})
+    }catch(err){
+      res.status(400).send(err)
+    }
+  
+})
+
 
 module.exports = router;
 
