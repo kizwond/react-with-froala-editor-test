@@ -41,4 +41,23 @@ router.post('/add-table', async (req, res) => {
       }
 })
 
+//목차 이름 변경
+router.post('/change-table-name', async (req, res) => {
+  console.log(req.body)
+  const update = { table_name: req.body.newName };
+  const thisTable = await ContentsTable.findOne({_id: req.body.tableId}).exec();
+
+  let doc = await ContentsTable.findOneAndUpdate({_id: req.body.tableId}, update)
+
+  const table_of_contents = await ContentsTable.find({user_id: req.body.userId, book_id:thisTable.book_id}).sort({ 'order': 1 }).exec();
+    try{
+      res.send({table_of_contents})
+    }catch(err){
+      res.status(400).send(err)
+    }
+  
+})
+
 module.exports = router;
+
+

@@ -56,24 +56,17 @@ export class BookWriting extends Component {
     })
   }
   changeTableNameHandler = (value) => {
+    console.log(value)
     axios.post('api/edit/change-table-name',{
       tableId : value.tableId,
       userId : userId,
       newName : value.value.newName
     })
     .then(res => {
-      if(res.data.error === "동일한 카테고리명이 존재합니다."){
-        this.setState({
-          message:res.data.error
-        })
-        alert(this.state.message)
-      } else {
-        this.setState({
-          bookTitle:res.data.bookTitle,
-          likeTitle:res.data.likeTitle,
-          category:res.data.category
-        })
-      }
+      console.log(res.data)
+      this.setState({
+        table_of_contents:res.data.table_of_contents
+      })
     })
   }
   handleClick = (key) => {
@@ -129,7 +122,7 @@ export class BookWriting extends Component {
       <>
       <div className="book_writing_container">
         <div className="left_side_container" style={{marginLeft:toggleLeft}}>
-        <LeftDrawer addTable={this.addTable} table_of_contents={this.state.table_of_contents} toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
+        <LeftDrawer addTable={this.addTable} changeTableNameHandler={this.changeTableNameHandler} table_of_contents={this.state.table_of_contents} toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
         </div>
         <div className="editor_container" style={{marginRight:main}}>
           <div className="editor_container_templete"></div>

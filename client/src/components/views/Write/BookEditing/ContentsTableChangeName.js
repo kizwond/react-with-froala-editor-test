@@ -5,7 +5,7 @@ const ChangeCategory = (props) => {
   const [form] = Form.useForm();
   const onFinish = value => {
     console.log(value)
-    // props.changeCategoryHandler({value, categoryId:props.category._id})
+    props.changeTableNameHandler({value, tableId:props.table._id})
     props.inputAreaVisible()
   };
   const cancel = () => {
@@ -26,7 +26,7 @@ const ChangeCategory = (props) => {
       >
         <Space>
         <Form.Item name={['newName']} rules={[{ required: true }]} >
-          <Input placeholder='hello' />
+          <Input placeholder={props.table.table_name}/>
         </Form.Item>
         <Form.Item className="change_book_title_buttons">
           <Button type="primary" htmlType="submit">완료</Button>

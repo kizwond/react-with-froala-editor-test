@@ -57,31 +57,31 @@ class ContentsTableList extends Component {
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
+            {this.state.inputArea ? <ContentsTableChangeName changeTableNameHandler={this.props.changeTableNameHandler} table={this.props.table} vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 2 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
+            {this.state.inputArea ? <ContentsTableChangeName changeTableNameHandler={this.props.changeTableNameHandler} table={this.props.table} vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 3 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
+            {this.state.inputArea ? <ContentsTableChangeName changeTableNameHandler={this.props.changeTableNameHandler} table={this.props.table} vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 4 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
+            {this.state.inputArea ? <ContentsTableChangeName changeTableNameHandler={this.props.changeTableNameHandler} table={this.props.table} vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 5 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
+            {this.state.inputArea ? <ContentsTableChangeName changeTableNameHandler={this.props.changeTableNameHandler} table={this.props.table} vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
         </div>
         <div className="mokcha_tools">
@@ -108,7 +108,8 @@ class ContentsTable extends Component {
       <ContentsTableList key={table._id} 
                          table={table} 
                          addTable={this.props.addTable} 
-                         table_of_contents={this.props.table_of_contents}/>
+                         table_of_contents={this.props.table_of_contents}
+                         changeTableNameHandler={this.props.changeTableNameHandler}/>
     ))
     return (
       <Modal
