@@ -58,6 +58,81 @@ router.post('/change-table-name', async (req, res) => {
   
 })
 
+//목차 레벨 변경
+router.post('/change-table-level', async (req, res) => {
+  console.log(req.body)
+
+  if(req.body.action === 'minus'){
+    if(req.body.presentLevel === 1){
+      console.log('변경불가')
+    } else {
+      var update = { level: req.body.presentLevel - 1 };
+    }
+  } else {
+    if(req.body.presentLevel === 5) {
+      console.log('변경불가')
+    } else {
+      var update = { level: req.body.presentLevel + 1 };
+    }
+  }
+  
+  
+  const thisTable = await ContentsTable.findOne({_id: req.body.tableId}).exec();
+
+  let doc = await ContentsTable.findOneAndUpdate({_id: req.body.tableId}, update)
+
+  const table_of_contents = await ContentsTable.find({user_id: req.body.userId, book_id:thisTable.book_id}).sort({ 'order': 1 }).exec();
+    try{
+      res.send({table_of_contents})
+    }catch(err){
+      res.status(400).send(err)
+    }
+  
+})
+
+//목차 순서 변경
+router.post('/change-table-order', async (req, res) => {
+  console.log(req.body)
+  const lastTableOrder = await ContentsTable.findOne({user_id: req.body.userId,book_id:req.body.bookId}).sort({ 'order' : -1 }).exec(); //현재 선택된 책 다음 책
+
+  if(req.body.action === 'up') { 
+    if (req.body.presentOrder === 1){
+      console.log('순서변경 불필요')
+    } else {
+      const updateBefore = { order : req.body.presentOrder }; //이전 순서의 목차를 선택 목차 순서로 업데이트
+      const beforeThis = await ContentsTable.findOneAndUpdate({user_id: req.body.userId,book_id:req.body.bookId, order: req.body.presentOrder - 1}, updateBefore, {
+        new: true
+      })
+      const updateThis = { order : req.body.presentOrder - 1 }; //선택 목차 순서를 -1 
+      let doc = await ContentsTable.findOneAndUpdate({_id: req.body.tableId}, updateThis, {
+        new: true
+      })
+    }
+  } else if(req.body.action === 'down') {
+    if (req.body.presentOrder === lastTableOrder.order){
+      console.log('순서변경 불필요')
+    } else {
+      const updateAfter = { order : req.body.presentOrder }; //이후 순서의 목차를 선택 목차 순서로 업데이트
+      const afterThis = await ContentsTable.findOneAndUpdate({user_id: req.body.userId,book_id:req.body.bookId, order: req.body.presentOrder + 1}, updateAfter, {
+        new: true
+      }) 
+      const updateThis = { order : req.body.presentOrder + 1 }; //선택 목차 순서를 + 1
+      let doc = await ContentsTable.findOneAndUpdate({_id: req.body.tableId}, updateThis, {
+        new: true
+      })
+    }
+  }
+
+  const table_of_contents = await ContentsTable.find({user_id: req.body.userId, book_id:lastTableOrder.book_id}).sort({ 'order': 1 }).exec();
+    try{
+      res.send({table_of_contents})
+    }catch(err){
+      res.status(400).send(err)
+    }
+  
+})
+
+
 module.exports = router;
 
 

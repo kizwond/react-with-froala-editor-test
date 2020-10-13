@@ -69,6 +69,37 @@ export class BookWriting extends Component {
       })
     })
   }
+  tableLevelHandler = (value) => {
+    console.log(value)
+    axios.post('api/edit/change-table-level',{
+      tableId : value.tableId,
+      userId : userId,
+      action : value.action,
+      presentLevel :value.presentLevel
+    })
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        table_of_contents:res.data.table_of_contents
+      })
+    })
+  }
+  tableOrderlHandler = (value) => {
+    console.log(value)
+    axios.post('api/edit/change-table-order',{
+      tableId : value.tableId,
+      bookId: value.bookId,
+      userId : userId,
+      action : value.action,
+      presentOrder :value.presentOrder
+    })
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        table_of_contents:res.data.table_of_contents
+      })
+    })
+  }
   handleClick = (key) => {
     if(key === '1' ){
       this.setState({
@@ -122,7 +153,7 @@ export class BookWriting extends Component {
       <>
       <div className="book_writing_container">
         <div className="left_side_container" style={{marginLeft:toggleLeft}}>
-        <LeftDrawer addTable={this.addTable} changeTableNameHandler={this.changeTableNameHandler} table_of_contents={this.state.table_of_contents} toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
+        <LeftDrawer addTable={this.addTable} tableOrderlHandler={this.tableOrderlHandler} tableLevelHandler={this.tableLevelHandler} changeTableNameHandler={this.changeTableNameHandler} table_of_contents={this.state.table_of_contents} toggle={this.state.left_drawer_toggle} onClick={this.leftDrawerHandleClick}/>
         </div>
         <div className="editor_container" style={{marginRight:main}}>
           <div className="editor_container_templete"></div>

@@ -86,8 +86,8 @@ class ContentsTableList extends Component {
         </div>
         <div className="mokcha_tools">
           <div><EditOutlined onClick={this.inputAreaVisible} style={{fontSize:'14px'}}/></div>
-          <div><StepBackwardOutlined /> <StepForwardOutlined /></div>
-          <div><CaretUpOutlined /> <CaretDownOutlined /></div>
+          <div><StepBackwardOutlined onClick={()=>this.props.tableLevelHandler({action:'minus', tableId:this.props.table._id, presentLevel:this.props.table.level})}/> <StepForwardOutlined onClick={()=>this.props.tableLevelHandler({action:'plus', tableId:this.props.table._id, presentLevel:this.props.table.level})}/></div>
+          <div><CaretUpOutlined onClick={()=>this.props.tableOrderlHandler({action:'up', bookId:this.props.table.book_id, tableId:this.props.table._id, presentOrder:this.props.table.order})}/> <CaretDownOutlined onClick={()=>this.props.tableOrderlHandler({action:'down', bookId:this.props.table.book_id, tableId:this.props.table._id, presentOrder:this.props.table.order})}/></div>
           <div><DeleteOutlined /></div>
         </div>
       </div>
@@ -109,7 +109,9 @@ class ContentsTable extends Component {
                          table={table} 
                          addTable={this.props.addTable} 
                          table_of_contents={this.props.table_of_contents}
-                         changeTableNameHandler={this.props.changeTableNameHandler}/>
+                         changeTableNameHandler={this.props.changeTableNameHandler}
+                         tableLevelHandler={this.props.tableLevelHandler} 
+                         tableOrderlHandler={this.props.tableOrderlHandler}/>
     ))
     return (
       <Modal
