@@ -55,6 +55,27 @@ export class BookWriting extends Component {
       })
     })
   }
+  changeTableNameHandler = (value) => {
+    axios.post('api/edit/change-table-name',{
+      tableId : value.tableId,
+      userId : userId,
+      newName : value.value.newName
+    })
+    .then(res => {
+      if(res.data.error === "동일한 카테고리명이 존재합니다."){
+        this.setState({
+          message:res.data.error
+        })
+        alert(this.state.message)
+      } else {
+        this.setState({
+          bookTitle:res.data.bookTitle,
+          likeTitle:res.data.likeTitle,
+          category:res.data.category
+        })
+      }
+    })
+  }
   handleClick = (key) => {
     if(key === '1' ){
       this.setState({

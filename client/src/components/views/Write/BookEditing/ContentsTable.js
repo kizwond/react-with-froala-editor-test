@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Modal, Popover,Form, Input, Button, Space } from 'antd';
 import { PlusCircleOutlined,DeleteOutlined,CaretDownOutlined,CaretUpOutlined,SettingOutlined,EditOutlined,StepBackwardOutlined,StepForwardOutlined } from '@ant-design/icons';
 import './ContentsTable.css'
-
+import ContentsTableChangeName from './ContentsTableChangeName'
 
 class ContentsTableList extends Component {
   constructor(props) {
@@ -57,35 +57,35 @@ class ContentsTableList extends Component {
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.props.table.table_name}
+            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 2 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.props.table.table_name}
+            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 3 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.props.table.table_name}
+            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 4 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.props.table.table_name}
+            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
           {this.props.table.level === 5 ? <div>
           <Popover placement="rightTop" title={text} visible={this.state.newInput} content={content} trigger="click">
             <PlusCircleOutlined onClick={this.newInputVisible} style={{fontSize:'14px'}} /> 
           </Popover>
-            {this.props.table.table_name}
+            {this.state.inputArea ? <ContentsTableChangeName vi={this.state.inputArea} inputAreaVisible={this.inputAreaVisible} /> : <> {this.props.table.table_name}</>}
           </div> : <div></div>}
         </div>
         <div className="mokcha_tools">
-          <div><EditOutlined /></div>
+          <div><EditOutlined onClick={this.inputAreaVisible} style={{fontSize:'14px'}}/></div>
           <div><StepBackwardOutlined /> <StepForwardOutlined /></div>
           <div><CaretUpOutlined /> <CaretDownOutlined /></div>
           <div><DeleteOutlined /></div>
