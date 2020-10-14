@@ -12,7 +12,9 @@ class LeftDrawer extends Component {
     this.state = {
       mode: 'right',
       order_key:'none',
-      visible: false
+      visible: false,
+      level_1:[],
+      level_2:[]
     };
   }
 
@@ -41,6 +43,7 @@ class LeftDrawer extends Component {
   };
 
   render() {
+    console.log("hello",this.props.table_of_contents)
     const { mode } = this.state;
     if(this.props.toggle === false) {
       var toggle = <UnorderedListOutlined />

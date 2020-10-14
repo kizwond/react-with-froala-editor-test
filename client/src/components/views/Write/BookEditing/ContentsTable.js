@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Popover,Form, Input, Button, Space } from 'antd';
-import { PlusCircleOutlined,DeleteOutlined,CaretDownOutlined,CaretUpOutlined,SettingOutlined,EditOutlined,StepBackwardOutlined,StepForwardOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined,CaretDownOutlined,CaretUpOutlined,SettingOutlined,EditOutlined,StepBackwardOutlined,StepForwardOutlined } from '@ant-design/icons';
 import './ContentsTable.css'
 import ContentsTableChangeName from './ContentsTableChangeName'
 import DeleteTable from './DeleteTable'
