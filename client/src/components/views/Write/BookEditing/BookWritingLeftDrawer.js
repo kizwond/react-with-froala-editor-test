@@ -43,54 +43,43 @@ class LeftDrawer extends Component {
   };
 
   render() {
-    console.log("hello",this.props.table_of_contents)
     const { mode } = this.state;
     if(this.props.toggle === false) {
       var toggle = <UnorderedListOutlined />
     } else {
       var toggle = <DoubleLeftOutlined />
     }
-    const contentsTableList = this.props.table_of_contents.map((table)=>{
-        if(table.level === 1){
-          let object = {
-            title: table.table_name,
-            key: table.order,
-            icon: <CarryOutOutlined />,
-            children: [],}
-          return object
-        } else if (table.level === 2){
-          let object = {
-            title: table.table_name,
-            key: table.order,
-            icon: <CarryOutOutlined />,
-            children: [],}
-          return object
-        }else if (table.level === 3){
-          let object = {
-            title: table.table_name,
-            key: table.order,
-            icon: <CarryOutOutlined />,
-            children: [],}
-          return object
-        }else if (table.level === 4){
-          let object = {
-            title: table.table_name,
-            key: table.order,
-            icon: <CarryOutOutlined />,
-            children: [],}
-          return object
-        }else if (table.level === 5){
-          let object = {
-            title: table.table_name,
-            key: table.order,
-            icon: <CarryOutOutlined />,
-            children: [],}
-          return object
-        }
+    let level_1 =[];
+    let level_2 =[];
+    const contentsTableList = this.props.table_of_contents.map((table, index)=>{
+        if(table){
+          if(table.level === 1){
+            let level = {
+              title: table.table_name,
+              key: table.order,
+              icon: <CarryOutOutlined />,
+              children: [],}
+              level_1.push(level)
+          } else if(table.level === 2){
+            let level = {
+              title: table.table_name,
+              key: table.order,
+              icon: <CarryOutOutlined />,
+              children: [],}
+              level_2.push(level)
+          }    
+        } 
       }
     )
-    console.log(contentsTableList)
-    const treeData = contentsTableList
+    console.log("level_1",level_1)
+    console.log("level_2",level_2)
+    if(level_1.length > 0){
+      level_1[0]['children'] = level_2
+    }
+    
+    console.log("level_1+",level_1)
+    console.log('treeData : ',contentsTableList)
+    const treeData = level_1
     
     const onSelect = (selectedKeys, info) => {
       console.log('selected', selectedKeys, info);
