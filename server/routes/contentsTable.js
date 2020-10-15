@@ -15,7 +15,7 @@ router.post('/add-table', async (req, res) => {
     book_id: tableListOrder.book_id,
     table_name:req.body.newTable,
     order: tableListOrder.order + 1,
-    level: tableListOrder.level + 1,
+    level: tableListOrder.level,
     level_in_order: 1,
     parent: 'default',
     user_email: useremail.email,

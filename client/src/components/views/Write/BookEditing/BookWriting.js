@@ -27,7 +27,6 @@ export class BookWriting extends Component {
     })
     axios.get('api/create/get-book-title',{params: { userId: userId }})
       .then(res => {
-        console.log(res.data)
         const bookTitle = res.data.bookTitle.book_title;
         const category = res.data.bookTitle.category;
         const userEmail = res.data.bookTitle.user_email;
@@ -160,7 +159,6 @@ export class BookWriting extends Component {
       var toggleLeft = '0px' 
     }
 
-    console.log(this.state.table_of_contents)
     return (
       <>
       <div className="book_writing_container">

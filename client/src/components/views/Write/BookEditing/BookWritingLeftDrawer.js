@@ -49,37 +49,179 @@ class LeftDrawer extends Component {
     } else {
       var toggle = <DoubleLeftOutlined />
     }
-    let level_1 =[];
-    let level_2 =[];
+    let level_all =[];
+
     const contentsTableList = this.props.table_of_contents.map((table, index)=>{
         if(table){
           if(table.level === 1){
             let level = {
               title: table.table_name,
               key: table.order,
+              level: 1,
               icon: <CarryOutOutlined />,
               children: [],}
-              level_1.push(level)
+              level_all.push(level)
           } else if(table.level === 2){
             let level = {
               title: table.table_name,
               key: table.order,
+              level: 2,
               icon: <CarryOutOutlined />,
               children: [],}
-              level_2.push(level)
-          }    
+              level_all.push(level)
+          } else if(table.level === 3){
+            let level = {
+              title: table.table_name,
+              key: table.order,
+              level: 3,
+              icon: <CarryOutOutlined />,
+              children: [],}
+              level_all.push(level)
+          } else if(table.level === 4){
+            let level = {
+              title: table.table_name,
+              key: table.order,
+              level: 4,
+              icon: <CarryOutOutlined />,
+              children: [],}
+              level_all.push(level)
+          } else if(table.level === 5){
+            let level = {
+              title: table.table_name,
+              key: table.order,
+              level: 5,
+              icon: <CarryOutOutlined />,
+              children: [],}
+              level_all.push(level)
+          }     
         } 
       }
     )
-    console.log("level_1",level_1)
-    console.log("level_2",level_2)
-    if(level_1.length > 0){
-      level_1[0]['children'] = level_2
+
+    // let temp_data = []
+    // if(level_all.length> 0){
+    //   for(var i = 0; i < level_all.length; i += 1) {
+    //     if(level_all[i]['level'] === 1) {
+    //       temp_data.push(level_all[i])
+    //     } else if(level_all[i]['level'] === 2) {
+    //       for(var a = 0; a < temp_data.length; a += 1) {
+    //         temp_data[temp_data.length - 1]['children'].push(level_all[i])
+    //         break;
+    //       }
+    //     } 
+    //   }
+    // }
+    
+    let temp_data_4 = []
+    if(level_all.length> 0){
+      for(var i = 0; i < level_all.length; i += 1) {
+        if(level_all[i]['level'] === 4) {
+          temp_data_4.push(level_all[i])
+        } else if(level_all[i]['level'] === 5) {
+          for(var a = 0; a < temp_data_4.length; a += 1) {
+            temp_data_4[temp_data_4.length - 1]['children'].push(level_all[i])
+            break;
+          }
+        } 
+      }
     }
     
-    console.log("level_1+",level_1)
-    console.log('treeData : ',contentsTableList)
-    const treeData = level_1
+    if(temp_data_4.length > 0){
+      var i = 0;
+      while (i < level_all.length) {
+        if (level_all[i]['level'] === 5) {
+          level_all.splice(i, 1);
+        } else {
+          ++i;
+        }
+      }
+      
+      let temp_data_3 = []
+      if(level_all.length> 0){
+        for(var i = 0; i < level_all.length; i += 1) {
+          if(level_all[i]['level'] === 3) {
+            temp_data_3.push(level_all[i])
+          } else if(level_all[i]['level'] === 4) {
+            for(var a = 0; a < temp_data_3.length; a += 1) {
+              temp_data_3[temp_data_3.length - 1]['children'].push(level_all[i])
+              break;
+            }
+          } 
+        }
+      }
+
+      
+      if(temp_data_3.length > 0){
+        var i = 0;
+        while (i < level_all.length) {
+          if (level_all[i]['level'] === 4) {
+            level_all.splice(i, 1);
+          } else {
+            ++i;
+          }
+        }
+      }
+
+
+      let temp_data_2 = []
+      if(level_all.length> 0){
+        for(var i = 0; i < level_all.length; i += 1) {
+          if(level_all[i]['level'] === 2) {
+            temp_data_2.push(level_all[i])
+          } else if(level_all[i]['level'] === 3) {
+            for(var a = 0; a < temp_data_2.length; a += 1) {
+              temp_data_2[temp_data_2.length - 1]['children'].push(level_all[i])
+              break;
+            }
+          } 
+        }
+      }
+
+      
+      if(temp_data_2.length > 0){
+        var i = 0;
+        while (i < level_all.length) {
+          if (level_all[i]['level'] === 3) {
+            level_all.splice(i, 1);
+          } else {
+            ++i;
+          }
+        }
+      }
+
+      let temp_data_1 = []
+      if(level_all.length> 0){
+        for(var i = 0; i < level_all.length; i += 1) {
+          if(level_all[i]['level'] === 1) {
+            temp_data_1.push(level_all[i])
+          } else if(level_all[i]['level'] === 2) {
+            for(var a = 0; a < temp_data_1.length; a += 1) {
+              temp_data_1[temp_data_1.length - 1]['children'].push(level_all[i])
+              break;
+            }
+          } 
+        }
+      }
+
+      
+      if(temp_data_1.length > 0){
+        var i = 0;
+        while (i < level_all.length) {
+          if (level_all[i]['level'] === 2) {
+            level_all.splice(i, 1);
+          } else {
+            ++i;
+          }
+        }
+      }
+
+      console.log('result:',level_all)
+
+    }
+
+    if(level_all.length > 0){
+      var treeData = level_all
+    }
     
     const onSelect = (selectedKeys, info) => {
       console.log('selected', selectedKeys, info);
@@ -95,7 +237,7 @@ class LeftDrawer extends Component {
               <Tree
                 showLine={true}
                 showIcon={true}
-                defaultExpandedKeys={['0-0-0']}
+                defaultExpandAll={true}
                 onSelect={onSelect}
                 treeData={treeData}
               />

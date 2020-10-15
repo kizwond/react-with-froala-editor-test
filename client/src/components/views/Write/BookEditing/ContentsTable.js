@@ -104,7 +104,6 @@ class ContentsTable extends Component {
      };
   }
   render() {
-    console.log(this.props.table_of_contents)
     const contentsTableList = this.props.table_of_contents.map((table)=>(
       <ContentsTableList key={table._id} 
                          table={table} 

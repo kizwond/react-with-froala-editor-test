@@ -470,6 +470,6 @@ footer{
 }
 
 
-.table_of_contents_container{
-  
+.ant-tree,.ant-tree-show-line .ant-tree-switcher{
+  background:#fafafa;
 }
