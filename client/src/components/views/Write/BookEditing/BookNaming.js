@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button,Select } from 'antd';
+import { Form, Input, Button,Select, Space } from 'antd';
 import { BookOutlined } from '@ant-design/icons';
 import './BookNaming.css'
 import axios from 'axios'
@@ -88,9 +88,10 @@ const HorizontalLoginForm = () => {
             className="category_select_naming"
             name={['category']}
             style={{width:"255px"}}
-            rules={[{ required: true, message: '카테고리를 선택해 주세요' }]}
+            label="카테고리"
+            rules={[{ required: false, message: '카테고리를 선택해 주세요' }]}
           >
-            <Select placeholder="카테고리를 선택해 주세요">
+            <Select placeholder="(미지정)">
               {data.length > 0 ? data.map((category)=>(
                                     <Option key={category._id} value={category.category_name}>{category.category_name}</Option>
                                   )) : <Option value="미지정">미지정</Option>}
@@ -99,30 +100,39 @@ const HorizontalLoginForm = () => {
           <Form.Item
             className="naming_input"
             name="book_title"
+            label="책제목"
             rules={[
               {
                 required: true,
-                message: 'Please input your username!',
+                message: '책제목을 입력해 주세요!!!',
               },
             ]}
           >
-            <Input prefix={<BookOutlined className="site-form-item-icon" />} placeholder="책이름을 입력해 주세요" />
+            <Input prefix={<BookOutlined className="site-form-item-icon" />} placeholder="책제목을 입력해 주세요" />
           </Form.Item>
-          <Form.Item shouldUpdate>
-            {() => (
-              <Button
-                className="naming_submit_button"
-                type="primary"
-                htmlType="submit"
-                disabled={
-                  !form.isFieldsTouched(true) ||
-                  form.getFieldsError().filter(({ errors }) => errors.length).length
-                }
-              >
-                시작
-              </Button>
-            )}
-          </Form.Item>
+          <div className="naming_buttons">
+            <Space>
+              <Form.Item>
+                  <Button
+                    className="naming_submit_button"
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    취소
+                  </Button>
+              </Form.Item>
+            
+              <Form.Item>
+                  <Button
+                    className="naming_submit_button"
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    시작
+                  </Button>
+              </Form.Item>
+            </Space>
+          </div>
         </Form>
         { message && <div style={{fontSize:"10px",color:"red"}}>※ {message}</div> }
       </div>

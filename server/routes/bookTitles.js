@@ -3,6 +3,7 @@ const { BookTitle } = require('../models/BookTitle');
 const { User } = require("../models/User");
 const { Category } = require("../models/Category");
 const { ContentsTable } = require("../models/ContentsTable");
+const { LikeToggle } = require("../models/LikeToggle");
 const Contents = require('../models/Contents');
 
 
@@ -89,9 +90,10 @@ router.get('/get-all-title', async (req, res) => {
   const bookTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'category' : 1,'list_order': 1 }).exec();
   const likeTitle = await BookTitle.find({user_id: req.query.userId}).sort({ 'like_order': 1 }).exec();
   const category = await Category.find({user_id: req.query.userId}).sort({ 'category_order': 1 }).exec();
+  const likeToggle = await LikeToggle.findOne({user_id: req.query.userId}).exec();
 
   try{
-    res.send({bookTitle,likeTitle,category})
+    res.send({bookTitle,likeTitle,category,likeToggle})
   }catch(err){
     res.status(400).send(err)
   }
@@ -397,6 +399,20 @@ router.post('/book-category-move', async (req, res) => {
     }catch(err){
       res.status(400).send(err)
     }
+  }
+})
+
+router.post('/like-hide-or-show-toggle', async (req, res) => {
+  console.log(req.body)
+  const update = { toggle: req.body.isToggleOn};
+  let doc = await LikeToggle.findOneAndUpdate({user_id: req.body.userId}, update); 
+
+  const likeToggle = await LikeToggle.findOne({user_id: req.body.userId}).exec();
+console.log(likeToggle)
+  try{
+    res.send({likeToggle})
+  }catch(err){
+    res.status(400).send(err)
   }
 })
 

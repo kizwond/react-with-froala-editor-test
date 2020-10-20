@@ -94,6 +94,10 @@
   .hide_or_show_false{
     display: none;
   }
+  .like_list_container_div{
+    max-height:196px;
+    overflow:auto;
+  }
 
   .hide_or_show_title_btn{
     cursor:pointer;

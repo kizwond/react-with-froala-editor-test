@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require("../models/User");
+const { LikeToggle } = require("../models/LikeToggle");
 
 const { auth } = require("../middleware/auth");
 
@@ -31,6 +32,12 @@ router.post("/register", (req, res) => {
             success: true
         });
     });
+    const newToogle = new LikeToggle({
+        user_id: user._id,
+      })
+        const newToogleSave = newToogle.save()
+        console.log("newToogle saved!!")
+
 });
 
 router.post("/login", (req, res) => {

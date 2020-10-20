@@ -111,7 +111,9 @@ class LikeSectionContent extends Component {
     return ( 
       <div className="like_list_container">
         <LikeListColumns hideOrShowClass={this.props.hideOrShowClass} hideOrShowToggle={this.props.hideOrShowToggle}/>
-        {bookList}
+        <div className="like_list_container_div">
+          {bookList}
+        </div>
       </div>
      );
   }

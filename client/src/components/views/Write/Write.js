@@ -14,7 +14,7 @@ class WriteMain extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      isToggleOn: true,
+      isToggleOn: '',
       user:'',
       bookTitle:[],
       likeTitle:[],
@@ -24,9 +24,14 @@ class WriteMain extends Component {
      }
   }
   onClickToggle = () => {
-    this.setState(state => ({
-      isToggleOn: !state.isToggleOn
-    }));
+    axios.post('api/create/like-hide-or-show-toggle',{
+      userId: userId,
+      isToggleOn : !this.state.isToggleOn
+    }).then(res => {
+      this.setState({
+        isToggleOn : res.data.likeToggle.toggle
+      })
+    })
   }
   getAllTitle() {
     axios.get('api/create/get-all-title',{params: { userId: userId }})
@@ -35,7 +40,8 @@ class WriteMain extends Component {
       this.setState({
         bookTitle:res.data.bookTitle,
         likeTitle:res.data.likeTitle,
-        category:res.data.category
+        category:res.data.category,
+        isToggleOn:res.data.LikeToggle
       })
     })
   }
@@ -65,6 +71,8 @@ class WriteMain extends Component {
         })
       )
     }
+    
+
   }
 
   componentDidMount() {

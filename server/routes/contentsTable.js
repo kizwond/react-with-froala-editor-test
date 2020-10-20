@@ -95,12 +95,14 @@ router.post('/change-table-order', async (req, res) => {
   console.log(req.body)
   // const lastTableOrder = await ContentsTable.findOne({user_id: req.body.userId,book_id:req.body.bookId}).sort({ 'order' : -1 }).exec(); //현재 선택된 책 다음 책
   const selectedTable = await ContentsTable.findOne({_id: req.body.tableId}).exec(); //현재 선택된 책 
-
+  const selectedDownTableSameLevel = await ContentsTable.findOne({user_id: req.body.userId,book_id:req.body.bookId, level:selectedTable.level, order:{$gt: selectedTable.order}}).sort({order:1}).exec(); //현재 선택된 책 동일레벨 다음 순서
+  const selectedDownTableUpperLevel = await ContentsTable.findOne({user_id: req.body.userId,book_id:req.body.bookId, level:{$lt:selectedTable.level}, order:{$gt: selectedTable.order}}).sort({order:1}).exec(); //현재 선택된 책 상위레벨 다음 순서
+  console.log('다음 동일레벨 : ',selectedDownTableSameLevel)
+  console.log('다음 상위레벨 : ',selectedDownTableUpperLevel)
   if(req.body.action === 'down') { //순서 down 이동시
    
   } else if(req.body.action === 'up') { //순서 up 이동시
 
-    
   }
   
   console.log("end")
@@ -132,7 +134,7 @@ router.post('/change-table-order', async (req, res) => {
   //   }
   // }
 
-  const table_of_contents = await ContentsTable.find({user_id: req.body.userId, book_id:lastTableOrder.book_id}).sort({ 'order': 1 }).exec();
+  const table_of_contents = await ContentsTable.find({user_id: req.body.userId, book_id:selectedTable.book_id}).sort({ 'order': 1 }).exec();
     try{
       res.send({table_of_contents})
     }catch(err){
