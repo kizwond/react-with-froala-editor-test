@@ -52,6 +52,12 @@ const HorizontalLoginForm = () => {
 
   const handleSubmit = (values) => {
     var url = '/api/create/naming';
+    if(values.category === undefined) {
+      values.category = '미지정'
+    }  
+    if(values.size === undefined){
+      values.size = 'a4'
+    }
     var data = values;
     console.log(data)
 
@@ -101,6 +107,7 @@ const HorizontalLoginForm = () => {
             className="naming_input"
             name="book_title"
             label="책제목"
+            style={{width:"255px"}}
             rules={[
               {
                 required: true,
@@ -109,6 +116,17 @@ const HorizontalLoginForm = () => {
             ]}
           >
             <Input prefix={<BookOutlined className="site-form-item-icon" />} placeholder="책제목을 입력해 주세요" />
+          </Form.Item>
+          <Form.Item
+            className="category_select_naming"
+            name={['size']}
+            style={{width:"255px"}}
+            label="책 크기"
+            rules={[{ required: false, message: '책 크기를 선택해 주세요' }]}
+          >
+            <Select placeholder="A4">
+              <Option value="a4">a4</Option>
+            </Select>
           </Form.Item>
           <div className="naming_buttons">
             <Space>

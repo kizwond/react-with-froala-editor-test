@@ -67,6 +67,7 @@ class PageSetting extends Component {
    
     return (
       <div className="page_setting_container">
+        <NewTemplete/>
         <Collapse defaultActiveKey={['1','2','3','4','5','6','7']} >
           <Panel header="페이지템플릿 선택" key="1" className="data_collapse_panel"> 
             <PageTemplete/>
@@ -102,7 +103,23 @@ class PageSetting extends Component {
     );
   }
 }
-
+class NewTemplete extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    return (
+      <>
+        
+          <div className='new_templete_button_container'>
+            <Button size={'small'}>새 페이지 템플릿 추가</Button>
+          </div>
+        
+      </>
+    );
+  }
+}
 class PageTemplete extends Component {
   constructor(props) {
     super(props);

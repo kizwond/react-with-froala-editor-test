@@ -12,9 +12,7 @@
 #book_naming{
   width:300px;
 }
-.category_select_naming{
-  margin-bottom:10px;
-}
+
 .naming_input .ant-form-item-control-input-content{
   float:left;
   flex:none;

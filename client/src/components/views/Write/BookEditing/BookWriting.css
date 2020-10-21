@@ -189,7 +189,10 @@ footer{
   border-left:1px solid #fafafa;
   background-color:#fafafa;
 }
-
+.new_templete_button_container{
+  padding:10px;
+  text-align: center;
+}
 
 /* 페이지 템플릿 선택 */
 .select_page_templete_container{
