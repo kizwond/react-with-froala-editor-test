@@ -189,6 +189,29 @@ footer{
   border-left:1px solid #fafafa;
   background-color:#fafafa;
 }
+
+
+/* 새카드 템플릿 모달 */
+.new_card_templete_container{
+  display: flex;
+  flex-direction: row;
+  height:200px;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size:13px;
+}
+.new_card_templete_columns{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height:200px;
+}
+.new_card_templete_contents{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height:200px;
+}
 .new_templete_button_container{
   padding:10px;
   text-align: center;

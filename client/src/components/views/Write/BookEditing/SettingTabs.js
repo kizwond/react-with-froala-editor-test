@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
-import { Affix, Button, Collapse, Switch } from 'antd';
+import { Affix, Button, Collapse, Switch, Modal, Select, Input, InputNumber } from 'antd';
 import { SettingOutlined, DoubleRightOutlined  } from '@ant-design/icons';
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
+const { Option } = Select;
 
 class SettingTabs extends Component {
   constructor(props) {
@@ -106,17 +107,133 @@ class PageSetting extends Component {
 class NewTemplete extends Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = { 
+      visible:false,
+      cardType:'',
+      cardNick:'',
+      cardStar:'',
+      card1:'',
+      card2:'',
+      card3:'',
+      annotation:'',
+     };
+  }
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleOk = e => {
+    console.log(this.state.cardType);
+    console.log(this.state.cardNick);
+    console.log(this.state.cardStar);
+    console.log(this.state.card1);
+    console.log(this.state.card2);
+    console.log(this.state.card3);
+    console.log(this.state.annotation);
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
+  handleChangeCardType=(value)=> {
+    this.setState({
+      cardType: value,
+    });
+  }
+  handleChangeCardNick=(e)=> {
+    this.setState({
+      cardNick: e.target.value
+    });
+  }
+  handleChangeStar=(value)=> {
+    this.setState({
+      cardStar: value,
+    });
+  }
+  handleChangeNum1=(value)=> {
+    this.setState({
+      card1: value,
+    });
+  }
+  handleChangeNum2=(value)=> {
+    this.setState({
+      card2: value,
+    });
+  }
+  handleChangeNum3=(value)=> {
+    this.setState({
+      card3: value,
+    });
+  }
+  handleChangeAnnotation=(value)=> {
+    this.setState({
+      annotation: value,
+    });
   }
   render() {
     return (
-      <>
-        
-          <div className='new_templete_button_container'>
-            <Button size={'small'}>새 페이지 템플릿 추가</Button>
+      <div className='new_templete_button_container'>
+        <Button size={'small'} onClick={this.showModal} >새 페이지 템플릿 추가</Button>
+        <Modal
+          title="새카드 템플릿"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          okText='만들기'
+          cancelText='취소'
+          maskClosable={false}
+        >
+          <div className="new_card_templete_container">
+            <div className="new_card_templete_columns">
+              <div>카드종류</div>
+              <div>카드별칭</div>
+              <div>중요도 면 생성</div>
+              <div>1면 - 행 생성 개수</div>
+              <div>2면 - 행 생성 개수</div>
+              <div>3면 - 행 생성 개수</div>
+              <div>주석 면 생성</div>
+            </div>
+            <div className="new_card_templete_contents">
+              <div>
+                <Select size='small' placeholder="카드종류을 선택해 주세요" style={{ width: 180 }} onChange={this.handleChangeCardType}>
+                  <Option value="1면">1면</Option>
+                  <Option value="2면">2면</Option>
+                  <Option value="3면">3면</Option>
+                </Select>
+              </div>
+              <div>
+                <Input size='small' style={{ width: 180 }} placeholder="카드별칭을 입력해 주세요" value={this.state.cardNick} onChange={this.handleChangeCardNick}/>
+              </div>
+              <div>
+                <Switch size='small' onChange={this.handleChangeStar} />
+              </div>
+              <div>
+                {this.state.cardType !== '' ? <InputNumber size='small' style={{ width: 50 }} onChange={this.handleChangeNum1} min="1" max="5" /> : <InputNumber size='small' style={{ width: 50 }} onChange={this.handleChangeNum1} min="1" max="5" disabled/> }
+                최대 5행
+              </div>
+              <div>
+                {this.state.cardType === '2면' || this.state.cardType ==='3면'? <InputNumber size='small' style={{ width: 50 }} onChange={this.handleChangeNum2} min="1" max="5" /> : <InputNumber size='small' style={{ width: 50 }} onChange={this.handleChangeNum2} min="1" max="5" disabled/> }
+                최대 5행
+              </div>
+              <div>
+                {this.state.cardType === '3면' ? <InputNumber size='small' style={{ width: 50 }} onChange={this.handleChangeNum3} min="1" max="5" /> : <InputNumber size='small' style={{ width: 50 }} onChange={this.handleChangeNum3} min="1" max="5" disabled/> }
+                최대 5행
+              </div>
+              <div>
+                <Switch size='small' onChange={this.handleChangeAnnotation} />
+              </div>
+            </div>
           </div>
-        
-      </>
+        </Modal>
+      </div>
     );
   }
 }
