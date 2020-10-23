@@ -12,12 +12,14 @@ export class BookWriting extends Component {
     super(props)
     this.state = {
        bookTitle:'',
+       bookId:'',
        category:'',
        userEmail:'',
        user : '',
        table_of_contents:[],
        hide_show_toggle:false,
-       left_drawer_toggle:false
+       left_drawer_toggle:false,
+       card_type:[],
     }
   }
   
@@ -28,17 +30,39 @@ export class BookWriting extends Component {
     axios.get('api/create/get-book-title',{params: { userId: userId }})
       .then(res => {
         const bookTitle = res.data.bookTitle.book_title;
+        const bookId = res.data.bookTitle._id;
         const category = res.data.bookTitle.category;
         const userEmail = res.data.bookTitle.user_email;
         const contentsTable = res.data.contentsTable
         this.setState({ 
           bookTitle:bookTitle, 
+          bookId:bookId, 
           category:category,
           userEmail:userEmail,
           table_of_contents:contentsTable,
         });
       })
   }
+  addCardType =(value) => {
+    console.log(value)
+    axios.post('api/edit/add-card-type',{
+      book_id: this.state.bookId,
+      card_type: value.card_type,
+      card_nick: value.card_nick,
+      card_star: value.card_star,
+      face_1: value.face_1,
+      face_2: value.face_2,
+      face_3: value.face_3,
+      user_id: userId,
+      annotation: value.annotation,
+    }).then(res => {
+      console.log(res.data)
+      this.setState({
+        card_type:res.data.cardTypes
+      })
+    })
+  }
+
   addTable =(value) => {
     console.log(value)
     axios.post('api/edit/add-table',{
@@ -177,7 +201,7 @@ export class BookWriting extends Component {
           </div>
         </div>
         <div className="right_side_container" style={{marginRight:toggle}}>
-          <SettingTabs toggle={this.state.hide_show_toggle} onClick={this.handleClick}/>
+          <SettingTabs addCardType={this.addCardType} toggle={this.state.hide_show_toggle} onClick={this.handleClick}/>
         </div>
       </div>
       </>

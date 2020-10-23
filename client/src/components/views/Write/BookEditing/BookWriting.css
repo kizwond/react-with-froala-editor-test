@@ -157,6 +157,22 @@ footer{
   top:1px;
   right:5px;
 }
+.data_collapse_panel_page_bottom{
+  position: relative;
+}
+.page_bottom_toggle{
+  position: absolute;
+  top:1px;
+  right:5px;
+}
+.data_collapse_panel_numbering{
+  position: relative;
+}
+.page_numbering_toggle{
+  position: absolute;
+  top:1px;
+  right:5px;
+}
 
 .ant-tabs-left>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane, .ant-tabs-left>div>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane{
   z-index:10;
@@ -190,7 +206,10 @@ footer{
   background-color:#fafafa;
 }
 
-
+.ant-select-single.ant-select-sm:not(.ant-select-customize-input) .ant-select-selector{
+  height:22px;
+  margin-top:1px;
+}
 /* 새카드 템플릿 모달 */
 .new_card_templete_container{
   display: flex;
@@ -236,7 +255,7 @@ footer{
   width:190px;
 }
 .select_page_size{
-  height:80px;
+  height:87px;
   padding:5px;
 }
 .select_page_size_div{
@@ -248,7 +267,7 @@ footer{
   justify-content: space-between;
 }
 .select_page_size_div div:nth-child(1){
-  width:80px;
+  width:60px;
 }
 .select_page_size input{
   width:60px;
@@ -258,13 +277,13 @@ footer{
 
 /* 페이지 여백 */
 .select_page_padding{
-  height:155px;
+  height:143px;
   padding:5px;
 }
 .page_padding_container{
   display:flex;
   flex-direction:column;
-  padding-left:102px;
+  padding-left:100px;
 }
 .page_padding_container input{
   width:40px;
@@ -273,6 +292,10 @@ footer{
 }
 .padding_top ,.padding_bottom{
   padding-left:65px;
+}
+
+.padding_top {
+  margin-top:3px;
 }
 .page_padding_mid_container{
   display: flex;
@@ -300,7 +323,7 @@ footer{
 
 /* 페이지 색 */
 .select_page_color{
-  height:80px;
+  height:69px;
   padding:5px;
 }
 .select_page_color .show_color_value{
@@ -314,6 +337,7 @@ footer{
   justify-content: space-between;
   align-items: center;
   padding-left:30px;
+  margin-top:3px;
 }
 .page_color_picker div:nth-child(1){
   width:80px;
@@ -328,14 +352,16 @@ footer{
 .select_page_font{
   display:flex;
   flex-direction: row;
+  justify-content: space-between;
   padding-left:30px;
   margin-bottom: 5px;
+  margin-top:3px;
 }
 .select_page_font div:nth-child(1){
-  width:80px;
+  width:60px;
 }
 .select_page_font div:nth-child(2){
-  width:80px;
+  width:90px;
 }
 .select_page_font input{
   width:40px;
@@ -353,32 +379,34 @@ footer{
 .select_page_location{
   display:flex;
   flex-direction: row;
+  justify-content: space-between;
   padding-left:30px;
 }
 .select_page_location div:nth-child(1){
-  width:80px;
+  width:60px;
 }
 
 /* 머릿글 */
 .select_page_top{
-  height:300px;
-  padding:5px;
+  height:325px;
+  padding:10px 5px;
 }
 .select_page_top_font{
   display:flex;
   flex-direction: row;
+  justify-content: space-between;
   padding-left:30px;
   margin-bottom: 5px;
   align-items: center;
 }
 .select_page_top_font div:nth-child(1){
-  width:80px;
+  width:60px;
 }
 .select_page_top_font input{
-  width:100px;
   height:20px;
-  border:1px solid rgb(122, 111, 111);
-  margin-right:10px;
+}
+.select_page_top_font select{
+  height:20px;
 }
 .select_page_top_font button{
   width:80px;
@@ -392,13 +420,15 @@ footer{
   display:flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   margin-bottom:5px;
+  font-size:11px;
 }
 .select_page_location{
   margin-bottom:5px;
 }
 .select_page_location_img_upload div:nth-child(1){
-  width:80px;
+  width:60px;
 }
 .select_page_top_div{
   margin-top: 5px;
@@ -409,7 +439,7 @@ footer{
   margin-bottom:5px;
 }
 .select_page_top_div div:nth-child(1){
-  width: 80px;
+  width: 60px;
 }
 .select_page_top_div input{
   width:60px;
@@ -419,10 +449,9 @@ footer{
 .location_box{
   display:flex;
   flex-direction:row;
-  border:1px solid grey;
+  border:1px solid lightgrey;
   width:120px;
   height:80px;
-  margin-left:10px;
   background-color:white;
 }
 
@@ -432,12 +461,12 @@ footer{
   height:80px;
 }
 .location_left_box div{
-  border:1px solid grey;
+  border:1px solid lightgrey;
   width:10px;
   height:10px;
 }
 .location_right_box div{
-  border:1px solid grey;
+  border:1px solid lightgrey;
   width:10px;
   height:10px;
 }
@@ -466,7 +495,7 @@ footer{
 .location_box .location_left_box{
   position: relative;
   height:80px;
-  border-right:1px solid grey;
+  border-right:1px solid lightgrey;
 }
 .location_box .location_right_box{
   position: relative;
