@@ -25,27 +25,26 @@ class CardSetting extends Component {
       <div className="page_setting_container">
         <NewTemplete addCardType={this.props.addCardType}/>
         <Collapse defaultActiveKey={['1','2','3','4','5','6','7']} >
-          <Panel header="페이지 크기" key="1" className="data_collapse_panel"> 
-            <PageSize/>
+          <Panel header="템플릿 선택" key="1" className="data_collapse_panel"> 
+            <SelectTemplete/>
           </Panel>
-          <Panel header="페이지템플릿 선택" key="2" className="data_collapse_panel">
-            <PageTemplete/>
+          <Panel header="레이아웃" key="2" className="data_collapse_panel">
+            <LayoutSetting/>
           </Panel>
-          <Panel header="페이지 여백" key="3" className="data_collapse_panel">
-            <PagePadding/>
+          <Panel header="카드 배경색" key="3" className="data_collapse_panel">
+            <CardBackgroundColor/>
           </Panel>
-          <Panel header="페이지 색" key="4" className="data_collapse_panel">
-            <PageColor/>
+          <Panel header="카드 테두리 바깥쪽 여백" key="4" className="data_collapse_panel">
+            <CardMargin/>
           </Panel>
-          <Panel header="페이지 번호" key="5" className="data_collapse_panel_numbering">
-            <Switch size="small" className="page_numbering_toggle" />
-            <PageNumbering/>
+          <Panel header="카드 테두리 안쪽 여백" key="5" className="data_collapse_panel_numbering">
+            <CardPadding/>
           </Panel>
-          <Panel header="머릿글" key="6" className="data_collapse_panel_page_top">
+          <Panel header="카드 테두리" key="6" className="data_collapse_panel_page_top">
             <Switch size="small" className="page_top_toggle" />
-            <PageTop/>
+            <CardBorder/>
           </Panel>
-          <Panel header="바닥글" key="7" className="data_collapse_panel_page_bottom">
+          <Panel header="폰트 일괄 변경" key="7" className="data_collapse_panel_page_bottom">
             <Switch size="small" className="page_bottom_toggle" />
             <PageBottom/>
           </Panel>
@@ -222,7 +221,7 @@ class NewTemplete extends Component {
 }
 
 
-class PageSize extends Component {
+class SelectTemplete extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
@@ -230,9 +229,9 @@ class PageSize extends Component {
   render() {
     return (
       <>
-        <div className="select_page_size">
+        <div className="select_card_templete">
           <div className='select_page_size_div'>
-              <div>판본 사이즈</div>
+              <div>카드</div>
               <div>
                 <Select size='small' style={{ width: 195 }}>
                   <Option value="선택">선택</Option>
@@ -243,22 +242,34 @@ class PageSize extends Component {
               </div>
           </div>
           <div className='select_page_size_div'>
-            <div>직접입력</div>
-            <div>
-              <Input size='small' style={{ width: 90, fontSize:10 }} prefix='w' suffix='px' type="number"/>
-            </div>
-            <div>
-              <Input size='small' style={{ width: 90, fontSize:10 }} prefix='w' suffix='px' type="number"/>
-            </div>
+              <div>면</div>
+              <div>
+                <Select size='small' style={{ width: 195 }}>
+                  <Option value="선택">선택</Option>
+                  <Option value="선택">선택</Option>
+                  <Option value="선택">선택</Option>
+                  <Option value="선택">선택</Option>
+                </Select>
+              </div>
           </div>
-          <div style={{paddingLeft:30, fontSize:'10px', fontStyle: 'italic', marginTop:6, color:'grey'}}>※ 선택하신 사이즈로 모든 페이지에 적용됩니다. </div>
+          <div className='select_page_size_div'>
+              <div>행</div>
+              <div>
+                <Select size='small' style={{ width: 195 }}>
+                  <Option value="선택">선택</Option>
+                  <Option value="선택">선택</Option>
+                  <Option value="선택">선택</Option>
+                  <Option value="선택">선택</Option>
+                </Select>
+              </div>
+          </div>
         </div>
       </>
     );
   }
 }
 
-class PageTemplete extends Component {
+class LayoutSetting extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
@@ -266,23 +277,44 @@ class PageTemplete extends Component {
   render() {
     return (
       <>
-        <div className="select_page_templete_container">
-          <div className='select_page_templete_select_container'>
-            <Select size='small'  style={{ width: 270 }}>
-              <Option value="선택">선택</Option>
-              <Option value="선택">선택</Option>
-              <Option value="선택">선택</Option>
-              <Option value="선택">선택</Option>
-            </Select>
+        <div className="layout_container">
+          <div className='select_mode_container'>
+            <div>방향</div>
+            <div>
+              <Select size='small' style={{ width: 195 }}>
+                <Option value="좌우">좌우</Option>
+                <Option value="상하">상하</Option>
+              </Select>
+            </div>
           </div>
-          <div style={{paddingLeft:30, fontSize:'10px', fontStyle: 'italic', marginTop:6, color:'grey'}}>※ 설정하려는 페이지 템플릿을 선택하십시오. </div>
+          <div className='select_mode_container'>
+            <div></div>
+            <div className='layout_example_img'>
+              <img src="img/leftright.png" width='90px' alt="좌우"/>
+              <img src="img/updown.png" width='90px'  alt="상하"/>
+            </div>
+          </div>
+          <div className='select_mode_container'>
+            <div>면간 비율</div>
+            <div className='layout_ratio'>
+              <div>
+                <Input size='small' style={{ width: 62,fontSize:10 }} prefix='1면' suffix='%' type="text"/>
+              </div>
+              <div>
+                <Input size='small' style={{ width: 62,fontSize:10 }} prefix='2면' suffix='%' type="text"/>
+              </div>
+              <div>
+                <Input size='small' style={{ width: 62,fontSize:10 }} prefix='주석' suffix='%' type="text"/>
+              </div>
+            </div>
+          </div>
         </div>
       </>
     );
   }
 }
 
-class PagePadding extends Component {
+class CardBackgroundColor extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
@@ -290,24 +322,43 @@ class PagePadding extends Component {
   render() {
     return (
       <>
-        <div className="select_page_padding">
-          <div className="page_padding_container">
-            <div className="padding_top"><Input size='small' style={{ width: 70,fontSize:10 }} prefix='상' suffix='px' type="number"/></div>
-            <div className="page_padding_mid_container">
+        <div className="select_card_bg_color_container">
+          <div className="select_card_bg_color">
+            <div>배경색</div>
+            <div className="select_card_bg_color_right">
+              <div><input type="color"/></div>
+              <div><Input size='small' style={{ width: 125 }} type="text"/></div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+}
+class CardMargin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    return (
+      <>
+        <div className="select_card_margin">
+            <div className="card_margin_top"><Input size='small' style={{ width: 70,fontSize:10 }} prefix='상' suffix='px' type="number"/></div>
+            <div className="card_margin_mid_container">
               <div><Input size='small' style={{ width: 70,fontSize:10 }} prefix='좌' suffix='px' type="number"/></div>
-              <div className="padding_img_outer">
-                <div>본문</div>
+              <div className="">
+                <img src="img/cardmargin.png" width="100" alt="cardmargin_img"/>
               </div>
               <div><Input size='small' style={{ width: 70,fontSize:10 }} prefix='우' suffix='px' type="number"/></div>
             </div>
-            <div className="padding_bottom"><Input size='small' style={{ width: 70,fontSize:10 }} prefix='하' suffix='px' type="number"/></div>
-          </div>
+            <div className="card_margin_bottom"><Input size='small' style={{ width: 70,fontSize:10 }} prefix='하' suffix='px' type="number"/></div>
         </div>
       </>
     );
   }
 }
-class PageColor extends Component {
+class CardPadding extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
@@ -315,80 +366,22 @@ class PageColor extends Component {
   render() {
     return (
       <>
-        <div className="select_page_color">
-          <div className="page_color_picker">
-            <div>본문색</div>
-            <div><input type="color"/></div>
-            <div><Input size='small' style={{ width: 125 }} type="text"/></div>
-          </div>
-          <div className="page_color_picker">
-            <div>내부여백 색</div>
-            <div><input type="color"/></div>
-            <div><Input size='small' style={{ width: 125 }} type="text"/></div>
-          </div>
+        <div className="select_card_margin">
+            <div className="card_margin_top"><Input size='small' style={{ width: 70,fontSize:10 }} prefix='상' suffix='px' type="number"/></div>
+            <div className="card_margin_mid_container">
+              <div><Input size='small' style={{ width: 70,fontSize:10 }} prefix='좌' suffix='px' type="number"/></div>
+              <div className="">
+                <img src="img/cardpadding.png" width="100" alt="cardpadding_img"/>
+              </div>
+              <div><Input size='small' style={{ width: 70,fontSize:10 }} prefix='우' suffix='px' type="number"/></div>
+            </div>
+            <div className="card_margin_bottom"><Input size='small' style={{ width: 70,fontSize:10 }} prefix='하' suffix='px' type="number"/></div>
         </div>
       </>
     );
   }
 }
-class PageNumbering extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  };
-  }
-  render() {
-    return (
-      <>
-        <div className="select_page_numbering">
-          <div className="select_page_font">
-            <div>폰트</div>
-            <div>
-              <Select size='small' style={{ width: 90 }}>
-                <Option value="맑은고딕">맑은고딕</Option>
-              </Select>
-            </div>
-            <div>
-              <Input size='small' style={{ width: 60,fontSize: 10 }} suffix='px' type="number"/>
-              </div>
-            <div>
-              <BoldOutlined style={{ marginTop:4,fontSize: 14, border:'1px solid grey' }}/>
-            </div>
-            <div>
-              <ItalicOutlined style={{ marginTop:4,fontSize: 14, border:'1px solid grey'  }}/>
-            </div>
-            <div>
-            <UnderlineOutlined style={{ marginTop:4,fontSize: 14, border:'1px solid grey'  }}/>
-            </div>
-          </div>
-          <div className="select_page_location">
-            <div>위치</div>
-            <div>
-            <Select size='small' style={{ width: 85, marginTop: -1 }}>
-                <Option value="위바깥">위바깥</Option>
-              </Select>
-            </div>
-            <div className="location_box">
-              <div className="location_left_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              <div className="location_right_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <div style={{paddingLeft:30, fontSize:'10px', fontStyle: 'italic', marginTop:6, color:'grey'}}>※ 페이지 번호 지정 위치에 따라 머릿글/바닥글과 겹칠 수 있습니다. </div>
-        </div>
-      </>
-    );
-  }
-}
-class PageTop extends Component {
+class CardBorder extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
@@ -413,97 +406,92 @@ class PageTop extends Component {
     };
     return (
       <>
-        <div className="select_page_top">
-          <div className="select_page_top_font">
-            <div>글자 입력</div>
-            <div><Input size='small' style={{ width: 206 }} type="text"/></div>
-          </div>
-          <div  className="select_page_top_font">
-            <div>자동생성</div>
-            <Select size='small' style={{ width: 206 }}>
-              <Option value="목차">목차</Option>
-            </Select>
-          </div>
-          <div className="select_page_font">
-            <div>폰트</div>
-            <div>
-              <Select size='small' style={{ width: 90 }}>
-                <Option value="맑은고딕">맑은고딕</Option>
-              </Select>
-            </div>
-            <div>
-              <Input size='small' style={{ width: 60,fontSize: 10 }} suffix='px' type="number"/>
-              </div>
-            <div>
-              <BoldOutlined style={{ marginTop:4,fontSize: 14, border:'1px solid grey' }}/>
-            </div>
-            <div>
-              <ItalicOutlined style={{ marginTop:4,fontSize: 14, border:'1px solid grey'  }}/>
-            </div>
-            <div>
-            <UnderlineOutlined style={{ marginTop:4,fontSize: 14, border:'1px solid grey'  }}/>
-            </div>
-          </div>
-
-          <div className="select_page_location">
-            <div>위치</div>
-            <div>
-              <Select size='small' style={{ width: 85, marginTop: -1 }}>
-                <Option value="위바깥">위바깥</Option>
-              </Select>
-            </div>
-            <div className="location_box">
-              <div className="location_left_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              <div className="location_right_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="select_page_location_img_upload"> 
-              <div>이미지입력</div>
+        <div className="card_border_container">
+          <div className="select_card_bg_color">
+            <div>전체테두리</div>
+            <div className="card_border_total">
               <div>
-                <Upload className='upload_img' {...props}>
-                  <Button size='small' icon={<UploadOutlined />}>그림삽입</Button>
-                </Upload></div>
-                <div style={{paddingLeft:30, fontSize:'10px', fontStyle: 'italic', marginTop:6, color:'grey'}}>※ 최대크기 595px X 40px </div>
-            </div>
-          </div>
-          <div className='select_page_top_div'>
-            <div>사이즈</div>
-              <Select size='small' style={{ width: 206 }}>
-                <Option value="비율유지">최대크기 - 비율유지</Option>
-              </Select>
-          </div>
-          <div className="select_page_location">
-            <div>위치</div>
-            <div>
-              <Select size='small' style={{ width: 85, marginTop: -1 }}>
-                <Option value="위바깥">위바깥</Option>
-              </Select>
-            </div>
-            <div className="location_box">
-              <div className="location_left_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <Select size='small' style={{ width: 50 }}>
+                  <Option value="선택">선택</Option>
+                  <Option value="선택">선택</Option>
+                </Select>
               </div>
-              <div className="location_right_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+              <div><Input size='small' type="color" style={{width:20}}/></div>
+              <div><Input size='small' style={{ width: 60 }} type="text"/></div>
+              <div>
+                <Input size='small' style={{ width: 60,fontSize:10, lineHeight: '22px' }} suffix='px' type="number"/>
               </div>
             </div>
+          </div>
+          <div style={{paddingLeft:50}}>
+            <Collapse className="border_detail" >
+              <Panel header="테두리 상세 설정" key="1" className="data_collapse_panel"> 
+                <div className="select_card_bg_color">
+                  <div>상</div>
+                  <div className="card_border_total">
+                    <div>
+                      <Select size='small' style={{ width: 50 }}>
+                        <Option value="선택">선택</Option>
+                        <Option value="선택">선택</Option>
+                      </Select>
+                    </div>
+                    <div><Input size='small' type="color" style={{width:20}}/></div>
+                    <div><Input size='small' style={{ width: 60 }} type="text"/></div>
+                    <div>
+                      <Input size='small' style={{ width: 60,fontSize:10, lineHeight: '22px' }} suffix='px' type="number"/>
+                    </div>
+                  </div>
+                </div>
+                <div className="select_card_bg_color">
+                  <div>하</div>
+                  <div className="card_border_total">
+                    <div>
+                      <Select size='small' style={{ width: 50 }}>
+                        <Option value="선택">선택</Option>
+                        <Option value="선택">선택</Option>
+                      </Select>
+                    </div>
+                    <div><Input size='small' type="color" style={{width:20}}/></div>
+                    <div><Input size='small' style={{ width: 60 }} type="text"/></div>
+                    <div>
+                      <Input size='small' style={{ width: 60,fontSize:10, lineHeight: '22px' }} suffix='px' type="number"/>
+                    </div>
+                  </div>
+                </div>
+                <div className="select_card_bg_color">
+                  <div>좌</div>
+                  <div className="card_border_total">
+                    <div>
+                      <Select size='small' style={{ width: 50 }}>
+                        <Option value="선택">선택</Option>
+                        <Option value="선택">선택</Option>
+                      </Select>
+                    </div>
+                    <div><Input size='small' type="color" style={{width:20}}/></div>
+                    <div><Input size='small' style={{ width: 60 }} type="text"/></div>
+                    <div>
+                      <Input size='small' style={{ width: 60,fontSize:10, lineHeight: '22px' }} suffix='px' type="number"/>
+                    </div>
+                  </div>
+                </div>
+                <div className="select_card_bg_color">
+                  <div>우</div>
+                  <div className="card_border_total">
+                    <div>
+                      <Select size='small' style={{ width: 50 }}>
+                        <Option value="선택">선택</Option>
+                        <Option value="선택">선택</Option>
+                      </Select>
+                    </div>
+                    <div><Input size='small' type="color" style={{width:20}}/></div>
+                    <div><Input size='small' style={{ width: 60 }} type="text"/></div>
+                    <div>
+                      <Input size='small' style={{ width: 60,fontSize:10, lineHeight: '22px' }} suffix='px' type="number"/>
+                    </div>
+                  </div>
+                </div>
+              </Panel>
+            </Collapse>
           </div>
         </div>
       </>
