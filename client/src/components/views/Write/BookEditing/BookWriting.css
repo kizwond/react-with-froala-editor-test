@@ -626,3 +626,29 @@ input[type="color"]{
 .border_detail > .ant-collapse-item{
   border:none;
 }
+.card_border_radius_container{
+  padding-left:30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top:5px;
+}
+.card_border_radius_container div:nth-child(1){
+  width:60px;
+}
+.card_border_radius{
+  width:195px;
+}
+.card_font_container{
+  padding:10px 5px;
+}
+.text_align{
+  width:195px;
+  display: flex;
+  flex-direction: row;
+}
+.text_align span{
+  border:1px solid grey;
+  margin-right:5px;
+  height:14px;
+}

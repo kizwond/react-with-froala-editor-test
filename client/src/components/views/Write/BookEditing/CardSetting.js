@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
 import { Affix, Button, Collapse, Switch, Modal, Select, Input, InputNumber, Upload, message } from 'antd';
-import { SettingOutlined, DoubleRightOutlined,BoldOutlined,ItalicOutlined,UnderlineOutlined,UploadOutlined  } from '@ant-design/icons';
+import { SettingOutlined, DoubleRightOutlined,BoldOutlined,ItalicOutlined,UnderlineOutlined,UploadOutlined,AlignCenterOutlined,AlignLeftOutlined,AlignRightOutlined  } from '@ant-design/icons';
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -46,7 +46,7 @@ class CardSetting extends Component {
           </Panel>
           <Panel header="폰트 일괄 변경" key="7" className="data_collapse_panel_page_bottom">
             <Switch size="small" className="page_bottom_toggle" />
-            <PageBottom/>
+            <FontChange/>
           </Panel>
         </Collapse>
         <Affix offsetBottom={0}>
@@ -162,7 +162,7 @@ class NewTemplete extends Component {
   render() {
     return (
       <div className='new_templete_button_container'>
-        <Button size={'small'} onClick={this.showModal} >새 페이지 템플릿 추가</Button>
+        <Button size={'small'} onClick={this.showModal} >새 카드 템플릿 추가</Button>
         <Modal
           title="새카드 템플릿"
           visible={this.state.visible}
@@ -493,48 +493,41 @@ class CardBorder extends Component {
               </Panel>
             </Collapse>
           </div>
+          <div className="card_border_radius_container">
+            <div>라운드</div>
+            <div className="card_border_radius">
+              <Input size='small' style={{ width: 60,fontSize:10, lineHeight: '22px' }} suffix='px' type="number"/> 
+            </div>
+          </div>
+          <div className="card_border_radius_container">
+            <div>그림자</div>
+            <div className="card_border_radius">
+              <Input size='small' style={{ width: 60,fontSize:10, lineHeight: '22px' }} suffix='px' type="number"/> 
+            </div>
+          </div>
         </div>
       </>
     );
   }
 }
-class PageBottom extends Component {
+class FontChange extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
   }
   render() {
-    const props = {
-      name: 'file',
-      action: '',
-      headers: {
-        authorization: 'authorization-text',
-      },
-      onChange(info) {
-        if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      },
-    };
     return (
       <>
-        <div className="select_page_top">
-          <div className="select_page_top_font">
-            <div>글자 입력</div>
-            <div><Input size='small' style={{ width: 206 }} type="text"/></div>
+        <div className="card_font_container">
+          <div className="card_border_radius_container">
+              <div>라운드</div>
+              <div className="text_align">
+                <AlignLeftOutlined />
+                <AlignCenterOutlined />
+                <AlignRightOutlined />
+              </div>
           </div>
-          <div  className="select_page_top_font">
-            <div>자동생성</div>
-            <Select size='small' style={{ width: 206 }}>
-              <Option value="목차">목차</Option>
-            </Select>
-          </div>
-          <div className="select_page_font">
+          <div className="card_border_radius_container">
             <div>폰트</div>
             <div>
               <Select size='small' style={{ width: 90 }}>
@@ -552,67 +545,6 @@ class PageBottom extends Component {
             </div>
             <div>
             <UnderlineOutlined style={{ marginTop:4,fontSize: 14, border:'1px solid grey'  }}/>
-            </div>
-          </div>
-
-          <div className="select_page_location">
-            <div>위치</div>
-            <div>
-              <Select size='small' style={{ width: 85, marginTop: -1 }}>
-                <Option value="위바깥">위바깥</Option>
-              </Select>
-            </div>
-            <div className="location_box">
-              <div className="location_left_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              <div className="location_right_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="select_page_location_img_upload"> 
-              <div>이미지입력</div>
-              <div>
-                <Upload className='upload_img' {...props}>
-                  <Button size='small' icon={<UploadOutlined />}>그림삽입</Button>
-                </Upload></div>
-                <div style={{paddingLeft:30, fontSize:'10px', fontStyle: 'italic', marginTop:6, color:'grey'}}>※ 최대크기 595px X 40px </div>
-            </div>
-          </div>
-          <div className='select_page_top_div'>
-            <div>사이즈</div>
-              <Select size='small' style={{ width: 206 }}>
-                <Option value="비율유지">최대크기 - 비율유지</Option>
-              </Select>
-          </div>
-          <div className="select_page_location">
-            <div>위치</div>
-            <div>
-              <Select size='small' style={{ width: 85, marginTop: -1 }}>
-                <Option value="위바깥">위바깥</Option>
-              </Select>
-            </div>
-            <div className="location_box">
-              <div className="location_left_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              <div className="location_right_box" style={{width:"50%"}}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
             </div>
           </div>
         </div>
