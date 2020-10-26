@@ -34,12 +34,14 @@ export class BookWriting extends Component {
         const category = res.data.bookTitle.category;
         const userEmail = res.data.bookTitle.user_email;
         const contentsTable = res.data.contentsTable
+        const cardType = res.data.cardType
         this.setState({ 
           bookTitle:bookTitle, 
           bookId:bookId, 
           category:category,
           userEmail:userEmail,
           table_of_contents:contentsTable,
+          card_type:cardType,
         });
       })
   }
@@ -201,7 +203,7 @@ export class BookWriting extends Component {
           </div>
         </div>
         <div className="right_side_container" style={{marginRight:toggle}}>
-          <SettingTabs addCardType={this.addCardType} toggle={this.state.hide_show_toggle} onClick={this.handleClick}/>
+          <SettingTabs cardType={this.state.card_type} addCardType={this.addCardType} toggle={this.state.hide_show_toggle} onClick={this.handleClick}/>
         </div>
       </div>
       </>

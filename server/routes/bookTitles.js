@@ -5,6 +5,7 @@ const { Category } = require("../models/Category");
 const { ContentsTable } = require("../models/ContentsTable");
 const { LikeToggle } = require("../models/LikeToggle");
 const Contents = require('../models/Contents');
+const { CardType } = require("../models/CardType");
 
 
 //책 만들기, 책 만든 후 기존 책 순서에 따라 새책 순서 입력.
@@ -77,9 +78,10 @@ router.post('/naming', async (req, res) => {
 router.get('/get-book-title', async (req, res) => {
   const bookTitle = await BookTitle.findOne({user_id: req.query.userId}).sort({ 'date' : -1 }).exec();
   const contentsTable = await ContentsTable.find({user_id: req.query.userId, book_id:bookTitle._id}).sort({'order': 1}).exec();
-
+  const cardType = await CardType.find({book_id:bookTitle._id}).exec();
+  console.log(cardType)
   try{
-    res.send({bookTitle,contentsTable})
+    res.send({bookTitle,contentsTable,cardType})
   }catch(err){
     res.status(400).send(err)
   }

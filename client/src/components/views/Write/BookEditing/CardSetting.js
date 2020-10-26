@@ -26,7 +26,7 @@ class CardSetting extends Component {
         <NewTemplete addCardType={this.props.addCardType}/>
         <Collapse defaultActiveKey={['1','2','3','4','5','6','7']} >
           <Panel header="템플릿 선택" key="1" className="data_collapse_panel"> 
-            <SelectTemplete/>
+            <SelectTemplete cardType={this.props.cardType} />
           </Panel>
           <Panel header="레이아웃" key="2" className="data_collapse_panel">
             <LayoutSetting/>
@@ -224,42 +224,58 @@ class NewTemplete extends Component {
 class SelectTemplete extends Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = { 
+      card_selected:''
+     };
+  }
+  onCardChangeHandler = (value) => {
+    console.log(value)
+    this.setState({
+      card_selected:value
+    })
   }
   render() {
+    console.log(this.props.cardType)
+    const cardTypeListOption = this.props.cardType.map((card_type)=>(
+      <Option key={card_type._id} value={card_type.card_nick}>{card_type.card_nick} - ({card_type.card_type} 카드)</Option>
+    ))
+    const cardFaceListOption = this.props.cardType.map((card_type)=>{
+      if(card_type.card_nick === this.state.card_selected){
+        if(card_type.card_type === '1면'){
+          return <><Option key={1} value='1면'>1면</Option></>
+        } else if(card_type.card_type === '2면'){
+          return <><Option key={1} value='1면'>1면</Option><Option key={2} value='2면'>2면</Option></>
+        } else if(card_type.card_type === '3면'){
+          return <><Option key={1} value='1면'>1면</Option><Option key={2} value='2면'>2면</Option><Option key={3} value='3면'>3면</Option></>
+        }
+      }
+    })
     return (
       <>
         <div className="select_card_templete">
           <div className='select_page_size_div'>
               <div>카드</div>
               <div>
-                <Select size='small' style={{ width: 195 }}>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
+                <Select defaultValue="카드선택" size='small' onChange={this.onCardChangeHandler} style={{ width: 195 }}>
+                  <Option value="카드선택">카드선택</Option>
+                  {cardTypeListOption}
                 </Select>
               </div>
           </div>
           <div className='select_page_size_div'>
               <div>면</div>
               <div>
-                <Select size='small' style={{ width: 195 }}>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
+                <Select defaultValue="면선택" size='small' style={{ width: 195 }}>
+                  <Option value="면선택">면선택</Option>
+                  {cardFaceListOption}
                 </Select>
               </div>
           </div>
           <div className='select_page_size_div'>
               <div>행</div>
               <div>
-                <Select size='small' style={{ width: 195 }}>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
-                  <Option value="선택">선택</Option>
+                <Select defaultValue="행선택" size='small' style={{ width: 195 }}>
+                  <Option value="행선택">행선택</Option>
                 </Select>
               </div>
           </div>

@@ -13,7 +13,7 @@ router.post('/add-card-type', async (req, res) => {
   const cardType = new CardType({
     book_id: req.body.book_id,
     card_type: req.body.card_type,
-    card_nick: req.body.card_type,
+    card_nick: req.body.card_nick,
     card_star: req.body.card_star,
     face_1: req.body.face_1,
     face_2: req.body.face_2,
