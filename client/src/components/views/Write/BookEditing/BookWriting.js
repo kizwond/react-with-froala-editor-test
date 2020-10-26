@@ -196,7 +196,12 @@ export class BookWriting extends Component {
         </div>
         <div className="editor_container_templete_position_absolute">
           <div className="editor_top_menu">
-            <Button size='small'>카드 이동/삭제</Button><span>책 제목 : {this.state.bookTitle}</span>
+            <div>
+              <Button size='small'>카드 이동/삭제</Button><span className="book_title">책 제목 : {this.state.bookTitle}</span>
+            </div>
+            <div>
+              <Button size='small'>카드 추가</Button>
+            </div>
           </div>
           <div className="editor_panel">
             <div className="a4"></div>
