@@ -4,6 +4,26 @@ import LeftDrawer from './BookWritingLeftDrawer'
 import './BookWriting.css'
 import {Button } from 'antd';
 import SettingTabs from './SettingTabs'
+import EditorTry from './EditorTry'
+
+
+
+import 'froala-editor/js/froala_editor.pkgd.min.js'
+import 'froala-editor/css/froala_style.min.css'
+import 'froala-editor/css/froala_editor.pkgd.min.css'
+import 'froala-editor/css/plugins.pkgd.min.css'
+import 'froala-editor/js/plugins.pkgd.min.js'
+import 'froala-editor/js/languages/ko'
+import 'froala-editor//css/themes/gray.min.css'
+
+
+import FroalaEditorComponent from 'react-froala-wysiwyg';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
+
+
+
+
+
 
 var userId = localStorage.getItem('userId')
 
@@ -20,6 +40,10 @@ export class BookWriting extends Component {
        hide_show_toggle:false,
        left_drawer_toggle:false,
        card_type:[],
+       card_add:false,
+       editor1: 'editor1',
+       editor2: 'editor2',
+       contents:[]
     }
   }
   
@@ -171,6 +195,41 @@ export class BookWriting extends Component {
       })
     }
   }
+  addCardHandler = (key) => {
+    this.setState({
+      card_add: !this.state.card_add
+    })
+  }
+  handleSubmit = () => {
+    axios.post('api/create/add-contents', {
+      content: this.state.editor1,
+      userId: userId,
+      bookTitle: this.state.bookTitle,
+      userEmail: this.state.userEmail,
+      category: this.state.category,
+    })
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        contents:res.data.contents
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    this.addCardHandler()
+  }
+
+  handleModelChangeEditor1 = (model) => {
+    this.setState({
+      editor1: model
+    })
+  }
+  handleModelChangeEditor2 = (model) => {
+    this.setState({
+      editor2: model
+    })
+  }
   render() {
     if (this.state.hide_show_toggle === false){
       var toggle = '-308px' 
@@ -184,7 +243,29 @@ export class BookWriting extends Component {
     } else {
       var toggleLeft = '0px' 
     }
-
+    const config={
+      imageUploadURL: 'api/create/upload_image',
+      saveParam: 'content',
+      width: 'auto',
+      theme: "gray",
+      tabSpaces: 4,
+      toolbarContainer: '#toolbarContainer',
+      attribution: false,
+      charCounterCount: false,
+      language: 'ko',
+      toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'subscript', 'superscript', 
+                       'fontFamily', 'fontSize', 'color', 
+                       'align', 'formatOL', 'formatUL', 'outdent', 'indent',
+                       'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 
+                       'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting',
+                       'help', 'html', 'undo', 'redo']
+    }
+    if(this.state.contents){
+      var contentsList = this.state.contents.map((content)=>(
+          <div>{content.contents}</div>
+      ))
+    }
+    
     return (
       <>
       <div className="book_writing_container">
@@ -200,11 +281,20 @@ export class BookWriting extends Component {
               <Button size='small'>카드 이동/삭제</Button><span className="book_title">책 제목 : {this.state.bookTitle}</span>
             </div>
             <div>
-              <Button size='small'>카드 추가</Button>
+              <Button size='small' onClick={this.addCardHandler}>카드 추가</Button>
             </div>
           </div>
           <div className="editor_panel">
-            <div className="a4"></div>
+            {contentsList}
+            <div id="toolbarContainer"></div>
+            
+            <div className="a4">
+              {this.state.card_add === true ? <EditorTry editor1={this.state.editor1} 
+                                                         editor2={this.state.editor2}
+                                                         handleSubmit={this.handleSubmit}
+                                                         handleModelChangeEditor1={this.handleModelChangeEditor1}
+                                                         handleModelChangeEditor2={this.handleModelChangeEditor2}/> : ''}
+            </div>
           </div>
         </div>
         <div className="right_side_container" style={{marginRight:toggle}}>
