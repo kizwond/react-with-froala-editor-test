@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import LeftDrawer from './BookWritingLeftDrawer'
 import './BookWriting.css'
-import {Button } from 'antd';
+import {Button, Select } from 'antd';
 import SettingTabs from './SettingTabs'
 import EditorTry from './EditorTry'
 
@@ -24,7 +24,7 @@ import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 
 
-
+const { Option } = Select;
 var userId = localStorage.getItem('userId')
 
 export class BookWriting extends Component {
@@ -196,9 +196,16 @@ export class BookWriting extends Component {
     }
   }
   addCardHandler = (key) => {
-    this.setState({
-      card_add: !this.state.card_add
-    })
+    console.log(key)
+    if(key === '카드선택') {
+      this.setState({
+        card_add: false
+      })
+    } else {
+      this.setState({
+        card_add: true
+      })
+    }
   }
   handleSubmit = () => {
     axios.post('api/create/add-contents', {
@@ -211,7 +218,8 @@ export class BookWriting extends Component {
     .then(res => {
       console.log(res.data)
       this.setState({
-        contents:res.data.contents
+        contents:res.data.contents,
+        editor1: '',
       })
     })
     .catch(function (error) {
@@ -265,6 +273,11 @@ export class BookWriting extends Component {
           <div>{content.contents}</div>
       ))
     }
+    if(this.state.card_type){
+      var optionList = this.state.card_type.map((card_type)=>(
+          <Option value={card_type.card_nick}>{card_type.card_nick}</Option>
+      ))
+    }
     
     return (
       <>
@@ -281,7 +294,10 @@ export class BookWriting extends Component {
               <Button size='small'>카드 이동/삭제</Button><span className="book_title">책 제목 : {this.state.bookTitle}</span>
             </div>
             <div>
-              <Button size='small' onClick={this.addCardHandler}>카드 추가</Button>
+              <Select size='small' defaultValue={'카드선택'} style={{width:'150px'}} onChange={this.addCardHandler}>
+                <Option value="카드선택">카드선택</Option>
+                {optionList}
+              </Select>
             </div>
           </div>
           <div className="editor_panel">
