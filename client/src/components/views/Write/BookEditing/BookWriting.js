@@ -43,12 +43,13 @@ export class BookWriting extends Component {
        card_add:false,
        editor1: 'editor1',
        editor2: 'editor2',
+       editor3: 'editor3',
        contents:[],
        card_selected:'',
        arrayForEditor:[]
     }
   }
-  
+
   componentDidMount() {
     this.setState({
       user: userId
@@ -298,6 +299,9 @@ export class BookWriting extends Component {
       editor2: model
     })
   }
+
+
+
   render() {
     if (this.state.hide_show_toggle === false){
       var toggle = '-308px' 
@@ -311,23 +315,7 @@ export class BookWriting extends Component {
     } else {
       var toggleLeft = '0px' 
     }
-    const config={
-      imageUploadURL: 'api/create/upload_image',
-      saveParam: 'content',
-      width: 'auto',
-      theme: "gray",
-      tabSpaces: 4,
-      toolbarContainer: '#toolbarContainer',
-      attribution: false,
-      charCounterCount: false,
-      language: 'ko',
-      toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'subscript', 'superscript', 
-                       'fontFamily', 'fontSize', 'color', 
-                       'align', 'formatOL', 'formatUL', 'outdent', 'indent',
-                       'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 
-                       'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting',
-                       'help', 'html', 'undo', 'redo']
-    }
+    
     if(this.state.contents){
       var contentsList = this.state.contents.map((content)=>(
           <div>{content.contents}</div>
@@ -366,8 +354,9 @@ export class BookWriting extends Component {
             <div id="toolbarContainer"></div>
             
             <div className="a4">
-              {this.state.card_add === true ? <EditorTry editor1={this.state.editor1} 
+              {this.state.card_add === true ? <EditorTry editor1={this.state.editor1}
                                                          editor2={this.state.editor2}
+                                                         editor3={this.state.editor3}
                                                          arrayForEditor={this.state.arrayForEditor}
                                                          handleSubmit={this.handleSubmit}
                                                          handleModelChangeEditor1={this.handleModelChangeEditor1}

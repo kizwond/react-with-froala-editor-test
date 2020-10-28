@@ -43,18 +43,15 @@ export class EditorTry extends Component {
                        'help', 'html', 'undo', 'redo']
     }
     const editorList = this.props.arrayForEditor.map((item,index)=>{
-      const first = 'this.props.editor'
-      const indexNum = String(index+1)
-      const model = first+indexNum
-      console.log(model)
       return (
                 <>
                   <label className="control-label">{item}{index+1}</label>
                   <FroalaEditorComponent
                     tag='textarea'
                     config={config}
-                    model = {model}
-                    onModelChange={this.props.handleModelChangeEditor1}
+                    // model={this.props.editor+(index+1).toString()}
+                    model={this.props['editor'+(index+1).toString()]}
+                    onModelChange={this.props['handleModelChangeEditor'+(index+1).toString()]}
                   />
                 </>
         )
@@ -70,6 +67,9 @@ export class EditorTry extends Component {
           />
           <FroalaEditorView
             model={this.props.editor2}
+          />
+          <FroalaEditorView
+            model={this.props.editor3}
           />
       </div>
       </>
