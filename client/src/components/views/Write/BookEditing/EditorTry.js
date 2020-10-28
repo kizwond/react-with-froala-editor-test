@@ -12,6 +12,7 @@ import 'froala-editor//css/themes/gray.min.css'
 
 import FroalaEditorComponent from 'react-froala-wysiwyg';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
+import { string } from 'yup'
 var userId = localStorage.getItem('userId')
 
 export class EditorTry extends Component {
@@ -41,23 +42,28 @@ export class EditorTry extends Component {
                        'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting',
                        'help', 'html', 'undo', 'redo']
     }
+    const editorList = this.props.arrayForEditor.map((item,index)=>{
+      const first = 'this.props.editor'
+      const indexNum = String(index+1)
+      const model = first+indexNum
+      console.log(model)
+      return (
+                <>
+                  <label className="control-label">{item}{index+1}</label>
+                  <FroalaEditorComponent
+                    tag='textarea'
+                    config={config}
+                    model = {model}
+                    onModelChange={this.props.handleModelChangeEditor1}
+                  />
+                </>
+        )
+      })
+
     return (
       <>
       <div  id="editor">
-        <label className="control-label">에디터 1</label>
-          <FroalaEditorComponent
-            tag='textarea'
-            config={config}
-            model={this.props.editor1}
-            onModelChange={this.props.handleModelChangeEditor1}
-          />
-        <label className="control-label">에디터 2</label>
-          <FroalaEditorComponent
-            tag='textarea'
-            config={config}
-            model={this.props.editor2}
-            onModelChange={this.props.handleModelChangeEditor2}
-          />
+        {editorList}
         <button onClick={this.props.handleSubmit} id="saveButton">Save</button>
           <FroalaEditorView
             model={this.props.editor1}

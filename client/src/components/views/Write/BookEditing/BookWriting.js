@@ -43,7 +43,9 @@ export class BookWriting extends Component {
        card_add:false,
        editor1: 'editor1',
        editor2: 'editor2',
-       contents:[]
+       contents:[],
+       card_selected:'',
+       arrayForEditor:[]
     }
   }
   
@@ -195,17 +197,73 @@ export class BookWriting extends Component {
       })
     }
   }
-  addCardHandler = (key) => {
+  selectCardTypeHandler = (key) => {
     console.log(key)
     if(key === '카드선택') {
       this.setState({
-        card_add: false
+        card_selected: 'none'
       })
     } else {
       this.setState({
-        card_add: true
+        card_selected: key
       })
     }
+  }
+  addCardHandler = () => {
+    console.log(this.state.card_selected)
+    const contentsList = this.state.card_type.map((content)=>{
+          if(content.card_nick === this.state.card_selected){
+              const cardType = content.card_type
+              console.log(cardType)
+              if (cardType === '1면') {
+                  const faceLength_1 = content.face_1
+                  const face_array = []
+                  for (var i = 1; i < faceLength_1+1; i++) {
+                    face_array.push('1면'+i+'행')
+                  }
+                  console.log(face_array)
+                  return face_array
+              } else if (cardType === '2면') {
+                  const faceLength_1 = content.face_1
+                  const faceLength_2 = content.face_2
+                  const face_array = []
+                  for (var i = 1; i < faceLength_1+1; i++) {
+                    face_array.push('1면'+i+'행')
+                  }
+                  for (var i = 1; i < faceLength_2+1; i++) {
+                    face_array.push('2면'+i+'행')
+                  }
+                  console.log(face_array)
+                  return face_array
+              } else if (cardType === '3면') {
+                  const faceLength_1 = content.face_1
+                  const faceLength_2 = content.face_2
+                  const faceLength_3 = content.face_3
+                  const face_array = []
+                  for (var i = 1; i < faceLength_1+1; i++) {
+                    face_array.push('1면'+i+'행')
+                  }
+                  for (var i = 1; i < faceLength_2+1; i++) {
+                    face_array.push('2면'+i+'행')
+                  }
+                  for (var i = 1; i < faceLength_3+1; i++) {
+                    face_array.push('3면'+i+'행')
+                  }
+                  console.log(face_array)
+                  return face_array
+            }
+          }
+      }
+    )
+    var filtered = contentsList.filter(function(x) {
+      return x !== undefined;
+    });
+    const finalArray = filtered[0]
+    console.log(finalArray)
+      this.setState({
+        card_add: true,
+        arrayForEditor:finalArray
+      })
   }
   handleSubmit = () => {
     axios.post('api/create/add-contents', {
@@ -225,15 +283,17 @@ export class BookWriting extends Component {
     .catch(function (error) {
       console.log(error);
     });
-    this.addCardHandler()
+    this.setState({card_add:false})
   }
 
   handleModelChangeEditor1 = (model) => {
+    console.log(model)
     this.setState({
       editor1: model
     })
   }
   handleModelChangeEditor2 = (model) => {
+    console.log(model)
     this.setState({
       editor2: model
     })
@@ -294,10 +354,11 @@ export class BookWriting extends Component {
               <Button size='small'>카드 이동/삭제</Button><span className="book_title">책 제목 : {this.state.bookTitle}</span>
             </div>
             <div>
-              <Select size='small' defaultValue={'카드선택'} style={{width:'150px'}} onChange={this.addCardHandler}>
+              <Select size='small' defaultValue={'카드선택'} style={{width:'150px'}} onChange={this.selectCardTypeHandler}>
                 <Option value="카드선택">카드선택</Option>
                 {optionList}
               </Select>
+              <Button size='small' onClick={this.addCardHandler}>카드추가</Button>
             </div>
           </div>
           <div className="editor_panel">
@@ -307,6 +368,7 @@ export class BookWriting extends Component {
             <div className="a4">
               {this.state.card_add === true ? <EditorTry editor1={this.state.editor1} 
                                                          editor2={this.state.editor2}
+                                                         arrayForEditor={this.state.arrayForEditor}
                                                          handleSubmit={this.handleSubmit}
                                                          handleModelChangeEditor1={this.handleModelChangeEditor1}
                                                          handleModelChangeEditor2={this.handleModelChangeEditor2}/> : ''}
