@@ -1,9 +1,64 @@
 const mongoose = require('mongoose')
 
 const ContentsSchema = new mongoose.Schema({
-  contents:{
+  editor1:{
     type:String,
-    required:true,
+    min:1
+  },
+  editor2:{
+    type:String,
+    min:1
+  },
+  editor3:{
+    type:String,
+    min:1
+  },
+  editor4:{
+    type:String,
+    min:1
+  },
+  editor5:{
+    type:String,
+    min:1
+  },
+  editor6:{
+    type:String,
+    min:1
+  },
+  editor7:{
+    type:String,
+    min:1
+  },
+  editor8:{
+    type:String,
+    min:1
+  },
+  editor9:{
+    type:String,
+    min:1
+  },
+  editor10:{
+    type:String,
+    min:1
+  },
+  editor11:{
+    type:String,
+    min:1
+  },
+  editor12:{
+    type:String,
+    min:1
+  },
+  editor13:{
+    type:String,
+    min:1
+  },
+  editor14:{
+    type:String,
+    min:1
+  },
+  editor15:{
+    type:String,
     min:1
   },
   book_title:{
