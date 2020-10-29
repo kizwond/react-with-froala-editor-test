@@ -49,7 +49,6 @@ export class EditorTry extends Component {
                   <FroalaEditorComponent
                     tag='textarea'
                     config={config}
-                    // model={this.props.editor+(index+1).toString()}
                     model={this.props['editor'+(index+1).toString()]}
                     onModelChange={this.props['handleModelChangeEditor'+(index+1).toString()]}
                   />

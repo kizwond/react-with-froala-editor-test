@@ -41,9 +41,21 @@ export class BookWriting extends Component {
        left_drawer_toggle:false,
        card_type:[],
        card_add:false,
-       editor1: 'editor1',
-       editor2: 'editor2',
-       editor3: 'editor3',
+       editor1: '',
+       editor2: '',
+       editor3: '',
+       editor4: '',
+       editor5: '',
+       editor6: '',
+       editor7: '',
+       editor8: '',
+       editor9: '',
+       editor10: '',
+       editor11: '',
+       editor12: '',
+       editor13: '',
+       editor14: '',
+       editor15: '',
        contents:[],
        card_selected:'',
        arrayForEditor:[]
@@ -268,7 +280,21 @@ export class BookWriting extends Component {
   }
   handleSubmit = () => {
     axios.post('api/create/add-contents', {
-      content: this.state.editor1,
+      editor1: this.state.editor1,
+      editor2: this.state.editor2,
+      editor3: this.state.editor3,
+      editor4: this.state.editor4,
+      editor5: this.state.editor5,
+      editor6: this.state.editor6,
+      editor7: this.state.editor7,
+      editor8: this.state.editor8,
+      editor9: this.state.editor9,
+      editor10: this.state.editor10,
+      editor11: this.state.editor11,
+      editor12: this.state.editor12,
+      editor13: this.state.editor13,
+      editor14: this.state.editor14,
+      editor15: this.state.editor15,
       userId: userId,
       bookTitle: this.state.bookTitle,
       userEmail: this.state.userEmail,
@@ -279,6 +305,20 @@ export class BookWriting extends Component {
       this.setState({
         contents:res.data.contents,
         editor1: '',
+        editor2: '',
+        editor3: '',
+        editor4: '',
+        editor5: '',
+        editor6: '',
+        editor7: '',
+        editor8: '',
+        editor9: '',
+        editor10: '',
+        editor11: '',
+        editor12: '',
+        editor13: '',
+        editor14: '',
+        editor15: '',
       })
     })
     .catch(function (error) {
@@ -299,6 +339,96 @@ export class BookWriting extends Component {
       editor2: model
     })
   }
+  handleModelChangeEditor3 = (model) => {
+    console.log(model)
+    this.setState({
+      editor3: model
+    })
+  }
+  handleModelChangeEditor4 = (model) => {
+    console.log(model)
+    this.setState({
+      editor4: model
+    })
+  }
+
+  handleModelChangeEditor5 = (model) => {
+    console.log(model)
+    this.setState({
+      editor5: model
+    })
+  }
+
+  handleModelChangeEditor6 = (model) => {
+    console.log(model)
+    this.setState({
+      editor6: model
+    })
+  }
+
+  handleModelChangeEditor7 = (model) => {
+    console.log(model)
+    this.setState({
+      editor7: model
+    })
+  }
+
+  handleModelChangeEditor8 = (model) => {
+    console.log(model)
+    this.setState({
+      editor8: model
+    })
+  }
+
+  handleModelChangeEditor9 = (model) => {
+    console.log(model)
+    this.setState({
+      editor9: model
+    })
+  }
+
+  handleModelChangeEditor10 = (model) => {
+    console.log(model)
+    this.setState({
+      editor10: model
+    })
+  }
+
+  handleModelChangeEditor11 = (model) => {
+    console.log(model)
+    this.setState({
+      editor11: model
+    })
+  }
+
+  handleModelChangeEditor12 = (model) => {
+    console.log(model)
+    this.setState({
+      editor12: model
+    })
+  }
+
+  handleModelChangeEditor13 = (model) => {
+    console.log(model)
+    this.setState({
+      editor13: model
+    })
+  }
+
+  handleModelChangeEditor14 = (model) => {
+    console.log(model)
+    this.setState({
+      editor14: model
+    })
+  }
+
+  handleModelChangeEditor15 = (model) => {
+    console.log(model)
+    this.setState({
+      editor15: model
+    })
+  }
+
 
 
 
@@ -317,8 +447,9 @@ export class BookWriting extends Component {
     }
     
     if(this.state.contents){
+      console.log(this.state.contents)
       var contentsList = this.state.contents.map((content)=>(
-          <div>{content.contents}</div>
+          <div>{content.editor1}</div>
       ))
     }
     if(this.state.card_type){
@@ -360,7 +491,20 @@ export class BookWriting extends Component {
                                                          arrayForEditor={this.state.arrayForEditor}
                                                          handleSubmit={this.handleSubmit}
                                                          handleModelChangeEditor1={this.handleModelChangeEditor1}
-                                                         handleModelChangeEditor2={this.handleModelChangeEditor2}/> : ''}
+                                                         handleModelChangeEditor2={this.handleModelChangeEditor2}
+                                                         handleModelChangeEditor3={this.handleModelChangeEditor3}
+                                                         handleModelChangeEditor4={this.handleModelChangeEditor4}
+                                                         handleModelChangeEditor5={this.handleModelChangeEditor5}
+                                                         handleModelChangeEditor6={this.handleModelChangeEditor6}
+                                                         handleModelChangeEditor7={this.handleModelChangeEditor7}
+                                                         handleModelChangeEditor8={this.handleModelChangeEditor8}
+                                                         handleModelChangeEditor9={this.handleModelChangeEditor9}
+                                                         handleModelChangeEditor10={this.handleModelChangeEditor10}
+                                                         handleModelChangeEditor11={this.handleModelChangeEditor11}
+                                                         handleModelChangeEditor12={this.handleModelChangeEditor12}
+                                                         handleModelChangeEditor13={this.handleModelChangeEditor13}
+                                                         handleModelChangeEditor14={this.handleModelChangeEditor14}
+                                                         handleModelChangeEditor15={this.handleModelChangeEditor15}/> : ''}
             </div>
           </div>
         </div>
