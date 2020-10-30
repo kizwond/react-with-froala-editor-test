@@ -61,15 +61,6 @@ export class EditorTry extends Component {
       <div  id="editor">
         {editorList}
         <button onClick={this.props.handleSubmit} id="saveButton">Save</button>
-          <FroalaEditorView
-            model={this.props.editor1}
-          />
-          <FroalaEditorView
-            model={this.props.editor2}
-          />
-          <FroalaEditorView
-            model={this.props.editor3}
-          />
       </div>
       </>
     )

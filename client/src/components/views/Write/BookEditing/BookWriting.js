@@ -449,7 +449,23 @@ export class BookWriting extends Component {
     if(this.state.contents){
       console.log(this.state.contents)
       var contentsList = this.state.contents.map((content)=>(
-          <div>{content.editor1}</div>
+        <>
+          <div><FroalaEditorView model={content.editor1}/></div>
+          <div><FroalaEditorView model={content.editor2}/></div>
+          <div><FroalaEditorView model={content.editor3}/></div>
+          <div><FroalaEditorView model={content.editor4}/></div>
+          <div><FroalaEditorView model={content.editor5}/></div>
+          <div><FroalaEditorView model={content.editor6}/></div>
+          <div><FroalaEditorView model={content.editor7}/></div>
+          <div><FroalaEditorView model={content.editor8}/></div>
+          <div><FroalaEditorView model={content.editor9}/></div>
+          <div><FroalaEditorView model={content.editor10}/></div>
+          <div><FroalaEditorView model={content.editor11}/></div>
+          <div><FroalaEditorView model={content.editor12}/></div>
+          <div><FroalaEditorView model={content.editor13}/></div>
+          <div><FroalaEditorView model={content.editor14}/></div>
+          <div><FroalaEditorView model={content.editor15}/></div>
+        </>
       ))
     }
     if(this.state.card_type){
