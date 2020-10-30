@@ -58,7 +58,8 @@ export class BookWriting extends Component {
        editor15: '',
        contents:[],
        card_selected:'',
-       arrayForEditor:[]
+       arrayForEditor:[],
+       current_card:{}
     }
   }
 
@@ -235,6 +236,9 @@ export class BookWriting extends Component {
                     face_array.push('1면'+i+'행')
                   }
                   console.log(face_array)
+                  this.setState({
+                    current_card: {'1':faceLength_1},
+                  })
                   return face_array
               } else if (cardType === '2면') {
                   const faceLength_1 = content.face_1
@@ -247,6 +251,9 @@ export class BookWriting extends Component {
                     face_array.push('2면'+i+'행')
                   }
                   console.log(face_array)
+                  this.setState({
+                    current_card: {1:faceLength_1,2:faceLength_2},
+                  })
                   return face_array
               } else if (cardType === '3면') {
                   const faceLength_1 = content.face_1
@@ -445,7 +452,9 @@ export class BookWriting extends Component {
     } else {
       var toggleLeft = '0px' 
     }
-    
+    if(this.state.current_card){
+      console.log(this.state.current_card)
+    }
     if(this.state.contents){
       console.log(this.state.contents)
       var contentsList = this.state.contents.map((content)=>(
